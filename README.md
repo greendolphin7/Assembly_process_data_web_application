@@ -2,12 +2,12 @@
 
 조립 공정 데이터 모니터링 웹 애플리케이션
 
-_팀원_ 
+**팀원** 
 
--김재우 https://github.com/greendolphin7
--정동교 https://github.com/Eliotj-4860
--진익철 https://github.com/jinikcheol
--박규빈 https://github.com/Binsreoun
++김재우 https://github.com/greendolphin7
++정동교 https://github.com/Eliotj-4860
++진익철 https://github.com/jinikcheol
++박규빈 https://github.com/Binsreoun
 
 ## 프로젝트 개요
 
