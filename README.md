@@ -1,6 +1,5 @@
-# Assembly_process_data_web_application
+# 조립공정 데이터 실시간 모니터링 웹 어플리케이션
 
-조립 공정 데이터 모니터링 웹 애플리케이션
 
 **팀원** 
 
