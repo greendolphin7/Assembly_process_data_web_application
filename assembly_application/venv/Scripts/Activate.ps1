@@ -27,7 +27,7 @@ function global:deactivate ([switch]$NonDestructive) {
 
 deactivate -nondestructive
 
-$env:VIRTUAL_ENV="C:\Users\clubc\Desktop\assembly_application\venv"
+$env:VIRTUAL_ENV="C:\Users\clubc\Desktop\data_web_application\Assembly_process_data_web_application\assembly_application\venv"
 
 if (! $env:VIRTUAL_ENV_DISABLE_PROMPT) {
     # Set the prompt to include the env name

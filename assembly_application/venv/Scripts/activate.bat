@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set "VIRTUAL_ENV=C:\Users\clubc\Desktop\assembly_application\venv"
+set "VIRTUAL_ENV=C:\Users\clubc\Desktop\data_web_application\Assembly_process_data_web_application\assembly_application\venv"
 
 if not defined PROMPT (
     set "PROMPT=$P$G"

@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\clubc\Desktop\assembly_application\venv"
+VIRTUAL_ENV="C:\Users\clubc\Desktop\data_web_application\Assembly_process_data_web_application\assembly_application\venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
