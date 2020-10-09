@@ -1,5 +1,7 @@
 import numpy as np
 from machine import machine_operate
+import pandas as pd
+
 # from make_dataframe import make_df
 
 class process_operate:
@@ -88,7 +90,7 @@ class process_operate:
             total_data = dict(total_data, **op10_data)
 
             item_sink.append(total_data)
-
-            #dataframe = make_df(amount)
+            result_df = pd.DataFrame(item_sink)
+            result_df = result_df.set_index('production_key')
 
         return total_data
