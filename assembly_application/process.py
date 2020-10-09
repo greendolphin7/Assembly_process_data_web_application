@@ -2,8 +2,6 @@ import numpy as np
 from machine import machine_operate
 import pandas as pd
 
-# from make_dataframe import make_df
-
 class process_operate:
     def process_start(amount):
         std = 0.0025
