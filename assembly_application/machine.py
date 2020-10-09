@@ -4,11 +4,10 @@ import time
 from time import sleep
 from datetime import datetime
 
-class process():
+class machine_operate:
 
     def __init__(self):
         print('hello')
-
 
     def op10(body):
         op10_data = {}
