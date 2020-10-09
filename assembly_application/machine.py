@@ -206,3 +206,182 @@ class process():
         op30_data['op30_time_stamp'] = time_stamp
 
         return op30_data
+
+    def op40(op30):
+        op40_data = {}
+        std = 0.0025
+
+        flange1_l = np.random.normal(30, std)
+        flange1_l = round(flange1_l, 5)
+
+        flange1_w = np.random.normal(80, std)
+        flange1_w = round(flange1_w, 5)
+
+        flange1_h = np.random.normal(40, std)
+        flange1_h = round(flange1_h, 5)
+
+        op40_process_time = np.random.exponential(10)
+        op40_process_time = round(op40_process_time, 5)
+
+        op40_temperature = np.random.uniform(489, 511)
+        op40_temperature = round(op40_temperature, 5)
+
+        op40_data['flange1_l'] = flange1_l
+        op40_data['flange1_w'] = flange1_w
+        op40_data['flange1_h'] = flange1_h
+
+        if 489 < op40_temperature < 511:
+            op40_l = op30[0] + flange1_l
+            op40_l = round(op40_l, 5)
+        else:
+            op40_l = 0
+
+        op40_data['op40_l'] = op40_l
+
+        op40_w = op30[1]
+        op40_data['op40_w'] = op40_w
+
+        op40_h = op30[2]
+        op40_data['op40_h'] = op40_h
+
+        op40_data['op40_temperature'] = op40_temperature
+        op40_data['op40_process_time'] = op40_process_time
+
+        if (op40_l < 229.99) or (op40_l > 230.01):
+            length_test = 1
+        else:
+            length_test = 0
+
+        if (op40_w < 179.99) or (op40_w > 180.01):
+            width_test = 1
+        else:
+            width_test = 0
+
+        if (op40_h < 59.99) or (op40_h > 60.01):
+            height_test = 1
+        else:
+            height_test = 0
+
+        if length_test == 0 and width_test == 0 and height_test == 0:
+            op40_test = 0
+            op40_data['op40_test'] = op40_test
+        else:
+            op40_test = 1
+            op40_data['op40_test'] = op40_test
+
+        time_stamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        op40_data['op40_time_stamp'] = time_stamp
+
+        return op40_data
+
+    def op50(op40):
+        op50_data = {}
+        std = 0.0025
+
+        flange2_l = np.random.normal(30, std)
+        flange2_l = round(flange2_l, 5)
+
+        flange2_w = np.random.normal(80, std)
+        flange2_w = round(flange2_w, 5)
+
+        flange2_h = np.random.normal(40, std)
+        flange2_h = round(flange2_h, 5)
+
+        op50_process_time = np.random.exponential(10)
+        op50_process_time = round(op50_process_time, 5)
+
+        op50_temperature = np.random.uniform(489, 511)
+        op50_temperature = round(op50_temperature, 5)
+
+        op50_data['flange2_l'] = flange2_l
+        op50_data['flange2_w'] = flange2_w
+        op50_data['flange2_h'] = flange2_h
+
+        if 489 < op50_temperature < 511:
+            op50_l = op40[0] + flange2_l
+            op50_l = round(op50_l, 5)
+        else:
+            op50_l = 0
+
+        op50_data['op50_l'] = op50_l
+
+        op50_w = op40[1]
+        op50_data['op50_w'] = op50_w
+
+        op50_h = op40[2]
+        op50_data['op50_h'] = op50_h
+
+        op50_data['op50_temperature'] = op50_temperature
+        op50_data['op50_process_time'] = op50_process_time
+
+        if (op50_l < 259.99) or (op50_l > 260.01):
+            length_test = 1
+        else:
+            length_test = 0
+
+        if (op50_w < 179.99) or (op50_w > 180.01):
+            width_test = 1
+        else:
+            width_test = 0
+
+        if (op50_h < 59.99) or (op50_h > 60.01):
+            height_test = 1
+        else:
+            height_test = 0
+
+        if length_test == 0 and width_test == 0 and height_test == 0:
+            op50_test = 0
+            op50_data['op50_test'] = op50_test
+        else:
+            op50_test = 1
+            op50_data['op50_test'] = op50_test
+
+        time_stamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        op50_data['op50_time_stamp'] = time_stamp
+
+        return op50_data
+
+    def op60(op50):
+        op60_data = {}
+        std = 0.0025
+
+        op60_process_time = np.random.exponential(10)
+        op60_process_time = round(op60_process_time, 5)
+
+        op60_l = op50[0]
+        op60_data['op60_l'] = op60_l
+
+        op60_w = op50[1]
+        op60_data['op60_w'] = op60_w
+
+        op60_h = op50[2]
+        op60_data['op60_h'] = op60_h
+
+        op60_data['op60_process_time'] = op60_process_time
+
+        if (op60_l < 259.99) or (op60_l > 260.01):
+            length_test = 1
+        else:
+            length_test = 0
+
+        if (op60_w < 179.99) or (op60_w > 180.01):
+            width_test = 1
+        else:
+            width_test = 0
+
+        if (op60_h < 59.99) or (op60_h > 60.01):
+            height_test = 1
+        else:
+            height_test = 0
+
+        if length_test == 0 and width_test == 0 and height_test == 0:
+            op60_test = 0
+            op60_data['op60_test'] = op60_test
+        else:
+            op60_test = 1
+            op60_data['op60_test'] = op60_test
+
+        time_stamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        op60_data['op60_time_stamp'] = time_stamp
+
+        return op60_data
