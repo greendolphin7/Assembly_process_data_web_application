@@ -108,5 +108,3 @@ def machine_master():
     MySQL_query.insert_machine_master(machine_master_data)
 
     return machine_master_data
-
-machine_master()
