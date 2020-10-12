@@ -1,3 +1,5 @@
+from SQL import MySQL_query
+
 def machine_master():
     machine_master_data = []
 
@@ -103,4 +105,8 @@ def machine_master():
 
     machine_master_data.append(master_dict)
 
+    MySQL_query.insert_machine_master(machine_master_data)
+
     return machine_master_data
+
+machine_master()
