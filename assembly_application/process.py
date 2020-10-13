@@ -1,5 +1,6 @@
 import numpy as np
 from machine import machine_operate
+from product_master_table import product_master
 import pandas as pd
 
 class process_operate:

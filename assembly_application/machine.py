@@ -1,7 +1,7 @@
 import numpy as np
 from datetime import datetime, timedelta
+from product_master_table import product_master
 from SQL import MySQL_query
-
 
 # time_stamp 제대로 만들어주려고 datetime 라이브러리에 now() 메소드 사용, 그런데 그렇게하면 현재 날짜에서
 # 자꾸 변경되기 때문에 process time 생성을 process 함수에서 실행한 후 넘겨주는 방식. 현재 op10에서만 테스트해 본 결과 성공.
@@ -15,11 +15,8 @@ class machine_operate:
     def op10(body):
         op10_data = {}
         std = 0.0025
-        op10_insert_database = {}  # DB 저장할 데이터 저장할 딕셔너리
-        op10_insert_list = []  # 딕셔너리 저장할 리스트
 
         product_key = body[0]
-        op10_insert_database['product_key'] = product_key
 
         wavyfin_l = np.random.normal(100, std)
         wavyfin_l = round(wavyfin_l, 5)
@@ -44,13 +41,10 @@ class machine_operate:
 
         op10_l = body[1]
         op10_data['op10_l'] = op10_l
-        op10_insert_database['product_size_l'] = str(op10_l)
         op10_w = body[2]
         op10_data['op10_w'] = op10_w
-        op10_insert_database['product_size_w'] = str(op10_w)
         op10_h = wavyfin_h
         op10_data['op10_h'] = op10_h
-        op10_insert_database['product_size_h'] = str(op10_h)
 
         op10_process_time = body[3]
 
@@ -75,22 +69,44 @@ class machine_operate:
         if length_test == 0 and width_test == 0 and height_test == 0:
             op10_test = 0
             op10_data['op10_test'] = op10_test
-            op10_insert_database['product_test'] = str(op10_test)
         else:
             op10_test = 1
             op10_data['op10_test'] = op10_test
-            op10_insert_database['product_test'] = str(op10_test)
 
         now = datetime.now()
         time_stamp = now + timedelta(seconds=op10_process_time)
         time_stamp = str(time_stamp)
 
         op10_data['op10_time_stamp'] = time_stamp
-        op10_insert_database['product_test_timestamp'] = time_stamp
 
-        op10_insert_list.append(op10_insert_database)
+        # product_history 적재
+        product_history_data_list = []
+        product_history_insert = {}
+        op10_master_data = product_master.op10_WIP(1)
+        product_code = op10_master_data['product_code']
 
-        #MySQL_query.insert_product_quality(op10_insert_list)  # DB 적재
+        product_history_insert['product_key'] = product_key
+        product_history_insert['product_code'] = product_code
+        product_history_insert['product_timestamp'] = time_stamp
+
+        product_history_data_list.append(product_history_insert)
+
+        MySQL_query.insert_product_history(product_history_data_list) # 히스토리 데이터 DB 적재
+
+        # product_quality 적재
+        product_quality_data_list = []  # 딕셔너리 데이터 저장할 리스트
+        product_quality_insert = {}  # DB 저장할 데이터 모아주는 딕셔너리
+
+        product_quality_insert['product_key'] = product_key
+        product_quality_insert['product_size_l'] = str(op10_l)
+        product_quality_insert['product_size_w'] = str(op10_w)
+        product_quality_insert['product_size_h'] = str(op10_h)
+        product_quality_insert['product_test'] = str(op10_test)
+        product_quality_insert['product_test_timestamp'] = str(time_stamp)
+
+        product_quality_data_list.append(product_quality_insert)
+
+        # MySQL_query.insert_product_quality(product_quality_data_list)  # 품질 데이터 DB 적재
 
         return op10_data
 
