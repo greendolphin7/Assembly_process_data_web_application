@@ -1,6 +1,11 @@
 import numpy as np
-from datetime import datetime
+from datetime import datetime, timedelta
 from SQL import MySQL_query
+
+
+# time_stamp 제대로 만들어주려고 datetime 라이브러리에 now() 메소드 사용, 그런데 그렇게하면 현재 날짜에서
+# 자꾸 변경되기 때문에 process time 생성을 process 함수에서 실행한 후 넘겨주는 방식. 현재 op10에서만 테스트해 본 결과 성공.
+# op10에서의 데이터를 가지고 있되, 계속해서 현재 시점에서 계속 더해줘야 함. 이게 문제.
 
 class machine_operate:
 
@@ -14,6 +19,7 @@ class machine_operate:
         op10_insert_list = []  # 딕셔너리 저장할 리스트
 
         product_key = body[0]
+        op10_insert_database['product_key'] = product_key
 
         wavyfin_l = np.random.normal(100, std)
         wavyfin_l = round(wavyfin_l, 5)
@@ -24,14 +30,10 @@ class machine_operate:
         wavyfin_h = np.random.normal(60, std)
         wavyfin_h = round(wavyfin_h, 5)
 
-        op10_process_time = np.random.exponential(10)
-        op10_process_time = round(op10_process_time, 5)
-
         op10_electricity = np.random.uniform(89, 100)
         op10_electricity = round(op10_electricity, 5)
 
         op10_data['product_key'] = product_key
-
         op10_data['body_l'] = body[1]
         op10_data['body_w'] = body[2]
         op10_data['body_h'] = body[3]
@@ -49,6 +51,8 @@ class machine_operate:
         op10_h = wavyfin_h
         op10_data['op10_h'] = op10_h
         op10_insert_database['product_size_h'] = str(op10_h)
+
+        op10_process_time = body[3]
 
         op10_data['op10_electricity'] = op10_electricity
         op10_data['op10_process_time'] = op10_process_time
@@ -77,15 +81,16 @@ class machine_operate:
             op10_data['op10_test'] = op10_test
             op10_insert_database['product_test'] = str(op10_test)
 
-        time_stamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        now = datetime.now()
+        time_stamp = now + timedelta(seconds=op10_process_time)
+        time_stamp = str(time_stamp)
+
         op10_data['op10_time_stamp'] = time_stamp
         op10_insert_database['product_test_timestamp'] = time_stamp
 
-        op10_insert_database['product_key'] = product_key
-
         op10_insert_list.append(op10_insert_database)
 
-        MySQL_query.insert_product_quality(op10_insert_list)  # DB 적재
+        #MySQL_query.insert_product_quality(op10_insert_list)  # DB 적재
 
         return op10_data
 
@@ -153,7 +158,10 @@ class machine_operate:
             op20_test = 1
             op20_data['op20_test'] = op20_test
 
-        time_stamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        now = datetime.now()
+        time_stamp = now + timedelta(seconds = op20_process_time)
+        time_stamp = str(time_stamp)
+
         op20_data['op20_time_stamp'] = time_stamp
 
         return op20_data

@@ -28,6 +28,10 @@ class process_operate:
             body_h = round(body_h, 5)
             body.append(body_h)
 
+            op10_process_time = np.random.exponential(10)
+            op10_process_time = round(op10_process_time, 5)
+            body.append(op10_process_time)
+
             ### op 10
 
             op10_data = machine_operate.op10(body)
