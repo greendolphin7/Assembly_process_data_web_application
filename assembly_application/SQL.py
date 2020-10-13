@@ -61,29 +61,6 @@ class MySQL_query:
         data5 = data['product_test']
         data6 = data['product_test_timestamp']
 
-
-        sql = "INSERT INTO product_quality Values('" + data1 + "','" + data2 + "','" + data3 + "','" + data4 + "','" + data5 + "','" + data6 + "')"
-        cur.execute(sql)
-        conn.commit()
-
-        conn.close()
-
-    def insert_product_quality(x):
-        conn, cur = None, None
-        data1, data2, data3, data4, data5, data6 = " ", " ", " ", " ", " ", " "
-        sql = " "
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
-        cur = conn.cursor()
-
-        data = x[0]
-
-        data1 = data['product_key']
-        data2 = data['product_size_l']
-        data3 = data['product_size_w']
-        data4 = data['product_size_h']
-        data5 = data['product_test']
-        data6 = data['product_test_timestamp']
-
         sql = "INSERT INTO product_quality Values('" + data1 + "','" + data2 + "','" + data3 + "','" + data4 + "','" + data5 + "','" + data6 + "')"
         cur.execute(sql)
         conn.commit()

@@ -1,6 +1,5 @@
 import numpy as np
 from machine import machine_operate
-from product_master_table import product_master
 import pandas as pd
 
 class process_operate:
@@ -14,7 +13,7 @@ class process_operate:
 
             body = []
             op10_data = {}
-            product_key = 'W1' + 'P' + str(i)
+            product_key = 'W1' + 'P' + str(i) + '-'
             body.append(product_key)
 
             body_l = np.random.normal(200, std)
@@ -40,7 +39,7 @@ class process_operate:
             op10_WIP = []
             op20_data = {}
 
-            product_key = 'W2' + 'P' + str(i)
+            product_key = 'W2' + 'P' + str(i) + '-'
 
             op10_WIP.append(product_key)
             op10_WIP.append(op10_data['op10_l'])
@@ -54,7 +53,7 @@ class process_operate:
 
             op20_WIP = []
             op30_data = {}
-            product_key = 'W3' + 'P' + str(i)
+            product_key = 'W3' + 'P' + str(i) + '-'
 
             op20_WIP.append(product_key)
             op20_WIP.append(op20_data['op20_l'])
@@ -68,7 +67,7 @@ class process_operate:
 
             op30_WIP = []
             op40_data = {}
-            product_key = 'W4' + 'P' + str(i)
+            product_key = 'W4' + 'P' + str(i) + '-'
 
             op30_WIP.append(product_key)
             op30_WIP.append(op30_data['op30_l'])
@@ -82,7 +81,7 @@ class process_operate:
 
             op40_WIP = []
             op50_data = {}
-            product_key = 'W5' + 'P' + str(i)
+            product_key = 'W5' + 'P' + str(i) + '-'
 
             op40_WIP.append(product_key)
             op40_WIP.append(op40_data['op40_l'])
@@ -96,7 +95,7 @@ class process_operate:
 
             op50_WIP = []
             op60_data = {}
-            product_key = 'W6' + 'P' + str(i)
+            product_key = 'W6' + 'P' + str(i) + '-'
 
             op50_WIP.append(product_key)
             op50_WIP.append(op50_data['op50_l'])
