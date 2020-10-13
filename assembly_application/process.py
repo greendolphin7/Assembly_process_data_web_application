@@ -46,6 +46,7 @@ class process_operate:
             op10_WIP.append(op10_data['op10_l'])
             op10_WIP.append(op10_data['op10_w'])
             op10_WIP.append(op10_data['op10_h'])
+            op10_WIP.append(op10_data['op10_time_stamp'])
 
             ### op 20
 
@@ -59,6 +60,7 @@ class process_operate:
             op20_WIP.append(op20_data['op20_l'])
             op20_WIP.append(op20_data['op20_w'])
             op20_WIP.append(op20_data['op20_h'])
+            op20_WIP.append(op20_data['op20_time_stamp'])
 
             ### op 30
 
@@ -72,6 +74,7 @@ class process_operate:
             op30_WIP.append(op30_data['op30_l'])
             op30_WIP.append(op30_data['op30_w'])
             op30_WIP.append(op30_data['op30_h'])
+            op30_WIP.append(op30_data['op30_time_stamp'])
 
             ### op 40
 
@@ -85,6 +88,7 @@ class process_operate:
             op40_WIP.append(op40_data['op40_l'])
             op40_WIP.append(op40_data['op40_w'])
             op40_WIP.append(op40_data['op40_h'])
+            op40_WIP.append(op40_data['op40_time_stamp'])
 
             ### op 50
 
@@ -98,6 +102,7 @@ class process_operate:
             op50_WIP.append(op50_data['op50_l'])
             op50_WIP.append(op50_data['op50_w'])
             op50_WIP.append(op50_data['op50_h'])
+            op50_WIP.append(op50_data['op50_time_stamp'])
 
             ### op 60
             op60_data = machine_operate.op60(op50_WIP)

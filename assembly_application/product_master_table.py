@@ -23,7 +23,7 @@ class product_master():
 
         product_master_data.append(master_dict)
 
-        return product_master_data
+        return master_dict
 
 
     # op10 반제품
@@ -79,10 +79,10 @@ class product_master():
 
         product_master_data.append(master_dict)
 
-        return product_master_data
+        return master_dict
 
     # op30 반제품
-    def op30(self):
+    def op30_WIP(self):
         master_dict = {}
         product_master_data = []
 
@@ -106,7 +106,7 @@ class product_master():
 
         product_master_data.append(master_dict)
 
-        return product_master_data
+        return master_dict
 
 
     # op40 반제품
@@ -134,7 +134,7 @@ class product_master():
 
         product_master_data.append(master_dict)
 
-        return product_master_data
+        return master_dict
 
     # op50 반제품
     def op50_WIP(self):
@@ -161,7 +161,7 @@ class product_master():
 
         product_master_data.append(master_dict)
 
-        return product_master_data
+        return master_dict
 
     # body 부품
     def body(self):
@@ -188,7 +188,7 @@ class product_master():
 
         product_master_data.append(master_dict)
 
-        return product_master_data
+        return master_dict
 
     # wavyfin 부품
     def wavyfin(self):
@@ -215,7 +215,7 @@ class product_master():
 
         product_master_data.append(master_dict)
 
-        return product_master_data
+        return master_dict
 
 
     # pipe1 부품
@@ -243,7 +243,7 @@ class product_master():
 
         product_master_data.append(master_dict)
 
-        return product_master_data
+        return master_dict
 
     # pipe2 부품
     def pipe2(self):
@@ -270,7 +270,7 @@ class product_master():
 
         product_master_data.append(master_dict)
 
-        return product_master_data
+        return master_dict
 
 
     # flange1 부품
@@ -299,7 +299,7 @@ class product_master():
 
         product_master_data.append(master_dict)
 
-        return product_master_data
+        return master_dict
 
     # flange2 부품
     def flange2(self):
@@ -326,6 +326,4 @@ class product_master():
 
         product_master_data.append(master_dict)
 
-        return product_master_data
-
-    #MySQL_query.insert_product_master(product_master_data)
+        return master_dict

@@ -3,10 +3,6 @@ from datetime import datetime, timedelta
 from product_master_table import product_master
 from SQL import MySQL_query
 
-# time_stamp 제대로 만들어주려고 datetime 라이브러리에 now() 메소드 사용, 그런데 그렇게하면 현재 날짜에서
-# 자꾸 변경되기 때문에 process time 생성을 process 함수에서 실행한 후 넘겨주는 방식. 현재 op10에서만 테스트해 본 결과 성공.
-# op10에서의 데이터를 가지고 있되, 계속해서 현재 시점에서 계속 더해줘야 함. 이게 문제.
-
 class machine_operate:
 
     def __init__(self):
@@ -67,17 +63,16 @@ class machine_operate:
             height_test = 0
 
         if length_test == 0 and width_test == 0 and height_test == 0:
-            op10_test = 0
+            op10_test = 'OK'
             op10_data['op10_test'] = op10_test
         else:
-            op10_test = 1
+            op10_test = 'NOK'
             op10_data['op10_test'] = op10_test
 
         now = datetime.now()
         time_stamp = now + timedelta(seconds=op10_process_time)
-        time_stamp = str(time_stamp)
-
         op10_data['op10_time_stamp'] = time_stamp
+        time_stamp = str(time_stamp)
 
         # product_history 적재
         product_history_data_list = []
@@ -106,7 +101,7 @@ class machine_operate:
 
         product_quality_data_list.append(product_quality_insert)
 
-        # MySQL_query.insert_product_quality(product_quality_data_list)  # 품질 데이터 DB 적재
+        MySQL_query.insert_product_quality(product_quality_data_list)  # 품질 데이터 DB 적재
 
         return op10_data
 
@@ -168,17 +163,45 @@ class machine_operate:
             height_test = 0
 
         if length_test == 0 and width_test == 0 and height_test == 0:
-            op20_test = 0
+            op20_test = 'OK'
             op20_data['op20_test'] = op20_test
         else:
-            op20_test = 1
+            op20_test = 'NOK'
             op20_data['op20_test'] = op20_test
 
-        now = datetime.now()
-        time_stamp = now + timedelta(seconds = op20_process_time)
+        now = op10[4]
+        time_stamp = now + timedelta(seconds=op20_process_time)
+        op20_data['op20_time_stamp'] = time_stamp
         time_stamp = str(time_stamp)
 
-        op20_data['op20_time_stamp'] = time_stamp
+        # product_history 적재
+        product_history_data_list = []
+        product_history_insert = {}
+        op20_master_data = product_master.op20_WIP(1)
+        product_code = op20_master_data['product_code']
+
+        product_history_insert['product_key'] = product_key
+        product_history_insert['product_code'] = product_code
+        product_history_insert['product_timestamp'] = time_stamp
+
+        product_history_data_list.append(product_history_insert)
+
+        MySQL_query.insert_product_history(product_history_data_list) # 히스토리 데이터 DB 적재
+
+        # product_quality 적재
+        product_quality_data_list = []  # 딕셔너리 데이터 저장할 리스트
+        product_quality_insert = {}  # DB 저장할 데이터 모아주는 딕셔너리
+
+        product_quality_insert['product_key'] = product_key
+        product_quality_insert['product_size_l'] = str(op20_l)
+        product_quality_insert['product_size_w'] = str(op20_w)
+        product_quality_insert['product_size_h'] = str(op20_h)
+        product_quality_insert['product_test'] = str(op20_test)
+        product_quality_insert['product_test_timestamp'] = str(time_stamp)
+
+        product_quality_data_list.append(product_quality_insert)
+
+        MySQL_query.insert_product_quality(product_quality_data_list)  # 품질 데이터 DB 적재
 
         return op20_data
 
@@ -241,14 +264,45 @@ class machine_operate:
             height_test = 0
 
         if length_test == 0 and width_test == 0 and height_test == 0:
-            op30_test = 0
+            op30_test = 'OK'
             op30_data['op30_test'] = op30_test
         else:
-            op30_test = 1
+            op30_test = 'NOK'
             op30_data['op30_test'] = op30_test
 
-        time_stamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        now = op20[4]
+        time_stamp = now + timedelta(seconds=op30_process_time)
         op30_data['op30_time_stamp'] = time_stamp
+        time_stamp = str(time_stamp)
+
+        # product_history 적재
+        product_history_data_list = []
+        product_history_insert = {}
+        op30_master_data = product_master.op30_WIP(1)
+        product_code = op30_master_data['product_code']
+
+        product_history_insert['product_key'] = product_key
+        product_history_insert['product_code'] = product_code
+        product_history_insert['product_timestamp'] = time_stamp
+
+        product_history_data_list.append(product_history_insert)
+
+        MySQL_query.insert_product_history(product_history_data_list) # 히스토리 데이터 DB 적재
+
+        # product_quality 적재
+        product_quality_data_list = []  # 딕셔너리 데이터 저장할 리스트
+        product_quality_insert = {}  # DB 저장할 데이터 모아주는 딕셔너리
+
+        product_quality_insert['product_key'] = product_key
+        product_quality_insert['product_size_l'] = str(op30_l)
+        product_quality_insert['product_size_w'] = str(op30_w)
+        product_quality_insert['product_size_h'] = str(op30_h)
+        product_quality_insert['product_test'] = str(op30_test)
+        product_quality_insert['product_test_timestamp'] = str(time_stamp)
+
+        product_quality_data_list.append(product_quality_insert)
+
+        MySQL_query.insert_product_quality(product_quality_data_list)  # 품질 데이터 DB 적재
 
         return op30_data
 
@@ -311,14 +365,45 @@ class machine_operate:
             height_test = 0
 
         if length_test == 0 and width_test == 0 and height_test == 0:
-            op40_test = 0
+            op40_test = 'OK'
             op40_data['op40_test'] = op40_test
         else:
-            op40_test = 1
+            op40_test = 'NOK'
             op40_data['op40_test'] = op40_test
 
-        time_stamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        now = op30[4]
+        time_stamp = now + timedelta(seconds=op40_process_time)
         op40_data['op40_time_stamp'] = time_stamp
+        time_stamp = str(time_stamp)
+
+        # product_history 적재
+        product_history_data_list = []
+        product_history_insert = {}
+        op40_master_data = product_master.op40_WIP(1)
+        product_code = op40_master_data['product_code']
+
+        product_history_insert['product_key'] = product_key
+        product_history_insert['product_code'] = product_code
+        product_history_insert['product_timestamp'] = time_stamp
+
+        product_history_data_list.append(product_history_insert)
+
+        MySQL_query.insert_product_history(product_history_data_list) # 히스토리 데이터 DB 적재
+
+        # product_quality 적재
+        product_quality_data_list = []  # 딕셔너리 데이터 저장할 리스트
+        product_quality_insert = {}  # DB 저장할 데이터 모아주는 딕셔너리
+
+        product_quality_insert['product_key'] = product_key
+        product_quality_insert['product_size_l'] = str(op40_l)
+        product_quality_insert['product_size_w'] = str(op40_w)
+        product_quality_insert['product_size_h'] = str(op40_h)
+        product_quality_insert['product_test'] = str(op40_test)
+        product_quality_insert['product_test_timestamp'] = str(time_stamp)
+
+        product_quality_data_list.append(product_quality_insert)
+
+        MySQL_query.insert_product_quality(product_quality_data_list)  # 품질 데이터 DB 적재
 
         return op40_data
 
@@ -381,14 +466,45 @@ class machine_operate:
             height_test = 0
 
         if length_test == 0 and width_test == 0 and height_test == 0:
-            op50_test = 0
+            op50_test = 'OK'
             op50_data['op50_test'] = op50_test
         else:
-            op50_test = 1
+            op50_test = 'NOK'
             op50_data['op50_test'] = op50_test
 
-        time_stamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        now = op40[4]
+        time_stamp = now + timedelta(seconds=op50_process_time)
         op50_data['op50_time_stamp'] = time_stamp
+        time_stamp = str(time_stamp)
+
+        # product_history 적재
+        product_history_data_list = []
+        product_history_insert = {}
+        op50_master_data = product_master.op50_WIP(1)
+        product_code = op50_master_data['product_code']
+
+        product_history_insert['product_key'] = product_key
+        product_history_insert['product_code'] = product_code
+        product_history_insert['product_timestamp'] = time_stamp
+
+        product_history_data_list.append(product_history_insert)
+
+        MySQL_query.insert_product_history(product_history_data_list) # 히스토리 데이터 DB 적재
+
+        # product_quality 적재
+        product_quality_data_list = []  # 딕셔너리 데이터 저장할 리스트
+        product_quality_insert = {}  # DB 저장할 데이터 모아주는 딕셔너리
+
+        product_quality_insert['product_key'] = product_key
+        product_quality_insert['product_size_l'] = str(op50_l)
+        product_quality_insert['product_size_w'] = str(op50_w)
+        product_quality_insert['product_size_h'] = str(op50_h)
+        product_quality_insert['product_test'] = str(op50_test)
+        product_quality_insert['product_test_timestamp'] = str(time_stamp)
+
+        product_quality_data_list.append(product_quality_insert)
+
+        MySQL_query.insert_product_quality(product_quality_data_list)  # 품질 데이터 DB 적재
 
         return op50_data
 
@@ -428,13 +544,44 @@ class machine_operate:
             height_test = 0
 
         if length_test == 0 and width_test == 0 and height_test == 0:
-            op60_test = 0
+            op60_test = 'OK'
             op60_data['op60_test'] = op60_test
         else:
-            op60_test = 1
+            op60_test = 'NOK'
             op60_data['op60_test'] = op60_test
 
-        time_stamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        now = op50[4]
+        time_stamp = now + timedelta(seconds=op60_process_time)
         op60_data['op60_time_stamp'] = time_stamp
+        time_stamp = str(time_stamp)
+
+        # product_history 적재
+        product_history_data_list = []
+        product_history_insert = {}
+        op60_master_data = product_master.EGRC(1)
+        product_code = op60_master_data['product_code']
+
+        product_history_insert['product_key'] = product_key
+        product_history_insert['product_code'] = product_code
+        product_history_insert['product_timestamp'] = time_stamp
+
+        product_history_data_list.append(product_history_insert)
+
+        MySQL_query.insert_product_history(product_history_data_list) # 히스토리 데이터 DB 적재
+
+        # product_quality 적재
+        product_quality_data_list = []  # 딕셔너리 데이터 저장할 리스트
+        product_quality_insert = {}  # DB 저장할 데이터 모아주는 딕셔너리
+
+        product_quality_insert['product_key'] = product_key
+        product_quality_insert['product_size_l'] = str(op60_l)
+        product_quality_insert['product_size_w'] = str(op60_w)
+        product_quality_insert['product_size_h'] = str(op60_h)
+        product_quality_insert['product_test'] = str(op60_test)
+        product_quality_insert['product_test_timestamp'] = str(time_stamp)
+
+        product_quality_data_list.append(product_quality_insert)
+
+        MySQL_query.insert_product_quality(product_quality_data_list)  # 품질 데이터 DB 적재
 
         return op60_data
