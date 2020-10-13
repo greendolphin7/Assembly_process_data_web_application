@@ -86,6 +86,31 @@ class MySQL_query:
 
         conn.close()
 
+    def insert_machine(x):
+        conn, cur = None, None
+        data1, data2, data3, data4, data5, data6, data7, data8 = " ", " ", " "," ", " ", " "," ", " "
+        sql = " "
+        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        cur = conn.cursor()
+
+        data = x[0]
+
+        data1 = data['machine_code']
+        data2 = data['product_key']
+        data3 = data['start_time']
+        data4 = data['end_time']
+        data5 = data['makespan']
+        data6 = data['process_time']
+        data7 = data['machine_data']
+        data8 = data['machine_data_code']
+
+        sql = "INSERT INTO machine Values('" + data1 + "','" + data2 + "','" + data3 + "','" + \
+              data4 + "','" + data5 + "','" + data6 + "','" + data7 + "','" + data8 + "')"
+        cur.execute(sql)
+        conn.commit()
+
+        conn.close()
+
 
     def update_data(self):
         db = pymysql.connect(host='localhost',

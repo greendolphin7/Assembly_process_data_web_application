@@ -53,8 +53,7 @@ class product_master():
 
         return master_dict
 
-        # op20 반제품
-
+    # op20 반제품
     def op20_WIP(self):
         master_dict = {}
         product_master_data = []

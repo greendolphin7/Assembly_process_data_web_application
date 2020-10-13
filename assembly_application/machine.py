@@ -1,6 +1,7 @@
 import numpy as np
 from datetime import datetime, timedelta
 from product_master_table import product_master
+from machine_master_table import machine_master
 from SQL import MySQL_query
 
 class machine_operate:
@@ -105,6 +106,26 @@ class machine_operate:
 
         MySQL_query.insert_product_quality(product_quality_data_list)  # 품질 데이터 DB 적재
 
+        # machine 적재
+        machine_data_list = []  # 딕셔너리 데이터 저장할 리스트
+        machine_data_insert = {}  # DB 저장할 데이터 모아주는 딕셔너리
+
+        machine_master_data = machine_master.op10(1) # machine_code 가져오기
+        machine_code = machine_master_data['machine_code']
+
+        machine_data_insert['machine_code'] = machine_code
+        machine_data_insert['product_key'] = product_key
+        machine_data_insert['start_time'] = str(now)
+        machine_data_insert['end_time'] = str(time_stamp)
+        machine_data_insert['makespan'] = '123'
+        machine_data_insert['process_time'] = str(op10_process_time)
+        machine_data_insert['machine_data'] = str(op10_electricity)
+        machine_data_insert['machine_data_code'] = 'E01'
+
+        machine_data_list.append(machine_data_insert)
+
+        MySQL_query.insert_machine(machine_data_list)  # machine 데이터 DB 적재
+
         return op10_data
 
     def op20(op10):
@@ -206,6 +227,26 @@ class machine_operate:
         product_quality_data_list.append(product_quality_insert)
 
         MySQL_query.insert_product_quality(product_quality_data_list)  # 품질 데이터 DB 적재
+
+        # machine 적재
+        machine_data_list = []  # 딕셔너리 데이터 저장할 리스트
+        machine_data_insert = {}  # DB 저장할 데이터 모아주는 딕셔너리
+
+        machine_master_data = machine_master.op20(1) # machine_code 가져오기
+        machine_code = machine_master_data['machine_code']
+
+        machine_data_insert['machine_code'] = machine_code
+        machine_data_insert['product_key'] = product_key
+        machine_data_insert['start_time'] = str(now)
+        machine_data_insert['end_time'] = str(time_stamp)
+        machine_data_insert['makespan'] = '123'
+        machine_data_insert['process_time'] = str(op20_process_time)
+        machine_data_insert['machine_data'] = str(op20_electricity)
+        machine_data_insert['machine_data_code'] = 'E01'
+
+        machine_data_list.append(machine_data_insert)
+
+        MySQL_query.insert_machine(machine_data_list)  # machine 데이터 DB 적재
 
         return op20_data
 
@@ -310,6 +351,26 @@ class machine_operate:
 
         MySQL_query.insert_product_quality(product_quality_data_list)  # 품질 데이터 DB 적재
 
+        # machine 적재
+        machine_data_list = []  # 딕셔너리 데이터 저장할 리스트
+        machine_data_insert = {}  # DB 저장할 데이터 모아주는 딕셔너리
+
+        machine_master_data = machine_master.op30(1) # machine_code 가져오기
+        machine_code = machine_master_data['machine_code']
+
+        machine_data_insert['machine_code'] = machine_code
+        machine_data_insert['product_key'] = product_key
+        machine_data_insert['start_time'] = str(now)
+        machine_data_insert['end_time'] = str(time_stamp)
+        machine_data_insert['makespan'] = '123'
+        machine_data_insert['process_time'] = str(op30_process_time)
+        machine_data_insert['machine_data'] = str(op30_electricity)
+        machine_data_insert['machine_data_code'] = 'E01'
+
+        machine_data_list.append(machine_data_insert)
+
+        MySQL_query.insert_machine(machine_data_list)  # machine 데이터 DB 적재
+
         return op30_data
 
     def op40(op30):
@@ -412,6 +473,26 @@ class machine_operate:
         product_quality_data_list.append(product_quality_insert)
 
         MySQL_query.insert_product_quality(product_quality_data_list)  # 품질 데이터 DB 적재
+
+        # machine 적재
+        machine_data_list = []  # 딕셔너리 데이터 저장할 리스트
+        machine_data_insert = {}  # DB 저장할 데이터 모아주는 딕셔너리
+
+        machine_master_data = machine_master.op40(1) # machine_code 가져오기
+        machine_code = machine_master_data['machine_code']
+
+        machine_data_insert['machine_code'] = machine_code
+        machine_data_insert['product_key'] = product_key
+        machine_data_insert['start_time'] = str(now)
+        machine_data_insert['end_time'] = str(time_stamp)
+        machine_data_insert['makespan'] = '123'
+        machine_data_insert['process_time'] = str(op40_process_time)
+        machine_data_insert['machine_data'] = str(op40_temperature)
+        machine_data_insert['machine_data_code'] = 'T01'
+
+        machine_data_list.append(machine_data_insert)
+
+        MySQL_query.insert_machine(machine_data_list)  # machine 데이터 DB 적재
 
         return op40_data
 
@@ -516,6 +597,26 @@ class machine_operate:
 
         MySQL_query.insert_product_quality(product_quality_data_list)  # 품질 데이터 DB 적재
 
+        # machine 적재
+        machine_data_list = []  # 딕셔너리 데이터 저장할 리스트
+        machine_data_insert = {}  # DB 저장할 데이터 모아주는 딕셔너리
+
+        machine_master_data = machine_master.op50(1) # machine_code 가져오기
+        machine_code = machine_master_data['machine_code']
+
+        machine_data_insert['machine_code'] = machine_code
+        machine_data_insert['product_key'] = product_key
+        machine_data_insert['start_time'] = str(now)
+        machine_data_insert['end_time'] = str(time_stamp)
+        machine_data_insert['makespan'] = '123'
+        machine_data_insert['process_time'] = str(op50_process_time)
+        machine_data_insert['machine_data'] = str(op50_temperature)
+        machine_data_insert['machine_data_code'] = 'T01'
+
+        machine_data_list.append(machine_data_insert)
+
+        MySQL_query.insert_machine(machine_data_list)  # machine 데이터 DB 적재
+
         return op50_data
 
     def op60(op50):
@@ -596,4 +697,23 @@ class machine_operate:
 
         MySQL_query.insert_product_quality(product_quality_data_list)  # 품질 데이터 DB 적재
 
+        # machine 적재
+        machine_data_list = []  # 딕셔너리 데이터 저장할 리스트
+        machine_data_insert = {}  # DB 저장할 데이터 모아주는 딕셔너리
+
+        machine_master_data = machine_master.op60(1) # machine_code 가져오기
+        machine_code = machine_master_data['machine_code']
+
+        machine_data_insert['machine_code'] = machine_code
+        machine_data_insert['product_key'] = product_key
+        machine_data_insert['start_time'] = str(now)
+        machine_data_insert['end_time'] = str(time_stamp)
+        machine_data_insert['makespan'] = '123'
+        machine_data_insert['process_time'] = str(op60_process_time)
+        machine_data_insert['machine_data'] = str(131.1)
+        machine_data_insert['machine_data_code'] = 'TEST'
+
+        machine_data_list.append(machine_data_insert)
+
+        MySQL_query.insert_machine(machine_data_list)  # machine 데이터 DB 적재
         return op60_data
