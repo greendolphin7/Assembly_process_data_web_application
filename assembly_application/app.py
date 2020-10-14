@@ -12,7 +12,7 @@ def home():
 
 @app.route('/monitor')
 def monitor():
-   return process_operate.process_start(3)
+   return '생산 완료! DB에 저장했습니다!'
 
 if __name__ == '__main__':
    app.run('0.0.0.0', port=5000, debug=True)
