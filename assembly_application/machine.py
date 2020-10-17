@@ -75,7 +75,7 @@ class machine_operate:
         op10_data['op10_time_stamp'] = time_stamp
         time_stamp = str(time_stamp)
 
-        product_key = product_key + time_stamp
+        product_key = time_stamp + product_key
 
         # product_history 적재
         product_history_data_list = []
@@ -197,7 +197,7 @@ class machine_operate:
         op20_data['op20_time_stamp'] = time_stamp
         time_stamp = str(time_stamp)
 
-        product_key = product_key + time_stamp
+        product_key = time_stamp +  product_key
 
         # product_history 적재
         product_history_data_list = []
@@ -320,7 +320,7 @@ class machine_operate:
         op30_data['op30_time_stamp'] = time_stamp
         time_stamp = str(time_stamp)
 
-        product_key = product_key + time_stamp
+        product_key = time_stamp + product_key
 
         # product_history 적재
         product_history_data_list = []
@@ -443,7 +443,7 @@ class machine_operate:
         op40_data['op40_time_stamp'] = time_stamp
         time_stamp = str(time_stamp)
 
-        product_key = product_key + time_stamp
+        product_key = time_stamp + product_key
 
         # product_history 적재
         product_history_data_list = []
@@ -566,7 +566,7 @@ class machine_operate:
         op50_data['op50_time_stamp'] = time_stamp
         time_stamp = str(time_stamp)
 
-        product_key = product_key + time_stamp
+        product_key = time_stamp + product_key
 
         # product_history 적재
         product_history_data_list = []
@@ -666,7 +666,7 @@ class machine_operate:
         op60_data['op60_time_stamp'] = time_stamp
         time_stamp = str(time_stamp)
 
-        product_key = product_key + time_stamp
+        product_key = time_stamp + product_key
 
         # product_history 적재
         product_history_data_list = []
