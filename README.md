@@ -27,3 +27,9 @@
 
 Local PC에서 Flask -> 프로그램 짜놓고 연결되면 DB만 AWS 연결
 확인되면 EC2 올리기 / Django로 GET 방식 만들기, API 만들어서 설계
+
+1. 적재하는 과정에서 machine 테이블에 적재할 데이터가 부실 (makespan, start_time, end_time) 제대로 안넣음
+2. DB에 적재된 데이터를 웹으로 가져와야 함
+3. API를 좀 더 세부적, 기능들을 다듬을 필요 있음 (단순 조회가 아니라 분석용)
+(JOIN활용) -> OEE (makespan필요)
+4. AWS 연결
