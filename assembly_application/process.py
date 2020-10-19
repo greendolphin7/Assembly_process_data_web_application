@@ -117,4 +117,4 @@ class process_operate:
             result_df = pd.DataFrame(item_sink)
             result_df = result_df.set_index('product_key')
 
-        return '생산 완료! DB에 저장했습니다!'
+        return '생산 완료! 데이터는 DB에 저장했습니다!'

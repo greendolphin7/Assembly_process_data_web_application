@@ -111,6 +111,33 @@ class MySQL_query:
 
         conn.close()
 
+    def get_datalist(x):
+        i = x
+        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+
+        sql = '''
+            select product_key, product_test
+            from product_quality
+            where product_test ='OK'
+        '''
+
+        cursor = conn.cursor()
+        cursor.execute(sql)
+        row = cursor.fetchall()
+
+        data_list = []
+
+        for obj in row:
+            data_dic = {
+                'product_key': obj[0],
+                'product_test': obj[1]
+            }
+            data_list.append(data_dic)
+
+        conn.close()
+
+        return data_list
+
 
     def update_data(self):
         db = pymysql.connect(host='localhost',
