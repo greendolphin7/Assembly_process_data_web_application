@@ -1,6 +1,8 @@
 import pymysql
 
 class MySQL_query:
+    def __init__(self):
+        pass
 
     def insert_product_master(x):
         conn, cur = None, None
@@ -111,7 +113,7 @@ class MySQL_query:
 
         conn.close()
 
-    def get_datalist(x):
+    def get_prouct_quality(x):
         i = x
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
 
@@ -138,45 +140,33 @@ class MySQL_query:
 
         return data_list
 
+    def get_machine_data_list(self):
 
-    def update_data(self):
-        db = pymysql.connect(host='localhost',
-                             port=3306,
-                             user='root',
-                             passwd='your_password',
-                             db='process_data',
-                             charset='utf8')
-        try:
-            with db.cursor() as cursor:
-                sql = """
-                    CREATE TABLE test_table(
-                           idx  INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                           name VARCHAR(256) NOT NULL,
-                           nick VARCHAR(256) NOT NULL,
-                    );
-                """
-                cursor.execute(sql)
-                db.commit()
-        finally:
-            db.close()
+        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
 
-    def look_data(self):
-        db = pymysql.connect(host='localhost',
-                             port=3306,
-                             user='root',
-                             passwd='your_password',
-                             db='process_data',
-                             charset='utf8')
-        try:
-            with db.cursor() as cursor:
-                sql = """
-                    CREATE TABLE test_table(
-                           idx  INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                           name VARCHAR(256) NOT NULL,
-                           nick VARCHAR(256) NOT NULL,
-                    );
-                """
-                cursor.execute(sql)
-                db.commit()
-        finally:
-            db.close()
+        sql = '''
+            select machine_code,product_key,start_time,end_time,process_time,machine_data,machine_data_code
+            from machine 
+            order by process_time ASC
+        '''
+
+        cursor = conn.cursor()
+        cursor.execute(sql)
+        row = cursor.fetchall()
+
+        machine_data_list = []
+
+        for obj in row:
+            data_dic = {
+                'machine_code': obj[0],
+                'product_key': obj[1],
+                'start_time': obj[2],
+                'end_time': obj[3],
+                'machine_data': obj[4],
+                'machine_data_code': obj[5]
+            }
+            machine_data_list.append(data_dic)
+
+        conn.close()
+
+        return machine_data_list
