@@ -14,14 +14,13 @@ def home():
 
 @app.route('/load')
 def dataload():
-    content_list = MySQL_query.get_prouct_quality(1)
+    content_list = MySQL_query.get_prouct_quality(0)
     html = render_template('index.html', data_list=content_list)
     return html
 
 @app.route('/makes')
 def data_make():
     makes_list = datamake.get_datamakes()
-
     html = render_template('data_makes.html', data_list=makes_list)
     return html
 
@@ -35,9 +34,7 @@ def monitor():
 
 @app.route('/machine_load')
 def machine_data_load():
-
     content_list = MySQL_query.get_machine_data_list(0)
-
     html = render_template('machine_data_lists.html', machine_data_list=content_list)
     return html
 
