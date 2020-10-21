@@ -2,7 +2,7 @@ from flask import Flask, render_template
 app = Flask(__name__)
 from process import process_operate
 from SQL import MySQL_query
-
+import datamake
 
 @app.route('/')
 def start():
@@ -17,6 +17,17 @@ def dataload():
     content_list = MySQL_query.get_prouct_quality(1)
     html = render_template('index.html', data_list=content_list)
     return html
+
+@app.route('/makes')
+def data_make():
+    makes_list = datamake.get_datamakes()
+
+    html = render_template('data_makes.html', data_list=makes_list)
+    return html
+
+@app.route('/<int:num>')
+def inputData(num=None):
+    return render_template('data_makes.html', num=num)
 
 @app.route('/process')
 def monitor():
