@@ -16,12 +16,6 @@ def home():
 def monitor():
    return process_operate.process_start(3)
 
-# @app.route('/load')
-# def dataload():
-#     content_list = MySQL_query.get_quality_data_list(0)
-#     html = render_template('index.html', data_list=content_list)
-#     return html
-
 @app.route('/makes')
 def data_make():
     makes_list = datamake.get_datamakes()
@@ -35,7 +29,6 @@ def inputData(num=None):
 @app.route('/quality_load', methods=['POST', 'GET'])
 def quality_data_load(num=None):
     if request.method == 'POST':
-        #temp = request.form['num']
         pass
     elif request.method == 'GET':
         temp2 = request.args.get('char2')
@@ -56,12 +49,6 @@ def process_data_load(num=None):
 
         html = render_template('process_load.html', process_data_list=process_list, char3=temp3)
         return html
-
-# @app.route('/machine_load')
-# def machine_data_load():
-#     content_list = MySQL_query.get_machine_data_list(0)
-#     html = render_template('machine_data_lists.html', machine_data_list=content_list)
-#     return html
 
 @app.route('/machine_load', methods=['POST', 'GET'])
 def machine_data_load(num=None):
