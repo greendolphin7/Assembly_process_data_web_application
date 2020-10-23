@@ -113,34 +113,7 @@ class MySQL_query:
 
         conn.close()
 
-    def get_prouct_quality(x):
-        i = x
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
-
-        sql = '''
-            select product_key, product_test
-            from product_quality
-            where product_test ='OK'
-        '''
-
-        cursor = conn.cursor()
-        cursor.execute(sql)
-        row = cursor.fetchall()
-
-        data_list = []
-
-        for obj in row:
-            data_dic = {
-                'product_key': obj[0],
-                'product_test': obj[1]
-            }
-            data_list.append(data_dic)
-
-        conn.close()
-
-        return data_list
-
-    def get_machine_data_list(self):
+    def get_machine_data_list_temp(self):
 
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
 
@@ -170,3 +143,59 @@ class MySQL_query:
         conn.close()
 
         return machine_data_list
+
+    def get_machine_data_list(char1):
+
+        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+
+        cursor = conn.cursor()
+
+        sql = '''
+            select machine_code,product_key,start_time,end_time,process_time,machine_data,machine_data_code
+            from machine
+            where machine_code = '%s'
+        ''' % (char1)
+
+        cursor.execute(sql)
+        row = cursor.fetchall()
+        machine_data_list = []
+        for obj in row:
+            data_dic = {
+                'machine_code': obj[0],
+                'product_key': obj[1],
+                'start_time': obj[2],
+                'end_time': obj[3],
+                'machine_data': obj[4],
+                'machine_data_code': obj[5]
+            }
+            machine_data_list.append(data_dic)
+
+        conn.close()
+        return machine_data_list
+
+    def get_quality_data_list(char2):
+        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+
+        sql = '''
+            select product_key,product_test
+            from product_quality
+            where product_test = '%s'
+        ''' % (char2)
+
+        cursor = conn.cursor()
+        cursor.execute(sql)
+        row = cursor.fetchall()
+
+        data_list = []
+
+        for obj in row:
+            data_dic = {
+                'product_key': obj[0],
+                'product_test': obj[1]
+
+            }
+            data_list.append(data_dic)
+
+        conn.close()
+
+        return data_list

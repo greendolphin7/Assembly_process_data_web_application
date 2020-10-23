@@ -2,10 +2,10 @@ from process import process_operate
 import pandas as pd
 import numpy as np
 
-def get_datamakes() :
-    count = 5
-    for i in range(1, count+1):
-        total_data = process_operate.process_start(i)
+def get_datamakes(char3):
+    if char3 != None:
+        process_count = int(char3)
+        total_data = process_operate.process_start(process_count)
         data_list = []
         for datamakelist in total_data.items() :
             data_list.append(datamakelist)

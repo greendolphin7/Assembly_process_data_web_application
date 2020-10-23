@@ -6,22 +6,29 @@
     </title>
     <form method="GET" action="/machine_load">
         <h1> 설비 데이터 출력 </h1>
-        <input type="text" name="num">
+        <input type="text" name="char1">
         <button type="submit">검색</button></form>
         <form method="GET" action="/home">
         <button type="submit">뒤로</button>
     </form>
 </head>
-
 {% for obj in machine_data_list %}
-<tbody>
-    <tr>
-        <td style="width:10%;padding-right:5px">{{obj.machine_code}}</td>
-        <td>{{obj.product_key}}</td>
-        <td>{{obj.start_time}}</td>
-        <td>{{obj.end_time}}</td>
-        <td>{{obj.machine_data}}</td>
-        <td style="padding-left:5px">{{obj.machine_data_code}}</td></br>
-    </tr>
-</tbody>
+    {% if char1 == None %}
+    {% elif char1 == 'machine_code' %}
+        <p>
+            {{obj.machine_code}}</br>
+        </p>
+    {% elif char1 == 'product_key' %}
+        <p>
+            {{obj.product_key}}</br>
+        </p>
+    {% elif char1 == 'machine_data' %}
+        <p>
+            {{obj.machine_data}}</br>
+        </p>
+    {% elif char1 == 'machine_data_code' %}
+        <p>
+            {{obj.machine_data_code}}</br>
+        </p>
+    {% endif %}
 {% endfor %}

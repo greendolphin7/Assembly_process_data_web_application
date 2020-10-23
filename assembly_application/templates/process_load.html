@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        공정 데이터
+    </title>
+    <form method="GET" action="/process_load">
+        <h1> 공정 데이터 출력 </h1>
+        <input type="text" name="char3">
+        <button type="submit">검색</button>
+    </form><form method="GET" action="/home">
+        <button type="submit">뒤로</button>
+    </form>
+
+    <div>
+        <p>
+            {% if char3 == None %}
+            {% else %}
+                    <p>
+                        {% for datamakelist in process_data_list %}
+                <tbody>
+                    <tr>
+                        <td style="width:10%;padding-right:5px">{{datamakelist}}</td></br>
+                    </tr>
+                </tbody>
+                        {% endfor %}
+
+                    </p>
+            {% endif %}
+        </p>
+    </div>
+</head>
+</html>
