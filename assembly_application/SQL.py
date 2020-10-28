@@ -192,7 +192,6 @@ class MySQL_query:
             data_dic = {
                 'product_key': obj[0],
                 'product_test': obj[1]
-
             }
             data_list.append(data_dic)
 

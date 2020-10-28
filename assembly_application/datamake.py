@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 
 def get_datamakes(char3):
+
     if char3 != None:  # 값을 받으면
         process_count = int(char3)  # 변수 저장해주고
         total_data = process_operate.process_start(process_count)  # 변수 저장된 값 만큼 생산해서 (차후에 생산기능 따로 빼야됨)
