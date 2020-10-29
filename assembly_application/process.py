@@ -11,7 +11,6 @@ class process_operate:
         item_sink = []
 
         ## 미리 초기 시간 값 정의
-        process_start_time = datetime.now()
         op10_timestamp = datetime.now()
         op20_timestamp = datetime.now()
         op30_timestamp = datetime.now()
@@ -70,21 +69,11 @@ class process_operate:
 
             ### op 10
 
-            ## 병목인지 아닌지 판단
-            op0_time_stamp = process_start_time + op10_process_time
-
-            if process_start_time > op20_start_time + op20_process_time:  # <- 병목인 조건 // 현재 공정 끝난 시간이 다음 공정 시작시간 + process_time 보다 빠르면 병목
-                Que.queue_process(op10_timestamp)
-                op10_data = machine_operate.op10(body)  # <- 공정 돌리고 난 후 데이터  # 병목이면 대기함수 거치고나서 다음 공정 실행
-            else:
-                op10_data = machine_operate.op10(body)  # <- 공정 돌리고 난 후 데이터  # 아니면 그냥 실행
-
-            op20_timestamp = op20_data['op20_time_stamp']
-
-
+            op10_data = machine_operate.op10(body)  # <- 공정 돌리고 난 후 데이터
 
             op10_WIP = []
             op20_data = {}
+            queue10 = []
 
             product_key = '-' + 'W2' + 'P' + str(i)
 
@@ -96,14 +85,17 @@ class process_operate:
             op10_WIP.append(op20_process_time)
 
             ## 병목인지 아닌지 판단
-            op10_timestamp = op10_data['op10_time_stamp']
-            op20_start_time = op10_timestamp + op10_setup_time
+            op10_timestamp = op10_data['op10_time_stamp']  # op10에서 끝난 시간 가져옴
+            op20_start_time = op10_timestamp + op10_setup_time  # op20 시작 시간은 op10 끝난 시간 + 셋업 타임
+
 
             if op10_timestamp > op20_start_time + op20_process_time:  # <- 병목인 조건 // 현재 공정 끝난 시간이 다음 공정 시작시간 + process_time 보다 빠르면 병목
-                Que.queue_process(op10_timestamp)
-                op20_data = machine_operate.op20(op10_WIP)  # 병목이면 대기함수 거치고나서 다음 공정 실행
+                queue10.append(op10_WIP)  # <- 대기 행렬에 저장
+
+            if queue10[0] != None:  # <- 대기행렬안에 하나라도 대기 중이면
+                op20_data = machine_operate.op20(queue10.pop(0))  # <- 대기 행렬 맨 앞에서부터 하나 꺼내고 꺼낸건 삭제
             else:
-                op20_data = machine_operate.op20(op10_WIP)  # 아니면 그냥 실행
+                op20_data = machine_operate.op20(op10_WIP)  # <- 대기 행렬에 아무것도 없으면 그냥 바로 받아서 실행
 
             op20_timestamp = op20_data['op20_time_stamp']
 
