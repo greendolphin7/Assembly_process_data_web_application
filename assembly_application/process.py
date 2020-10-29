@@ -1,6 +1,8 @@
 import numpy as np
 from machine import machine_operate
 import pandas as pd
+from queue import Que
+from datetime import datetime
 
 class process_operate:
 
@@ -8,8 +10,44 @@ class process_operate:
         std = 0.0025
         item_sink = []
 
+        ## 미리 초기 시간 값 정의
+        process_start_time = datetime.now()
+        op10_timestamp = datetime.now()
+        op20_timestamp = datetime.now()
+        op30_timestamp = datetime.now()
+        op40_timestamp = datetime.now()
+        op50_timestamp = datetime.now()
+        op60_timestamp = datetime.now()
+
+        ## 초기 셋업 타임 설정
+        op10_setup_time = 0
+        op20_setup_time = 0
+        op30_setup_time = 0
+        op40_setup_time = 0
+        op50_setup_time = 0
+        op60_setup_time = 0
+
         for i in range(amount):
             total_data = {}
+
+            op10_process_time = np.random.exponential(10)
+            op10_process_time = round(op10_process_time, 5)
+
+            op20_process_time = np.random.exponential(10)
+            op20_process_time = round(op20_process_time, 5)
+
+            op30_process_time = np.random.exponential(10)
+            op30_process_time = round(op20_process_time, 5)
+
+            op40_process_time = np.random.exponential(10)
+            op40_process_time = round(op20_process_time, 5)
+
+            op50_process_time = np.random.exponential(10)
+            op50_process_time = round(op20_process_time, 5)
+
+            op60_process_time = np.random.exponential(10)
+            op60_process_time = round(op20_process_time, 5)
+
 
             body = []
             op10_data = {}
@@ -28,13 +66,22 @@ class process_operate:
             body_h = round(body_h, 5)
             body.append(body_h)
 
-            op10_process_time = np.random.exponential(10)
-            op10_process_time = round(op10_process_time, 5)
-            body.append(op10_process_time)
+            body.append(op10_process_time)  # <- 여기까지 body에 생성한 값 넣어주고 공정에 돌리기
 
             ### op 10
 
-            op10_data = machine_operate.op10(body)
+            ## 병목인지 아닌지 판단
+            op0_time_stamp = process_start_time + op10_process_time
+
+            if process_start_time > op20_start_time + op20_process_time:  # <- 병목인 조건 // 현재 공정 끝난 시간이 다음 공정 시작시간 + process_time 보다 빠르면 병목
+                Que.queue_process(op10_timestamp)
+                op10_data = machine_operate.op10(body)  # <- 공정 돌리고 난 후 데이터  # 병목이면 대기함수 거치고나서 다음 공정 실행
+            else:
+                op10_data = machine_operate.op10(body)  # <- 공정 돌리고 난 후 데이터  # 아니면 그냥 실행
+
+            op20_timestamp = op20_data['op20_time_stamp']
+
+
 
             op10_WIP = []
             op20_data = {}
@@ -42,24 +89,35 @@ class process_operate:
             product_key = '-' + 'W2' + 'P' + str(i)
 
             op10_WIP.append(product_key)
-            op10_WIP.append(op10_data['op10_l'])
+            op10_WIP.append(op10_data['op10_l'])  # <- 돌리고 난 후 데이터 모음에서 결과값 하나씩 가져오기
             op10_WIP.append(op10_data['op10_w'])
             op10_WIP.append(op10_data['op10_h'])
             op10_WIP.append(op10_data['op10_time_stamp'])
+            op10_WIP.append(op20_process_time)
 
-            ### op 20
+            ## 병목인지 아닌지 판단
+            op10_timestamp = op10_data['op10_time_stamp']
+            op20_start_time = op10_timestamp + op10_setup_time
 
-            op20_data = machine_operate.op20(op10_WIP)
+            if op10_timestamp > op20_start_time + op20_process_time:  # <- 병목인 조건 // 현재 공정 끝난 시간이 다음 공정 시작시간 + process_time 보다 빠르면 병목
+                Que.queue_process(op10_timestamp)
+                op20_data = machine_operate.op20(op10_WIP)  # 병목이면 대기함수 거치고나서 다음 공정 실행
+            else:
+                op20_data = machine_operate.op20(op10_WIP)  # 아니면 그냥 실행
+
+            op20_timestamp = op20_data['op20_time_stamp']
+
 
             op20_WIP = []
             op30_data = {}
-            product_key = '-' + 'W3' + 'P' + str(i)
+            product_key = '-' + 'W3' + 'P' + str(i)  # <- 키 설정
 
             op20_WIP.append(product_key)
             op20_WIP.append(op20_data['op20_l'])
             op20_WIP.append(op20_data['op20_w'])
             op20_WIP.append(op20_data['op20_h'])
             op20_WIP.append(op20_data['op20_time_stamp'])
+            op20_WIP.append(op30_process_time)
 
             ### op 30
 
@@ -74,6 +132,7 @@ class process_operate:
             op30_WIP.append(op30_data['op30_w'])
             op30_WIP.append(op30_data['op30_h'])
             op30_WIP.append(op30_data['op30_time_stamp'])
+            op30_WIP.append(op40_process_time)
 
             ### op 40
 
@@ -88,6 +147,7 @@ class process_operate:
             op40_WIP.append(op40_data['op40_w'])
             op40_WIP.append(op40_data['op40_h'])
             op40_WIP.append(op40_data['op40_time_stamp'])
+            op40_WIP.append(op50_process_time)
 
             ### op 50
 
@@ -102,6 +162,7 @@ class process_operate:
             op50_WIP.append(op50_data['op50_w'])
             op50_WIP.append(op50_data['op50_h'])
             op50_WIP.append(op50_data['op50_time_stamp'])
+            op50_WIP.append(op60_process_time)
 
             ### op 60
             op60_data = machine_operate.op60(op50_WIP)

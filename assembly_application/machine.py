@@ -12,9 +12,9 @@ class machine_operate:
     def op10(body):
         op10_data = {}
 
-        std = 0.0025
+        std = 0.0025  # 표준편차
 
-        product_key = body[0]
+        product_key = body[0]  # 값 리스트 받을 때 첫번째 요소
 
         wavyfin_l = np.random.normal(100, std)
         wavyfin_l = round(wavyfin_l, 5)
@@ -115,12 +115,11 @@ class machine_operate:
         else:
             wavyfin_test = 'NOK'
 
-        now = datetime.now()
-        time_stamp = now + timedelta(seconds=op10_process_time)
-        op10_data['op10_time_stamp'] = time_stamp
-        time_stamp = str(time_stamp)
-
-        product_key = time_stamp + product_key
+        now = datetime.now()  # 현재 시간
+        time_stamp = now + timedelta(seconds=op10_process_time)  # 현재 시간에서 가동시간만큼 추가된 시간
+        op10_data['op10_time_stamp'] = time_stamp  # 추가된 시간이 완료되고 나가는 시간
+        time_stamp = str(time_stamp)  # 문자형으로 저장
+        product_key = time_stamp + product_key  # 키는 시간 + 아이템 정보로 저장
 
         # product_history 적재
         product_history_data_list = []
@@ -238,8 +237,7 @@ class machine_operate:
         pipe1_h = np.random.normal(30, std)
         pipe1_h = round(pipe1_h, 5)
 
-        op20_process_time = np.random.exponential(10)
-        op20_process_time = round(op20_process_time, 5)
+        op20_process_time = op10[5]
 
         op20_electricity = np.random.uniform(89, 100)
         op20_electricity = round(op20_electricity, 5)
