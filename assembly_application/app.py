@@ -14,7 +14,7 @@ def home():
 
 @app.route('/monitor')
 def monitor():
-   return process_operate.process_start(3)
+   return process_operate.process_start(1)
 
 @app.route('/makes')
 def data_make():

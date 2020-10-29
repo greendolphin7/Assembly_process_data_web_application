@@ -662,7 +662,6 @@ class machine_operate:
         product_history_insert['product_key'] = product_key
         product_history_insert['product_code'] = product_code
         product_history_insert['product_timestamp'] = time_stamp
-
         product_history_data_list.append(product_history_insert)
 
         MySQL_query.insert_product_history(product_history_data_list) # 히스토리 데이터 DB 적재
@@ -681,10 +680,10 @@ class machine_operate:
         product_quality_data_list = []  # 딕셔너리 데이터 저장할 리스트
         product_quality_insert = {}  # DB 저장할 데이터 모아주는 딕셔너리
 
-        product_quality_insert['product_key'] = time_stamp + '-flange1'
-        product_quality_insert['product_size_l'] = str(flange1_l)
-        product_quality_insert['product_size_w'] = str(flange1_w)
-        product_quality_insert['product_size_h'] = str(flange1_h)
+        product_quality_insert['product_key'] = product_key
+        product_quality_insert['product_size_l'] = str(op40_l)
+        product_quality_insert['product_size_w'] = str(op40_w)
+        product_quality_insert['product_size_h'] = str(op40_h)
         product_quality_insert['product_test'] = str(op40_test)
         product_quality_insert['product_test_timestamp'] = str(time_stamp)
 
@@ -702,7 +701,6 @@ class machine_operate:
         part_quality_insert['product_size_h'] = str(flange1_h)
         part_quality_insert['product_test'] = str(flange1_test)
         part_quality_insert['product_test_timestamp'] = str(time_stamp)
-
         part_quality_data_list.append(part_quality_insert)
 
         MySQL_query.insert_product_quality(part_quality_data_list)  # 품질 데이터 DB 적재
@@ -711,7 +709,7 @@ class machine_operate:
         machine_data_list = []  # 딕셔너리 데이터 저장할 리스트
         machine_data_insert = {}  # DB 저장할 데이터 모아주는 딕셔너리
 
-        machine_master_data = machine_master.op40(1) # machine_code 가져오기
+        machine_master_data = machine_master.op40(1)  # machine_code 가져오기
         machine_code = machine_master_data['machine_code']
 
         machine_data_insert['machine_code'] = machine_code
@@ -722,7 +720,6 @@ class machine_operate:
         machine_data_insert['process_time'] = str(op40_process_time)
         machine_data_insert['machine_data'] = str(op40_temperature)
         machine_data_insert['machine_data_code'] = 'T01'
-
         machine_data_list.append(machine_data_insert)
 
         MySQL_query.insert_machine(machine_data_list)  # machine 데이터 DB 적재
