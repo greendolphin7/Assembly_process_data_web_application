@@ -325,7 +325,7 @@ class machine_operate:
 
         product_history_data_list.append(product_history_insert)
 
-        MySQL_query.insert_product_history(product_history_data_list) # 히스토리 데이터 DB 적재
+        MySQL_query.insert_product_history(product_history_data_list)  # 히스토리 데이터 DB 적재
 
         # 부품 데이터 모아서 적재 (pipe1)
         part_data_list = []
@@ -404,8 +404,7 @@ class machine_operate:
         pipe2_h = np.random.normal(30, std)
         pipe2_h = round(pipe2_h, 5)
 
-        op30_process_time = np.random.exponential(10)
-        op30_process_time = round(op30_process_time, 5)
+        op30_process_time = op20[5]
 
         op30_electricity = np.random.uniform(89, 100)
         op30_electricity = round(op30_electricity, 5)
@@ -573,8 +572,7 @@ class machine_operate:
         flange1_h = np.random.normal(40, std)
         flange1_h = round(flange1_h, 5)
 
-        op40_process_time = np.random.exponential(10)
-        op40_process_time = round(op40_process_time, 5)
+        op40_process_time = op30[5]
 
         op40_temperature = np.random.uniform(489, 511)
         op40_temperature = round(op40_temperature, 5)
@@ -739,8 +737,7 @@ class machine_operate:
         flange2_h = np.random.normal(40, std)
         flange2_h = round(flange2_h, 5)
 
-        op50_process_time = np.random.exponential(10)
-        op50_process_time = round(op50_process_time, 5)
+        op50_process_time = op40[5]
 
         op50_temperature = np.random.uniform(489, 511)
         op50_temperature = round(op50_temperature, 5)
@@ -899,8 +896,8 @@ class machine_operate:
 
         product_key = op50[0]
 
-        op60_process_time = np.random.exponential(10)
-        op60_process_time = round(op60_process_time, 5)
+        op60_process_time = op50[5]
+
         op60_data['product_key'] = product_key
         op60_l = op50[1]
         op60_data['op60_l'] = op60_l
@@ -954,7 +951,7 @@ class machine_operate:
 
         product_history_data_list.append(product_history_insert)
 
-        MySQL_query.insert_product_history(product_history_data_list) # 히스토리 데이터 DB 적재
+        MySQL_query.insert_product_history(product_history_data_list)  # 히스토리 데이터 DB 적재
 
         # product_quality 적재
         product_quality_data_list = []  # 딕셔너리 데이터 저장할 리스트

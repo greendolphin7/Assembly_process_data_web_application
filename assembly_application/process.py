@@ -88,8 +88,30 @@ class process_operate:
             op10_timestamp = op10_data['op10_time_stamp']  # op10에서 끝난 시간 가져옴
             op20_start_time = op10_timestamp + op10_setup_time  # op20 시작 시간은 op10 끝난 시간 + 셋업 타임
 
+            if op20_timestamp < op10_timestamp:  # 앞공정에서 더 늦게 끝남 -> 만약 대기행렬에 하나도 없으면 -> 뒷공정이 놀고있다
 
-            if op10_timestamp > op20_start_time + op20_process_time:  # <- 병목인 조건 // 현재 공정 끝난 시간이 다음 공정 시작시간 + process_time 보다 빠르면 병목
+
+                if queue10[0] != None:  # <- 대기행렬안에 하나라도 대기 중이면
+                    op20_data = machine_operate.op20(queue10.pop(0))  # <- 대기 행렬 맨 앞에서부터 하나 꺼내고 꺼낸건 삭제
+                else:  # 대기 행렬에 하나도 없으면 -> 뒷공정 노는중
+                    # 노는 시간 얼만지 저장해줘야 함
+
+                    op20_start_time = op10_timestamp  # 앞공정 끝난시간이 뒷공정 시작시간
+
+                    op20_data = machine_operate.op20(op10_WIP)  # <- 대기 행렬에 아무것도 없으면 그냥 바로 받아서 실행
+
+            else:  # 앞공정이 더 빨리 끝나면 -> 뒷공정은 계속 일하는 중 -> 대기행렬에 추가
+                op20_start_time = op20_timestamp
+
+                if queue10[0] != None:  # <- 대기행렬안에 하나라도 대기 중이면
+                    op20_data = machine_operate.op20(queue10.pop(0))  # <- 대기 행렬 맨 앞에서부터 하나 꺼내고 꺼낸건 삭제
+                else:
+                    op20_data = machine_operate.op20(op10_WIP)  # <- 대기 행렬에 아무것도 없으면 그냥 바로 받아서 실행
+
+
+
+            if op10_timestamp > op20_start_time + op20_process_time:  # <- 병목인 조건 //
+                # 현재 공정 끝난 시간이 다음 공정 시작시간 + process_time 보다 빠르면 병목
                 queue10.append(op10_WIP)  # <- 대기 행렬에 저장
 
             if queue10[0] != None:  # <- 대기행렬안에 하나라도 대기 중이면
