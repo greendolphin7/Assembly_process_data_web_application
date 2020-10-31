@@ -44,7 +44,7 @@ class machine_operate:
         op10_h = wavyfin_h
         op10_data['op10_h'] = op10_h
 
-        op10_process_time = body[3]
+        op10_process_time = body[4]
 
         op10_data['op10_electricity'] = op10_electricity
         op10_data['op10_process_time'] = op10_process_time
@@ -115,7 +115,7 @@ class machine_operate:
         else:
             wavyfin_test = 'NOK'
 
-        now = datetime.now()  # 현재 시간
+        now = body[5]  # 현재 시간
         time_stamp = now + timedelta(seconds=op10_process_time)  # 현재 시간에서 가동시간만큼 추가된 시간
         op10_data['op10_time_stamp'] = time_stamp  # 추가된 시간이 완료되고 나가는 시간
         time_stamp = str(time_stamp)  # 문자형으로 저장
@@ -306,12 +306,12 @@ class machine_operate:
         else:
             pipe1_test = 'NOK'
 
-        now = op10[4]
+        now = op10[6]
         time_stamp = now + timedelta(seconds=op20_process_time)
         op20_data['op20_time_stamp'] = time_stamp
         time_stamp = str(time_stamp)
 
-        product_key = time_stamp +  product_key
+        product_key = time_stamp + product_key
 
         # product_history 적재
         product_history_data_list = []

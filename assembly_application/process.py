@@ -9,6 +9,7 @@ class process_operate:
     def process_start(amount):
         std = 0.0025
         item_sink = []
+        makespan = 0
 
         ## 미리 초기 시간 값 정의
         op10_timestamp = datetime.now()
@@ -29,24 +30,23 @@ class process_operate:
         for i in range(amount):
             total_data = {}
 
-            op10_process_time = np.random.exponential(10)
+            op10_process_time = np.random.triangular(9, 10, 10)
             op10_process_time = round(op10_process_time, 5)
 
-            op20_process_time = np.random.exponential(10)
+            op20_process_time = np.random.triangular(9, 10, 10)
             op20_process_time = round(op20_process_time, 5)
 
-            op30_process_time = np.random.exponential(10)
+            op30_process_time = np.random.triangular(9, 10, 10)
             op30_process_time = round(op20_process_time, 5)
 
-            op40_process_time = np.random.exponential(10)
+            op40_process_time = np.random.triangular(9, 10, 10)
             op40_process_time = round(op20_process_time, 5)
 
-            op50_process_time = np.random.exponential(10)
+            op50_process_time = np.random.triangular(9, 10, 10)
             op50_process_time = round(op20_process_time, 5)
 
-            op60_process_time = np.random.exponential(10)
+            op60_process_time = np.random.triangular(9, 10, 10)
             op60_process_time = round(op20_process_time, 5)
-
 
             body = []
             op10_data = {}
@@ -67,13 +67,15 @@ class process_operate:
 
             body.append(op10_process_time)  # <- 여기까지 body에 생성한 값 넣어주고 공정에 돌리기
 
+            body.append(op10_timestamp)
+
             ### op 10
 
             op10_data = machine_operate.op10(body)  # <- 공정 돌리고 난 후 데이터
 
             op10_WIP = []
             op20_data = {}
-            queue10 = []
+
 
             product_key = '-' + 'W2' + 'P' + str(i)
 
@@ -81,46 +83,44 @@ class process_operate:
             op10_WIP.append(op10_data['op10_l'])  # <- 돌리고 난 후 데이터 모음에서 결과값 하나씩 가져오기
             op10_WIP.append(op10_data['op10_w'])
             op10_WIP.append(op10_data['op10_h'])
-            op10_WIP.append(op10_data['op10_time_stamp'])
+            op10_WIP.append(op10_data['op10_time_stamp'])  # 다음 공정 시작할 시간
             op10_WIP.append(op20_process_time)
 
             ## 병목인지 아닌지 판단
             op10_timestamp = op10_data['op10_time_stamp']  # op10에서 끝난 시간 가져옴
-            op20_start_time = op10_timestamp + op10_setup_time  # op20 시작 시간은 op10 끝난 시간 + 셋업 타임
+            op20_start_time = op10_timestamp  # 기본적으로 op20 시작 시간은 op10 끝난 시간
+
+            queue10 = []  # 대기 행렬 넣어줄 리스트
+            queue10.append(None)
 
             if op20_timestamp < op10_timestamp:  # 앞공정에서 더 늦게 끝남 -> 만약 대기행렬에 하나도 없으면 -> 뒷공정이 놀고있다
 
+                # if queue10[0] != None:  # <- 대기행렬안에 하나라도 대기 중이면
+                #     op20_start_time = op10_timestamp  # 앞공정 끝난시간이 뒷공정 시작시간
+                #     op10_WIP.append(op20_start_time)
+                #     op20_data = machine_operate.op20(queue10.pop(0))  # <- 대기 행렬 맨 앞에서부터 하나 꺼내고 꺼낸건 삭제
 
-                if queue10[0] != None:  # <- 대기행렬안에 하나라도 대기 중이면
-                    op20_data = machine_operate.op20(queue10.pop(0))  # <- 대기 행렬 맨 앞에서부터 하나 꺼내고 꺼낸건 삭제
-                else:  # 대기 행렬에 하나도 없으면 -> 뒷공정 노는중
-                    # 노는 시간 얼만지 저장해줘야 함
+                # else:  # 대기 행렬에 하나도 없으면 -> 뒷공정 노는중 -> 현재공정 끝난 시간부터 다음공정 시작
 
-                    op20_start_time = op10_timestamp  # 앞공정 끝난시간이 뒷공정 시작시간
+                # 대기 행렬에 추가하고 가져오는 기능은 나중에 추가해야 할 듯 현재는 시간 맞추는 것만 할 예정
 
-                    op20_data = machine_operate.op20(op10_WIP)  # <- 대기 행렬에 아무것도 없으면 그냥 바로 받아서 실행
+                op20_start_time = op10_timestamp  # 앞공정 끝난시간이 뒷공정 시작시간
+                op10_WIP.append(op20_start_time)  # 재공품 정보에 시작해야할 시간 저장 / 인덱스 6번
+                op20_data = machine_operate.op20(op10_WIP)  # <- 대기 행렬에 아무것도 없으면 그냥 바로 받아서 실행
 
             else:  # 앞공정이 더 빨리 끝나면 -> 뒷공정은 계속 일하는 중 -> 대기행렬에 추가
-                op20_start_time = op20_timestamp
-
-                if queue10[0] != None:  # <- 대기행렬안에 하나라도 대기 중이면
-                    op20_data = machine_operate.op20(queue10.pop(0))  # <- 대기 행렬 맨 앞에서부터 하나 꺼내고 꺼낸건 삭제
-                else:
-                    op20_data = machine_operate.op20(op10_WIP)  # <- 대기 행렬에 아무것도 없으면 그냥 바로 받아서 실행
-
-
-
-            if op10_timestamp > op20_start_time + op20_process_time:  # <- 병목인 조건 //
-                # 현재 공정 끝난 시간이 다음 공정 시작시간 + process_time 보다 빠르면 병목
                 queue10.append(op10_WIP)  # <- 대기 행렬에 저장
 
-            if queue10[0] != None:  # <- 대기행렬안에 하나라도 대기 중이면
-                op20_data = machine_operate.op20(queue10.pop(0))  # <- 대기 행렬 맨 앞에서부터 하나 꺼내고 꺼낸건 삭제
-            else:
+                # if queue10[0] != None:  # <- 대기행렬안에 하나라도 대기 중이면
+                #     op20_start_time = op20_timestamp  # 처리한 물품 끝나고 바로 공정 시작
+                #     op20_data = machine_operate.op20(queue10.pop(0))  # <- 대기 행렬 맨 앞에서부터 하나 꺼내고 꺼낸건 삭제
+                # else:
+
+                op20_start_time = op20_timestamp  # 처리한 물품 끝나고 바로 공정 시작
+                op10_WIP.append(op20_start_time)  # 재공품 정보에 시작해야할 시간 저장 / 인덱스 6번
                 op20_data = machine_operate.op20(op10_WIP)  # <- 대기 행렬에 아무것도 없으면 그냥 바로 받아서 실행
 
             op20_timestamp = op20_data['op20_time_stamp']
-
 
             op20_WIP = []
             op30_data = {}
