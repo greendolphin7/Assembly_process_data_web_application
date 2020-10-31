@@ -1,15 +1,13 @@
 import numpy as np
 from machine import machine_operate
 import pandas as pd
-from queue import Que
-from datetime import datetime
+from datetime import datetime, timedelta
 
 class process_operate:
 
     def process_start(amount):
         std = 0.0025
         item_sink = []
-        makespan = 0
 
         ## 미리 초기 시간 값 정의
         op10_timestamp = datetime.now()
@@ -37,16 +35,16 @@ class process_operate:
             op20_process_time = round(op20_process_time, 5)
 
             op30_process_time = np.random.triangular(9, 10, 10)
-            op30_process_time = round(op20_process_time, 5)
+            op30_process_time = round(op30_process_time, 5)
 
             op40_process_time = np.random.triangular(9, 10, 10)
-            op40_process_time = round(op20_process_time, 5)
+            op40_process_time = round(op40_process_time, 5)
 
             op50_process_time = np.random.triangular(9, 10, 10)
-            op50_process_time = round(op20_process_time, 5)
+            op50_process_time = round(op50_process_time, 5)
 
             op60_process_time = np.random.triangular(9, 10, 10)
-            op60_process_time = round(op20_process_time, 5)
+            op60_process_time = round(op60_process_time, 5)
 
             body = []
             op10_data = {}
@@ -69,13 +67,12 @@ class process_operate:
 
             body.append(op10_timestamp)
 
-            ### op 10
+            ### op 10 시작
 
             op10_data = machine_operate.op10(body)  # <- 공정 돌리고 난 후 데이터
 
             op10_WIP = []
             op20_data = {}
-
 
             product_key = '-' + 'W2' + 'P' + str(i)
 
@@ -86,38 +83,22 @@ class process_operate:
             op10_WIP.append(op10_data['op10_time_stamp'])  # 다음 공정 시작할 시간
             op10_WIP.append(op20_process_time)
 
+            ## op20 시작
+
             ## 병목인지 아닌지 판단
             op10_timestamp = op10_data['op10_time_stamp']  # op10에서 끝난 시간 가져옴
             op20_start_time = op10_timestamp  # 기본적으로 op20 시작 시간은 op10 끝난 시간
 
-            queue10 = []  # 대기 행렬 넣어줄 리스트
-            queue10.append(None)
-
             if op20_timestamp < op10_timestamp:  # 앞공정에서 더 늦게 끝남 -> 만약 대기행렬에 하나도 없으면 -> 뒷공정이 놀고있다
 
-                # if queue10[0] != None:  # <- 대기행렬안에 하나라도 대기 중이면
-                #     op20_start_time = op10_timestamp  # 앞공정 끝난시간이 뒷공정 시작시간
-                #     op10_WIP.append(op20_start_time)
-                #     op20_data = machine_operate.op20(queue10.pop(0))  # <- 대기 행렬 맨 앞에서부터 하나 꺼내고 꺼낸건 삭제
-
-                # else:  # 대기 행렬에 하나도 없으면 -> 뒷공정 노는중 -> 현재공정 끝난 시간부터 다음공정 시작
-
-                # 대기 행렬에 추가하고 가져오는 기능은 나중에 추가해야 할 듯 현재는 시간 맞추는 것만 할 예정
-
-                op20_start_time = op10_timestamp  # 앞공정 끝난시간이 뒷공정 시작시간
-                op10_WIP.append(op20_start_time)  # 재공품 정보에 시작해야할 시간 저장 / 인덱스 6번
+                op20_start_time = op10_timestamp + timedelta(seconds=op10_setup_time)  # 앞공정 끝난시간이 뒷공정 시작시간 + 셋업타임
+                op10_WIP.append(op20_start_time)  # 재공품 정보에 시작해야할 시간 저장 / 인덱스 5번
                 op20_data = machine_operate.op20(op10_WIP)  # <- 대기 행렬에 아무것도 없으면 그냥 바로 받아서 실행
 
             else:  # 앞공정이 더 빨리 끝나면 -> 뒷공정은 계속 일하는 중 -> 대기행렬에 추가
-                queue10.append(op10_WIP)  # <- 대기 행렬에 저장
 
-                # if queue10[0] != None:  # <- 대기행렬안에 하나라도 대기 중이면
-                #     op20_start_time = op20_timestamp  # 처리한 물품 끝나고 바로 공정 시작
-                #     op20_data = machine_operate.op20(queue10.pop(0))  # <- 대기 행렬 맨 앞에서부터 하나 꺼내고 꺼낸건 삭제
-                # else:
-
-                op20_start_time = op20_timestamp  # 처리한 물품 끝나고 바로 공정 시작
-                op10_WIP.append(op20_start_time)  # 재공품 정보에 시작해야할 시간 저장 / 인덱스 6번
+                op20_start_time = op20_timestamp + timedelta(seconds=op10_setup_time)  # 처리한 물품 끝나고 바로 공정 시작 + 셋업타임
+                op10_WIP.append(op20_start_time)  # 재공품 정보에 시작해야할 시간 저장 / 인덱스 5번
                 op20_data = machine_operate.op20(op10_WIP)  # <- 대기 행렬에 아무것도 없으면 그냥 바로 받아서 실행
 
             op20_timestamp = op20_data['op20_time_stamp']
@@ -133,9 +114,25 @@ class process_operate:
             op20_WIP.append(op20_data['op20_time_stamp'])
             op20_WIP.append(op30_process_time)
 
-            ### op 30
+            ## op30 시작
 
-            op30_data = machine_operate.op30(op20_WIP)
+            ## 병목인지 아닌지 판단
+            op20_timestamp = op20_data['op20_time_stamp']  # op10에서 끝난 시간 가져옴
+            op30_start_time = op20_timestamp  # 기본적으로 op30 시작 시간은 op20 끝난 시간
+
+            if op30_timestamp < op20_timestamp:  # 앞공정에서 더 늦게 끝남 -> 만약 대기행렬에 하나도 없으면 -> 뒷공정이 놀고있다
+
+                op30_start_time = op20_timestamp + timedelta(seconds=op20_setup_time)  # 앞공정 끝난시간이 뒷공정 시작시간 + 셋업타임
+                op20_WIP.append(op30_start_time)  # 재공품 정보에 시작해야할 시간 저장 / 인덱스 5번
+                op30_data = machine_operate.op30(op20_WIP)  # <- 시작해야하는 시간 정보 받아서 다음공정 실행
+
+            else:  # 앞공정이 더 빨리 끝나면 -> 뒷공정은 계속 일하는 중 -> 대기행렬에 추가
+
+                op30_start_time = op30_timestamp + timedelta(seconds=op20_setup_time)  # 처리한 물품 끝나고 바로 공정 시작 + 셋업타임
+                op20_WIP.append(op30_start_time)  # 재공품 정보에 시작해야할 시간 저장 / 인덱스 5번
+                op30_data = machine_operate.op30(op20_WIP)  # <- 시작해야하는 시간 정보 받아서 다음공정 실행
+
+            op30_timestamp = op30_data['op30_time_stamp']
 
             op30_WIP = []
             op40_data = {}
@@ -148,9 +145,25 @@ class process_operate:
             op30_WIP.append(op30_data['op30_time_stamp'])
             op30_WIP.append(op40_process_time)
 
-            ### op 40
+            ## op40 시작
 
-            op40_data = machine_operate.op40(op30_WIP)
+            ## 병목인지 아닌지 판단
+            op30_timestamp = op30_data['op30_time_stamp']  # op10에서 끝난 시간 가져옴
+            op40_start_time = op30_timestamp  # 기본적으로 op40 시작 시간은 op30 끝난 시간
+
+            if op40_timestamp < op30_timestamp:  # 앞공정에서 더 늦게 끝남 -> 만약 대기행렬에 하나도 없으면 -> 뒷공정이 놀고있다
+
+                op40_start_time = op30_timestamp + timedelta(seconds=op30_setup_time)  # 앞공정 끝난시간이 뒷공정 시작시간 + 셋업타임
+                op30_WIP.append(op40_start_time)  # 재공품 정보에 시작해야할 시간 저장 / 인덱스 5번
+                op40_data = machine_operate.op40(op30_WIP)  # <- 시작해야하는 시간 정보 받아서 다음공정 실행
+
+            else:  # 앞공정이 더 빨리 끝나면 -> 뒷공정은 계속 일하는 중 -> 대기행렬에 추가
+
+                op40_start_time = op40_timestamp + timedelta(seconds=op30_setup_time)  # 처리한 물품 끝나고 바로 공정 시작 + 셋업타임
+                op30_WIP.append(op40_start_time)  # 재공품 정보에 시작해야할 시간 저장 / 인덱스 5번
+                op40_data = machine_operate.op40(op30_WIP)  # <- 시작해야하는 시간 정보 받아서 다음공정 실행
+
+            op40_timestamp = op40_data['op40_time_stamp']
 
             op40_WIP = []
             op50_data = {}
@@ -163,9 +176,25 @@ class process_operate:
             op40_WIP.append(op40_data['op40_time_stamp'])
             op40_WIP.append(op50_process_time)
 
-            ### op 50
+            ## op 50 시작
 
-            op50_data = machine_operate.op50(op40_WIP)
+            ## 병목인지 아닌지 판단
+            op40_timestamp = op40_data['op40_time_stamp']  # op10에서 끝난 시간 가져옴
+            op50_start_time = op40_timestamp  # 기본적으로 op50 시작 시간은 op40 끝난 시간
+
+            if op50_timestamp < op40_timestamp:  # 앞공정에서 더 늦게 끝남 -> 만약 대기행렬에 하나도 없으면 -> 뒷공정이 놀고있다
+
+                op50_start_time = op40_timestamp + timedelta(seconds=op40_setup_time)  # 앞공정 끝난시간이 뒷공정 시작시간 + 셋업타임
+                op40_WIP.append(op50_start_time)  # 재공품 정보에 시작해야할 시간 저장 / 인덱스 5번
+                op50_data = machine_operate.op50(op40_WIP)  # <- 시작해야하는 시간 정보 받아서 다음공정 실행
+
+            else:  # 앞공정이 더 빨리 끝나면 -> 뒷공정은 계속 일하는 중 -> 대기행렬에 추가
+
+                op50_start_time = op50_timestamp + timedelta(seconds=op40_setup_time)  # 처리한 물품 끝나고 바로 공정 시작 + 셋업타임
+                op40_WIP.append(op50_start_time)  # 재공품 정보에 시작해야할 시간 저장 / 인덱스 5번
+                op50_data = machine_operate.op50(op40_WIP)  # <- 시작해야하는 시간 정보 받아서 다음공정 실행
+
+            op50_timestamp = op50_data['op50_time_stamp']
 
             op50_WIP = []
             op60_data = {}
@@ -178,8 +207,25 @@ class process_operate:
             op50_WIP.append(op50_data['op50_time_stamp'])
             op50_WIP.append(op60_process_time)
 
-            ### op 60
-            op60_data = machine_operate.op60(op50_WIP)
+            ## op60 시작
+
+            ## 병목인지 아닌지 판단
+            op50_timestamp = op50_data['op50_time_stamp']  # op10에서 끝난 시간 가져옴
+            op60_start_time = op50_timestamp  # 기본적으로 op60 시작 시간은 op50 끝난 시간
+
+            if op60_timestamp < op50_timestamp:  # 앞공정에서 더 늦게 끝남 -> 만약 대기행렬에 하나도 없으면 -> 뒷공정이 놀고있다
+
+                op60_start_time = op50_timestamp + timedelta(seconds=op50_setup_time)  # 앞공정 끝난시간이 뒷공정 시작시간 + 셋업타임
+                op50_WIP.append(op60_start_time)  # 재공품 정보에 시작해야할 시간 저장 / 인덱스 5번
+                op60_data = machine_operate.op60(op50_WIP)  # <- 시작해야하는 시간 정보 받아서 다음공정 실행
+
+            else:  # 앞공정이 더 빨리 끝나면 -> 뒷공정은 계속 일하는 중 -> 대기행렬에 추가
+
+                op60_start_time = op60_timestamp + timedelta(seconds=op50_setup_time)  # 처리한 물품 끝나고 바로 공정 시작 + 셋업타임
+                op50_WIP.append(op60_start_time)  # 재공품 정보에 시작해야할 시간 저장 / 인덱스 5번
+                op60_data = machine_operate.op60(op50_WIP)  # <- 시작해야하는 시간 정보 받아서 다음공정 실행
+
+            op60_timestamp = op60_data['op60_time_stamp']
 
             op10_data = dict(op10_data, **op20_data)
             op10_data = dict(op10_data, **op30_data)

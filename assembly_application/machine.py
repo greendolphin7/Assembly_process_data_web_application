@@ -474,7 +474,7 @@ class machine_operate:
         else:
             pipe2_test = 'NOK'
 
-        now = op20[4]
+        now = op20[6]
         time_stamp = now + timedelta(seconds=op30_process_time)
         op30_data['op30_time_stamp'] = time_stamp
         time_stamp = str(time_stamp)
@@ -493,7 +493,7 @@ class machine_operate:
 
         product_history_data_list.append(product_history_insert)
 
-        MySQL_query.insert_product_history(product_history_data_list) # 히스토리 데이터 DB 적재
+        MySQL_query.insert_product_history(product_history_data_list)  # 히스토리 데이터 DB 적재
 
         # 부품 데이터 모아서 적재 (pipe2)
         part_data_list = []
