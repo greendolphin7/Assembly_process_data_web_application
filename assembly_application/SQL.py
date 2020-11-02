@@ -198,3 +198,30 @@ class MySQL_query:
         conn.close()
 
         return data_list
+
+    def get_product_data_list_for_predict(self):
+        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+
+        sql = '''
+            select product_key, product_size_l, product_size_w, product_size_h
+            from product_quality
+        '''
+
+        cursor = conn.cursor()
+        cursor.execute(sql)
+        row = cursor.fetchall()
+
+        data_list = []
+
+        for obj in row:
+            data_dic = {
+                'product_key': obj[0],
+                'product_size_l': obj[1],
+                'product_size_w': obj[2],
+                'product_size_h': obj[3]
+            }
+            data_list.append(data_dic)
+
+        conn.close()
+
+        return data_list
