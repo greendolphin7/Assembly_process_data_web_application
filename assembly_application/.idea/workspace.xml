@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="118d2fbb-0fa9-4a75-ba5b-338f53a13c93" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../get_data.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../get_data.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -174,7 +174,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="197" />
     <option name="y" value="-22" />
     <option name="width" value="1545" />
@@ -341,7 +341,7 @@
       <window_info anchor="bottom" id="Python Console" order="3" />
       <window_info anchor="bottom" id="Message" order="4" />
       <window_info anchor="bottom" id="Find" order="5" />
-      <window_info anchor="bottom" id="Run" order="6" visible="true" weight="0.33569404" />
+      <window_info anchor="bottom" id="Run" order="6" weight="0.33569404" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
