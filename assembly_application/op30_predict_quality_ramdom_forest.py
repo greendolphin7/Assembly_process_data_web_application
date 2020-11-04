@@ -260,12 +260,12 @@ df = pd.DataFrame({"product_key": product_key_list, 'body_l': body_l_list, 'body
                    'op30_electricity': op30_electricity_list, 'op30_process_time': op30_process_time_list,
                    'op30_test': op30_test_list, 'op30_timestamp': op30_timestamp,
 
-                   'flange1': flange1_l_list, 'flange1_w': flange1_w_list, 'flange1_h': flange1_h_list,
+                   'flange1_l': flange1_l_list, 'flange1_w': flange1_w_list, 'flange1_h': flange1_h_list,
                    'op40_l': op40_l_list, 'op40_w': op40_w_list, 'op40_h': op40_h_list,
                    'op40_temperature': op40_temperature_list, 'op40_process_time': op40_process_time_list,
                    'op40_test': op40_test_list, 'op40_timestamp': op40_timestamp,
 
-                   'flange2': flange2_l_list, 'flange2_w': flange2_w_list, 'flange2_h': flange2_h_list,
+                   'flange2_l': flange2_l_list, 'flange2_w': flange2_w_list, 'flange2_h': flange2_h_list,
                    'op50_l': op50_l_list, 'op50_w': op50_w_list, 'op50_h': op50_h_list,
                    'op50_temperature': op50_temperature_list, 'op50_process_time': op50_process_time_list,
                    'op50_test': op50_test_list, 'op50_timestamp': op50_timestamp,
@@ -276,18 +276,14 @@ df = pd.DataFrame({"product_key": product_key_list, 'body_l': body_l_list, 'body
 
 
 X = df.drop(['op60_timestamp', 'op60_process_time',
-                   'op60_h', 'op60_w', 'op60_l', 'op60_test',
-                   'op50_timestamp', 'op50_process_time',
-                   'op50_h', 'op50_w', 'op50_l', 'op50_temperature', 'op50_test',
-                   'op40_timestamp', 'op40_process_time',
-                   'op40_h', 'op40_w', 'op40_l', 'op40_temperature', 'op40_test',
-                   'op30_timestamp', 'op30_process_time',
-                   'op30_h', 'op30_w', 'op30_l', 'op30_electricity', 'op30_test',
-                   'op20_timestamp', 'op20_process_time',
-                   'op20_h', 'op20_w', 'op20_l', 'op20_electricity', 'op20_test',
-                   'op10_timestamp', 'op10_process_time',
-                   'op10_h', 'op10_w', 'op10_l', 'op10_electricity', 'op10_test',
-                   'product_key'], axis=1)
+             'op60_h', 'op60_w', 'op60_l', 'op60_test',
+             'op50_timestamp', 'op50_process_time',
+             'op50_h', 'op50_w', 'op50_l', 'op50_temperature', 'op50_test',
+             'op40_timestamp', 'op40_process_time',
+             'op40_h', 'op40_w', 'op40_l', 'op40_temperature', 'op40_test',
+             'flange1_l', 'flange1_w', 'flange1_h', 'flange2_l', 'flange2_w', 'flange2_h',
+             'op10_timestamp', 'op20_timestamp', 'op30_timestamp',
+             'product_key'], axis=1)
 
 y = df['op60_test']
 
