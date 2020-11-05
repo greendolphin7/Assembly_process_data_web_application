@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/OEE-style.css') }}"/>
+    <link
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap"
+      rel="stylesheet"
+    />
+    <title>Nav bar</title>
+    <script
+      src="https://kit.fontawesome.com/2d323a629b.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="OEE-main.js" defer></script>
+  </head>
+  <body>
+    <!-- Nav container -->
+    <nav class="navbar">
+      <!-- Logo with text -->
+      <div class="navbar__logo">
+        <i class="fab fa-accusoft"></i>
+        <a href="home">Process</a>
+      </div>
+      <!-- Menu -->
+      <ul class="navbar__menu">
+        <li><a href="machine_load">ITEM</a></li>
+        <li><a href="livechart_Electronic">ELECTRONIC</a></li>
+        <li><a href="livechart_Temperature">TEMPERATRUE</a></li>
+        <li><a href="process_load">PROCESSTIME</a></li>
+        <li><a href="OEE">OEE</a></li>
+        <li><a href="quality_load">QUALITY</a></li>
+        <li><a href="chart">ANALYSIS</a></li>
+      </ul>
+      <!-- Icons -->
+      <ul class="navbar__icons">
+        <li><a href="">Login</a></li>
+      </ul>
+      <!-- Toggle button -->
+      <a href="#" class="navbar__toggleBtn">
+        <i class="fas fa-bars"></i>
+      </a>
+    </nav>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <figure class="highcharts-figure">
+      <div id="container-Availability" class="chart-container"></div>
+      <div id="container-Productivity" class="chart-container"></div>
+      <div id="container-Quality" class="chart-container"></div>
+      <div id="container-OEE" class="chart-container"></div>
+      <p class="highcharts-description">
+      </p>
+    </figure>
+
+  </body>
+</html>

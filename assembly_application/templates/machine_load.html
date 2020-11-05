@@ -5,15 +5,40 @@
         설비 데이터
     </title>
     <form method="GET" action="/machine_load">
-        <h1> 설비 데이터 출력 (설비코드를 검색해주세요) </h1>
-        <input type="text" name="char1">
+        <h1> 설비 데이터 출력 </h1>
+        <select name = 'char1_0'>
+            <option value='' selected>OP선택</option>
+            <option value='OP_all'>OP_all</option>
+            <option value='OP10'>OP10</option>
+            <option value='OP20'>OP20</option>
+            <option value='OP30'>OP30</option>
+            <option value='OP40'>OP40</option>
+            <option value='OP50'>OP50</option>
+            <option value='OP60'>OP60</option>
+        </select>
+        <input type="date" name="char1">
+        <input type="date" name="char1_1">
         <button type="submit">검색</button></form>
+    <form method="post" >
+            <button type="submit">그래프</button></form>
         <form method="GET" action="/home">
         <button type="submit">뒤로</button>
     </form>
 </head>
-{% if char1 == None %}
+{% if char1 == None and char1_1 == None %}
 {% else %}
+<thead>
+<table border="1">
+    <tr style="text-align: right;">
+      <th>machine_code</th>
+      <th>product_key</th>
+      <th>start_time</th>
+      <th>end_time</th>
+        <th>process_time</th>
+      <th>machine_data</th>
+        <th>machine_data_code</th></br>
+    </tr>
+</table>
     {% for obj in machine_data_list %}
     <tbody>
         <tr>
@@ -21,9 +46,12 @@
             <td>{{obj.product_key}}</td>
             <td>{{obj.start_time}}</td>
             <td>{{obj.end_time}}</td>
+            <td>{{obj.process_time}}</td>
             <td>{{obj.machine_data}}</td>
-            <td style="padding-left:5px">{{obj.machine_data_code}}</td></br>
+            <td>{{obj.machine_data_code}}</td></br>
         </tr>
-    </tbody>
+</tbody>
     {% endfor %}
+</thead>
 {% endif %}
+</html>

@@ -144,17 +144,30 @@ class MySQL_query:
 
         return machine_data_list
 
-    def get_machine_data_list(char1):
-
+    def get_machine_data_list(char1_0, char1, char1_1):
+        # char1_input = char1
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
 
         cursor = conn.cursor()
-
-        sql = '''
-            select machine_code,product_key,start_time,end_time,process_time,machine_data,machine_data_code
+        if char1_0 == 'OP_all':
+            sql = '''
+            select machine_code,product_key,start_time,end_time,process_time,machine_data,machine_data_code,
+            date_format( start_time , '%%Y년%%m월%%d일 %%H시%%i분%%s초' ) as insert_date2
             from machine
-            where machine_code = '%s'
-        ''' % (char1)
+            where date_format(start_time , '%%Y-%%m-%%d') >= '%s'
+            and date_format(start_time , '%%Y-%%m-%%d') <= '%s'
+            order by start_time ASC
+            ''' % (char1, char1_1)
+
+        else:
+            sql = '''
+            select machine_code,product_key,start_time,end_time,process_time,machine_data,machine_data_code,
+            date_format( start_time , '%%Y년%%m월%%d일 %%H시%%i분%%s초' ) as insert_date2
+            from machine
+            where machine_code = '%s' and date_format(start_time , '%%Y-%%m-%%d') >= '%s'
+            and date_format(start_time , '%%Y-%%m-%%d') <= '%s'
+            order by start_time ASC
+            ''' % (char1_0, char1, char1_1)
 
         cursor.execute(sql)
         row = cursor.fetchall()
@@ -165,37 +178,53 @@ class MySQL_query:
                 'product_key': obj[1],
                 'start_time': obj[2],
                 'end_time': obj[3],
-                'machine_data': obj[4],
-                'machine_data_code': obj[5]
+                'process_time': obj[4],
+                'machine_data': obj[5],
+                'machine_data_code': obj[6]
             }
             machine_data_list.append(data_dic)
 
-        conn.close()
+        conn.close
         return machine_data_list
 
-    def get_quality_data_list(char2):
+    def get_quality_data_list(char2_0, char2, char2_1):
+
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
 
-        sql = '''
-            select product_key,product_test
-            from product_quality
-            where product_test = '%s'
-        ''' % (char2)
-
         cursor = conn.cursor()
+        if char2_0 == 'Q_all':
+            sql = '''
+            select product_key,product_test,product_test_timestamp,
+            date_format( product_test_timestamp , '%%Y년%%m월%%d일 %%H시%%i분%%s초' ) as insert_date
+            from product_quality
+            where date_format(product_test_timestamp , '%%Y-%%m-%%d') >= '%s'
+            and date_format(product_test_timestamp , '%%Y-%%m-%%d') <= '%s'
+            order by product_test_timestamp ASC
+            ''' % (char2, char2_1)
+        else:
+            sql = '''
+            select product_key,product_test,product_test_timestamp,
+            date_format( product_test_timestamp , '%%Y년%%m월%%d일 %%H시%%i분%%s초' ) as insert_date
+            from product_quality
+            where product_test = '%s' and date_format(product_test_timestamp , '%%Y-%%m-%%d') >= '%s'
+            and date_format(product_test_timestamp , '%%Y-%%m-%%d') <= '%s'
+            order by product_test_timestamp ASC
+            ''' % (char2_0, char2, char2_1)
+
         cursor.execute(sql)
         row = cursor.fetchall()
-
+        count = 0
         data_list = []
-
         for obj in row:
             data_dic = {
                 'product_key': obj[0],
-                'product_test': obj[1]
+                'product_test': obj[1],
+                'product_test_timestamp': obj[2]
             }
             data_list.append(data_dic)
-
-        conn.close()
+            if obj[1] == 'OK' or 'NOK':
+                count += 1
+        conn.close
 
         return data_list
 
