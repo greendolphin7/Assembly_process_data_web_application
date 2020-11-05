@@ -1,7 +1,9 @@
 import numpy as np
-from machine import machine_operate
 import pandas as pd
 from datetime import datetime, timedelta
+import pickle
+from op30_predict_quality_ramdom_forest import Predict_Quality
+from machine import machine_operate
 
 class process_operate:
 
@@ -25,7 +27,11 @@ class process_operate:
         op50_setup_time = 0
         op60_setup_time = 0
 
+        clf_from_pickle = pickle.loads(Predict_Quality.train())
+        clf_from_pickle.predict()
+
         for i in range(amount):
+            quality_predict_data = {}
             total_data = {}
 
             op10_process_time = np.random.triangular(9, 10, 10)
