@@ -1,8 +1,7 @@
 import numpy as np
 import pandas as pd
 from datetime import datetime, timedelta
-import pickle
-from op30_predict_quality_ramdom_forest import Predict_Quality
+import joblib
 from machine import machine_operate
 
 class process_operate:
@@ -27,11 +26,11 @@ class process_operate:
         op50_setup_time = 0
         op60_setup_time = 0
 
-        clf_from_pickle = pickle.loads(Predict_Quality.train())
-        clf_from_pickle.predict()
+
 
         for i in range(amount):
             quality_predict_data = {}
+
             total_data = {}
 
             op10_process_time = np.random.triangular(9, 10, 10)
@@ -77,15 +76,48 @@ class process_operate:
 
             op10_data = machine_operate.op10(body)  # <- 공정 돌리고 난 후 데이터
 
+            quality_predict_data['body_l'] = body_l
+            quality_predict_data['body_w'] = body_w
+            quality_predict_data['body_h'] = body_h
+
+            wavyfin_l = op10_data['wavyfin_l']
+            wavyfin_w = op10_data['wavyfin_w']
+            wavyfin_h = op10_data['wavyfin_h']
+
+            quality_predict_data['wavyfin_l'] = wavyfin_l
+            quality_predict_data['wavyfin_w'] = wavyfin_w
+            quality_predict_data['wavyfin_h'] = wavyfin_h
+
+            op10_l = op10_data['op10_l']
+            op10_w = op10_data['op10_w']
+            op10_h = op10_data['op10_h']
+
+            quality_predict_data['op10_l'] = op10_l
+            quality_predict_data['op10_w'] = op10_w
+            quality_predict_data['op10_h'] = op10_h
+
+            op10_electricity = op10_data['op10_electricity']
+            op10_process_time = op10_data['op10_process_time']
+            op10_test = op10_data['op10_test']
+
+            quality_predict_data['op10_electricity'] = op10_electricity
+            quality_predict_data['op10_process_time'] = op10_process_time
+            quality_predict_data['op10_test'] = op10_test
+
+            if op10_test == 'OK':
+                op10_test = 0
+            else:
+                op10_test = 1
+
             op10_WIP = []
             op20_data = {}
 
             product_key = '-' + 'W2' + 'P' + str(i)
 
             op10_WIP.append(product_key)
-            op10_WIP.append(op10_data['op10_l'])  # <- 돌리고 난 후 데이터 모음에서 결과값 하나씩 가져오기
-            op10_WIP.append(op10_data['op10_w'])
-            op10_WIP.append(op10_data['op10_h'])
+            op10_WIP.append(op10_l)  # <- 돌리고 난 후 데이터 모음에서 결과값 하나씩 가져오기
+            op10_WIP.append(op10_w)
+            op10_WIP.append(op10_h)
             op10_WIP.append(op10_data['op10_time_stamp'])  # 다음 공정 시작할 시간
             op10_WIP.append(op20_process_time)
 
@@ -108,6 +140,35 @@ class process_operate:
                 op20_data = machine_operate.op20(op10_WIP)  # <- 대기 행렬에 아무것도 없으면 그냥 바로 받아서 실행
 
             op20_timestamp = op20_data['op20_time_stamp']
+
+            pipe1_l = op20_data['pipe1_l']
+            pipe1_w = op20_data['pipe1_w']
+            pipe1_h = op20_data['pipe1_h']
+
+            quality_predict_data['pipe1_l'] = pipe1_l
+            quality_predict_data['pipe1_w'] = pipe1_w
+            quality_predict_data['pipe1_h'] = pipe1_h
+
+            op20_l = op20_data['op20_l']
+            op20_w = op20_data['op20_w']
+            op20_h = op20_data['op20_h']
+
+            quality_predict_data['op20_l'] = op20_l
+            quality_predict_data['op20_w'] = op20_w
+            quality_predict_data['op20_h'] = op20_h
+
+            op20_electricity = op20_data['op20_electricity']
+            op20_process_time = op20_data['op20_process_time']
+            op20_test = op20_data['op20_test']
+
+            quality_predict_data['op20_electricity'] = op20_electricity
+            quality_predict_data['op20_process_time'] = op20_process_time
+            quality_predict_data['op20_test'] = op20_test
+
+            if op20_test == 'OK':
+                op20_test = 0
+            else:
+                op20_test = 1
 
             op20_WIP = []
             op30_data = {}
@@ -139,6 +200,55 @@ class process_operate:
                 op30_data = machine_operate.op30(op20_WIP)  # <- 시작해야하는 시간 정보 받아서 다음공정 실행
 
             op30_timestamp = op30_data['op30_time_stamp']
+
+            pipe2_l = op30_data['pipe2_l']
+            pipe2_w = op30_data['pipe2_w']
+            pipe2_h = op30_data['pipe2_h']
+
+            quality_predict_data['pipe2_l'] = pipe2_l
+            quality_predict_data['pipe2_w'] = pipe2_w
+            quality_predict_data['pipe2_h'] = pipe2_h
+
+            op30_l = op30_data['op30_l']
+            op30_w = op30_data['op30_w']
+            op30_h = op30_data['op30_h']
+
+            quality_predict_data['op30_l'] = op30_l
+            quality_predict_data['op30_w'] = op30_w
+            quality_predict_data['op30_h'] = op30_h
+
+            op30_electricity = op30_data['op30_electricity']
+            op30_process_time = op30_data['op30_process_time']
+            op30_test = op30_data['op30_test']
+
+            if op30_test == 'OK':
+                op30_test = 0
+            else:
+                op30_test = 1
+
+            quality_predict_data['op30_electricity'] = op30_electricity
+            quality_predict_data['op30_process_time'] = op30_process_time
+            quality_predict_data['op30_test'] = op30_test
+
+            X_test = pd.DataFrame({'body_l' : body_l, 'body_w' : body_w, 'body_h' : body_h,
+                   'wavyfin_l' : wavyfin_l, 'wavyfin_w' : wavyfin_w, 'wavyfin_h' : wavyfin_h,
+                   'op10_l' : op10_l, 'op10_w' : op10_w, 'op10_h' : op10_h,
+                   'op10_electricity' : op10_electricity, 'op10_process_time' : op10_process_time,
+                   'op10_test' : op10_test,
+
+                   'pipe1_l' : pipe1_l, 'pipe1_w' : pipe1_w, 'pipe1_h' : pipe1_h,
+                   'op20_l' : op20_l, 'op20_w' : op20_w, 'op20_h' : op20_h,
+                   'op20_electricity' : op20_electricity, 'op20_process_time' : op20_process_time,
+                   'op20_test' : op20_test,
+
+                   'pipe2_l' : pipe2_l, 'pipe2_w' : pipe2_w, 'pipe2_h' : pipe2_h,
+                   'op30_l' : op30_l, 'op30_w' : op30_w, 'op30_h' : op30_h,
+                   'op30_electricity' : op30_electricity, 'op30_process_time' : op30_process_time,
+                   'op30_test' : op30_test}, index=[0])  # 테스트할 X_test
+
+            clf_from_joblib = joblib.load('pretrained_model.pkl')
+            pred = clf_from_joblib.predict(X_test)
+            print(pred)
 
             op30_WIP = []
             op40_data = {}
