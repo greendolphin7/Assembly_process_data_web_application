@@ -296,6 +296,19 @@ X_train, X_test, y_train, y_test = train_test_split(X,
 
 rf_clf = RandomForestClassifier(random_state=0)
 rf_clf.fit(X_train, y_train)
-pred = rf_clf.predict(X_test)
-accuracy = accuracy_score(y_test, pred)
+preds = rf_clf.predict(X_test)
+accuracy = accuracy_score(y_test, preds)
 print('랜덤 포레스트 정확도: {0:.4f}'.format(accuracy))
+
+from sklearn.metrics import accuracy_score, precision_score, recall_score, confusion_matrix
+
+def get_clf_eval(y_test, pred):
+    confusion = confusion_matrix(y_test, pred)
+    accuracy = accuracy_score(y_test, pred)
+    precision = precision_score(y_test, pred)
+    recall = recall_score(y_test, pred)
+    print('오차 행렬')
+    print(confusion)
+    print('정확도: {0:.4f}, 정밀도: {1:.4f}, 재현율: {2:.4f}'.format(accuracy, precision,recall))
+
+get_clf_eval(y_test, preds)
