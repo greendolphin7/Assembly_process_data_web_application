@@ -310,3 +310,32 @@ class MySQL_query:
         conn.close()
 
         return data_list
+
+
+    def get_quality_data_for_process(product_key):
+        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+
+        sql = '''
+            select product_size_l, product_size_w, product_size_h, product_test, product_test_timestamp
+            from product_quality where product_key = '%s'
+        ''' %(product_key)
+
+        cursor = conn.cursor()
+        cursor.execute(sql)
+        row = cursor.fetchall()
+
+        data_list = []
+
+        for obj in row:
+            data_dic = {
+                'product_size_l': obj[0],
+                'product_size_w': obj[1],
+                'product_size_h': obj[2],
+                'product_test': obj[3],
+                'product_test_timestamp': obj[4],
+            }
+            data_list.append(data_dic)
+
+        conn.close()
+
+        return data_list
