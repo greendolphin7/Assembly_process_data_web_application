@@ -6,7 +6,6 @@ from time import time
 import datamake
 import json
 import pymysql
-import pandas as pd
 
 app.count = 0
 
@@ -182,7 +181,7 @@ def dataop():
 
 @app.route('/monitor')
 def monitor():
-    return process_operate.process_start(4)
+    return process_operate.process_start(1)
 
 
 @app.route('/<int:num>')

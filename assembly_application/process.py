@@ -6,6 +6,8 @@ from machine import machine_operate
 
 class process_operate:
 
+
+
     def process_start(amount):
         std = 0.0025
         item_sink = []
@@ -26,6 +28,11 @@ class process_operate:
         op50_setup_time = 0
         op60_setup_time = 0
 
+
+        # if (실행버튼 누르면):
+        #     for 문 실행한다.
+        #         if 종료버튼 누르면:
+        #             for 문 종료한다.
 
 
         for i in range(amount):
@@ -230,6 +237,7 @@ class process_operate:
             quality_predict_data['op30_process_time'] = op30_process_time
             quality_predict_data['op30_test'] = op30_test
 
+            # 테스트할 X_test
             X_test = pd.DataFrame({'body_l' : body_l, 'body_w' : body_w, 'body_h' : body_h,
                    'wavyfin_l' : wavyfin_l, 'wavyfin_w' : wavyfin_w, 'wavyfin_h' : wavyfin_h,
                    'op10_l' : op10_l, 'op10_w' : op10_w, 'op10_h' : op10_h,
@@ -244,10 +252,10 @@ class process_operate:
                    'pipe2_l' : pipe2_l, 'pipe2_w' : pipe2_w, 'pipe2_h' : pipe2_h,
                    'op30_l' : op30_l, 'op30_w' : op30_w, 'op30_h' : op30_h,
                    'op30_electricity' : op30_electricity, 'op30_process_time' : op30_process_time,
-                   'op30_test' : op30_test}, index=[0])  # 테스트할 X_test
+                   'op30_test' : op30_test}, index=[0])
 
-            clf_from_joblib = joblib.load('pretrained_model.pkl')
-            pred = clf_from_joblib.predict(X_test)
+            clf_from_joblib = joblib.load('pretrained_model.pkl')  # 저장했던 모델 불러오기
+            pred = clf_from_joblib.predict(X_test)  # 예측
             print(pred)
 
             op30_WIP = []
