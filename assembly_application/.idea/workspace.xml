@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="118d2fbb-0fa9-4a75-ba5b-338f53a13c93" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/machine.py" beforeDir="false" afterPath="$PROJECT_DIR$/machine.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/process.py" beforeDir="false" afterPath="$PROJECT_DIR$/process.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -15,8 +17,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3420">
-              <caret line="180" selection-start-line="180" selection-end-line="180" />
+            <state relative-caret-position="220">
+              <caret line="182" column="14" lean-forward="true" selection-start-line="182" selection-start-column="14" selection-end-line="182" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -24,8 +26,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/process.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="496">
-              <caret line="521" lean-forward="true" selection-start-line="521" selection-end-line="521" />
+            <state relative-caret-position="192">
+              <caret line="859" column="12" lean-forward="true" selection-start-line="859" selection-start-column="12" selection-end-line="859" selection-end-column="12" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -36,8 +38,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/machine.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="8227">
-              <caret line="547" column="57" lean-forward="true" selection-start-line="547" selection-start-column="57" selection-end-line="547" selection-end-column="57" />
+            <state relative-caret-position="-684">
+              <caret line="939" column="46" selection-start-line="939" selection-start-column="46" selection-end-line="939" selection-end-column="46" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -48,8 +50,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SQL.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6270">
-              <caret line="330" column="41" selection-start-line="330" selection-start-column="41" selection-end-line="330" selection-end-column="41" />
+            <state relative-caret-position="138">
+              <caret line="325" lean-forward="true" selection-start-line="325" selection-end-line="325" />
             </state>
           </provider>
         </entry>
@@ -111,8 +113,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -121,6 +123,7 @@
       <find>MySQL_query.insert_product_history(product_history_data_list)</find>
       <find>MySQL_query.insert_product_quality(part_quality_data_list)</find>
       <find>jsonify</find>
+      <find>op10_timestamp</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -151,22 +154,24 @@
         <option value="$PROJECT_DIR$/predict.py" />
         <option value="$PROJECT_DIR$/op30_predict_quality_xgboost.py" />
         <option value="$PROJECT_DIR$/op0_predict_randomforest.py" />
-        <option value="$PROJECT_DIR$/machine.py" />
         <option value="$PROJECT_DIR$/templates/livechart.html" />
         <option value="$PROJECT_DIR$/templates/Korens_monitoring.html" />
         <option value="$PROJECT_DIR$/templates/machine_load.html" />
         <option value="$PROJECT_DIR$/templates/process_load.html" />
         <option value="$PROJECT_DIR$/op30_predict_quality_ramdom_forest.py" />
-        <option value="$PROJECT_DIR$/app.py" />
         <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/SQL.py" />
+        <option value="$PROJECT_DIR$/templates/data_generator_test.py" />
+        <option value="$PROJECT_DIR$/templates/data_generator_test.html" />
+        <option value="$PROJECT_DIR$/app.py" />
+        <option value="$PROJECT_DIR$/machine.py" />
         <option value="$PROJECT_DIR$/process.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="175" />
-    <option name="y" value="30" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="252" />
+    <option name="y" value="78" />
     <option name="width" value="1545" />
     <option name="height" value="930" />
   </component>
@@ -375,11 +380,11 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <frame x="202" y="63" width="1236" height="744" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.18692206" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.23583333" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="0" weight="0.32843137" />
       <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
@@ -387,7 +392,7 @@
       <window_info anchor="bottom" id="Python Console" order="3" />
       <window_info anchor="bottom" id="Message" order="4" />
       <window_info anchor="bottom" id="Find" order="5" />
-      <window_info anchor="bottom" id="Run" order="6" weight="0.26770538" />
+      <window_info active="true" anchor="bottom" id="Run" order="6" visible="true" weight="0.3120915" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
@@ -402,8 +407,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="api 설계" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/time_stamp_function.py" />
-    <entry file="file://$PROJECT_DIR$/templates/data_list.html" />
     <entry file="file://$PROJECT_DIR$/data_list.py" />
     <entry file="file://$PROJECT_DIR$/product_master_table.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -619,20 +622,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test.py" />
-    <entry file="file://$PROJECT_DIR$/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3420">
-          <caret line="180" selection-start-line="180" selection-end-line="180" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SQL.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6270">
-          <caret line="330" column="41" selection-start-line="330" selection-start-column="41" selection-end-line="330" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/Quality_index.html">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -673,10 +662,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/templates/data_generator_test.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/data_generator_test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="182" column="14" lean-forward="true" selection-start-line="182" selection-start-column="14" selection-end-line="182" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SQL.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="325" lean-forward="true" selection-start-line="325" selection-end-line="325" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/machine.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8227">
-          <caret line="547" column="57" lean-forward="true" selection-start-line="547" selection-start-column="57" selection-end-line="547" selection-end-column="57" />
+        <state relative-caret-position="-684">
+          <caret line="939" column="46" selection-start-line="939" selection-start-column="46" selection-end-line="939" selection-end-column="46" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
@@ -685,8 +698,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/process.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="496">
-          <caret line="521" lean-forward="true" selection-start-line="521" selection-end-line="521" />
+        <state relative-caret-position="192">
+          <caret line="859" column="12" lean-forward="true" selection-start-line="859" selection-start-column="12" selection-end-line="859" selection-end-column="12" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>

@@ -28,7 +28,6 @@ class machine_operate:
         op10_electricity = np.random.uniform(89, 100)
         op10_electricity = round(op10_electricity, 5)
 
-        op10_data['product_key'] = product_key
         op10_data['body_l'] = body[1]
         op10_data['body_w'] = body[2]
         op10_data['body_h'] = body[3]
@@ -120,6 +119,7 @@ class machine_operate:
         op10_data['op10_time_stamp'] = time_stamp  # 추가된 시간이 완료되고 나가는 시간
         time_stamp = str(time_stamp)  # 문자형으로 저장
         product_key = time_stamp + product_key  # 키는 시간 + 아이템 정보로 저장
+        op10_data['product_key'] = product_key
 
         # product_history 적재
         product_history_data_list = []
@@ -242,7 +242,6 @@ class machine_operate:
         op20_electricity = np.random.uniform(89, 100)
         op20_electricity = round(op20_electricity, 5)
 
-        op20_data['product_key'] = product_key
         op20_data['pipe1_l'] = pipe1_l
         op20_data['pipe1_w'] = pipe1_w
         op20_data['pipe1_h'] = pipe1_h
@@ -312,6 +311,7 @@ class machine_operate:
         time_stamp = str(time_stamp)
 
         product_key = time_stamp + product_key
+        op20_data['product_key'] = product_key
 
         # product_history 적재
         product_history_data_list = []
@@ -409,7 +409,6 @@ class machine_operate:
         op30_electricity = np.random.uniform(89, 100)
         op30_electricity = round(op30_electricity, 5)
 
-        op30_data['product_key'] = product_key
         op30_data['pipe2_l'] = pipe2_l
         op30_data['pipe2_w'] = pipe2_w
         op30_data['pipe2_h'] = pipe2_h
@@ -480,6 +479,7 @@ class machine_operate:
         time_stamp = str(time_stamp)
 
         product_key = time_stamp + product_key
+        op30_data['product_key'] = product_key
 
         # product_history 적재
         product_history_data_list = []
@@ -577,7 +577,6 @@ class machine_operate:
         op40_temperature = np.random.uniform(489, 511)
         op40_temperature = round(op40_temperature, 5)
 
-        op40_data['product_key'] = product_key
         op40_data['flange1_l'] = flange1_l
         op40_data['flange1_w'] = flange1_w
         op40_data['flange1_h'] = flange1_h
@@ -648,6 +647,7 @@ class machine_operate:
         time_stamp = str(time_stamp)
 
         product_key = time_stamp + product_key
+        op40_data['product_key'] = product_key
 
         # product_history 적재
         product_history_data_list = []
@@ -742,7 +742,6 @@ class machine_operate:
         op50_temperature = np.random.uniform(489, 511)
         op50_temperature = round(op50_temperature, 5)
 
-        op50_data['product_key'] = product_key
         op50_data['flange2_l'] = flange2_l
         op50_data['flange2_w'] = flange2_w
         op50_data['flange2_h'] = flange2_h
@@ -813,6 +812,7 @@ class machine_operate:
         time_stamp = str(time_stamp)
 
         product_key = time_stamp + product_key
+        op50_data['product_key'] = product_key
 
         # product_history 적재
         product_history_data_list = []
@@ -898,7 +898,6 @@ class machine_operate:
 
         op60_process_time = op50[5]
 
-        op60_data['product_key'] = product_key
         op60_l = op50[1]
         op60_data['op60_l'] = op60_l
 
@@ -938,6 +937,7 @@ class machine_operate:
         time_stamp = str(time_stamp)
 
         product_key = time_stamp + product_key
+        op60_data['product_key'] = product_key
 
         # product_history 적재
         product_history_data_list = []
