@@ -24,8 +24,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/process.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="532">
-              <caret line="334" column="44" lean-forward="true" selection-start-line="334" selection-start-column="44" selection-end-line="334" selection-end-column="44" />
+            <state relative-caret-position="352">
+              <caret line="520" lean-forward="true" selection-start-line="520" selection-end-line="520" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -685,8 +685,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/process.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
-          <caret line="334" column="44" lean-forward="true" selection-start-line="334" selection-start-column="44" selection-end-line="334" selection-end-column="44" />
+        <state relative-caret-position="352">
+          <caret line="520" lean-forward="true" selection-start-line="520" selection-end-line="520" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
