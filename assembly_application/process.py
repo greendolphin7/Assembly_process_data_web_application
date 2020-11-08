@@ -841,14 +841,14 @@ class process_operate:
             op50_timestamp = op50_data['op50_time_stamp']  # op10에서 끝난 시간 가져옴
             op60_start_time = op50_timestamp  # 기본적으로 op60 시작 시간은 op50 끝난 시간
 
-            if op60_timestamp < op50_timestamp:  # 앞공정에서 더 늦게 끝남 -> 만약 대기행렬에 하나도 없으면 -> 뒷공정이 놀고있다
+            if op60_timestamp < op50_timestamp:  # 앞공정에서 더 늦게 끝남 -> 뒷공정이 놀고있다
 
                 op60_start_time = op50_timestamp + timedelta(seconds=op50_setup_time)  # 앞공정 끝난시간이 뒷공정 시작시간 + 셋업타임
                 op50_WIP.append(op60_start_time)  # 재공품 정보에 시작해야할 시간 저장 / 인덱스 5번
                 op60_data = machine_operate.op60(op50_WIP)  # <- 시작해야하는 시간 정보 받아서 다음공정 실행
                 op60_timestamp = op60_data['op60_time_stamp']
 
-            else:  # 앞공정이 더 빨리 끝나면 -> 뒷공정은 계속 일하는 중 -> 대기행렬에 추가
+            else:  # 앞공정이 더 빨리 끝나면 -> 뒷공정은 계속 일하는 중
 
                 op60_start_time = op60_timestamp + timedelta(seconds=op50_setup_time)  # 처리한 물품 끝나고 바로 공정 시작 + 셋업타임
                 op50_WIP.append(op60_start_time)  # 재공품 정보에 시작해야할 시간 저장 / 인덱스 5번

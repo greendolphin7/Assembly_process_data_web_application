@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="118d2fbb-0fa9-4a75-ba5b-338f53a13c93" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/machine.py" beforeDir="false" afterPath="$PROJECT_DIR$/machine.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/process.py" beforeDir="false" afterPath="$PROJECT_DIR$/process.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -11,6 +9,9 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="assembly_application" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
@@ -26,8 +27,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/process.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
-              <caret line="859" column="12" lean-forward="true" selection-start-line="859" selection-start-column="12" selection-end-line="859" selection-end-column="12" />
+            <state relative-caret-position="238">
+              <caret line="536" column="43" lean-forward="true" selection-start-line="536" selection-start-column="43" selection-end-line="536" selection-end-column="43" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -381,10 +382,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="202" y="63" width="1236" height="744" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.23583333" />
+      <window_info id="Favorites" order="0" sideWeight="0.5011876" side_tool="true" weight="0.23583333" />
+      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.49881235" visible="true" weight="0.23583333" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="0" weight="0.32843137" />
       <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
@@ -392,7 +392,7 @@
       <window_info anchor="bottom" id="Python Console" order="3" />
       <window_info anchor="bottom" id="Message" order="4" />
       <window_info anchor="bottom" id="Find" order="5" />
-      <window_info active="true" anchor="bottom" id="Run" order="6" visible="true" weight="0.3120915" />
+      <window_info anchor="bottom" id="Run" order="6" weight="0.3120915" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
@@ -698,8 +698,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/process.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="859" column="12" lean-forward="true" selection-start-line="859" selection-start-column="12" selection-end-line="859" selection-end-column="12" />
+        <state relative-caret-position="238">
+          <caret line="536" column="43" lean-forward="true" selection-start-line="536" selection-start-column="43" selection-end-line="536" selection-end-column="43" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
