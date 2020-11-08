@@ -27,8 +27,8 @@ class process_operate:
 
         body_P0 = []  # 공정에 넣을 body 데이터 리스트 틀
 
-        product_key_P0 = '-' + 'W1' + 'P' + str(0)  # 첫번째 제품 primary_key 생성 -> machine에서 시간 추가할 예정
-        body_P0.append(product_key_P0)
+        product_key_W1P0 = '-' + 'W1' + 'P' + str(0)  # 첫번째 제품 primary_key 생성 -> machine에서 시간 추가할 예정
+        body_P0.append(product_key_W1P0)
 
         body_l_P0 = np.random.normal(200, std)  # body 치수 데이터 생성
         body_l_P0 = round(body_l_P0, 5)
@@ -51,14 +51,311 @@ class process_operate:
         time.sleep(10)  # 10초 텀
 
         # op10 공정 실행 (W1P0)
-        machine_operate.op10(body_P0)
+        op10_data_P0 = machine_operate.op10(body_P0)
 
-        ##### 여기에다가 웹에다가 쏴주는 기능 추가 #####
+        product_key_W1P0 = op10_data_P0['product_key']
+
+        ##### 여기에 웹페이지로 쏴주는 기능 추가 #####
 
         #################################### W1P0 생산 및 DB 저장 완료 #####################################
 
         # 다음 공정에 넣기 위한 데이터 가져와서 넣기
-        op10_data_P0 = MySQL_query.get_machine_data_for_process(product_key_P0)
+        op10_data_P0_from_DB = MySQL_query.get_machine_data_for_process(product_key_W1P0)
+
+        op10_data_list_P0 = []  # P0 재공품 다음공정으로 넣어줄 데이터 저장할 리스트
+
+        op10_l_P0 = op10_data_P0_from_DB[0]['product_size_l']  # 재공품 치수 데이터 가져오기
+        op10_w_P0 = op10_data_P0_from_DB[0]['product_size_w']
+        op10_h_P0 = op10_data_P0_from_DB[0]['product_size_h']
+
+        op10_timestamp_P0 = op10_data_P0_from_DB[0]['product_test_timestamp']  # op10 P0 끝난시간 가져오기
+
+        op20_process_time_P0 = np.random.triangular(9, 10, 10)  # 다음 공정에 넣어줄 process_time 새로 생성
+        op20_process_time_P0 = round(op20_process_time_P0, 5)
+
+        op20_product_key_P0 = '-' + 'W2' + 'P' + str(0)  # 제품 키 생성
+
+        op10_data_list_P0.append(op20_product_key_P0)  # 2번째 제품 키 - 인덱스 0번
+        op10_data_list_P0.append(op10_l_P0)  # 1번 - 길이
+        op10_data_list_P0.append(op10_w_P0)  # 2번 - 너비
+        op10_data_list_P0.append(op10_h_P0)  # 3번 - 높이
+        op10_data_list_P0.append(op10_timestamp_P0)  # 4번 - 전 공정 끝난 시간
+        op10_data_list_P0.append(op20_process_time_P0)  # 5번 - 다음 공정 작업할 process_time
+
+        # 병목인지 아닌지 판단 필요없음. 처음 도는 바퀴니까 병목 아님
+        op20_start_time_P0 = op10_timestamp_P0 + timedelta(seconds=op20_setup_time)  # 앞공정 끝난시간이 뒷공정 시작시간 + 셋업타임
+        op10_data_list_P0.append(op20_start_time_P0)  # 재공품 정보에 시작해야할 시간 저장 / 인덱스 6번
+
+
+
+        body_P1 = []  # P1 제품에 대한 body 값 저장할 리스트
+
+        product_key_W1P1 = '-' + 'W1' + 'P' + str(1)  # 첫번째 제품 primary_key 생성 -> machine에서 시간 추가할 예정
+        body_P1.append(product_key_W1P1)
+
+        body_l_P1 = np.random.normal(200, std)  # body 치수 데이터 생성
+        body_l_P1 = round(body_l_P1, 5)
+        body_P1.append(body_l_P1)
+
+        body_w_P1 = np.random.normal(200, std)
+        body_w_P1 = round(body_w_P1, 5)
+        body_P1.append(body_w_P1)
+
+        body_h_P1 = np.random.normal(200, std)
+        body_h_P1 = round(body_h_P1, 5)
+        body_P1.append(body_h_P1)
+
+        op10_process_time_P1 = np.random.triangular(9, 10, 10)  # process_time 생성
+        op10_process_time_P1 = round(op10_process_time_P1, 5)
+
+        body_P1.append(op10_process_time_P1)
+        body_P1.append(op10_timestamp_P0)  # 두번째 제품은 P0 끝난시간부터 시작
+
+        time.sleep(10)  # 10초 텀
+
+
+        # op20 공정 실행 (W2P0)
+        op20_data_P0 = machine_operate.op20(op10_data_list_P0)  # <- 앞공정 재공품 받아서 실행
+        product_key_W2P0 = op20_data_P0['product_key']
+
+        #################################### W2P0 생산 및 DB 저장 완료 #####################################
+
+        # op10 공정 실행 (W1P1)
+        op10_data_P1 = machine_operate.op10(body_P1)
+        product_key_W1P1 = op10_data_P1['product_key']
+
+        #################################### W1P1 생산 및 DB 저장 완료 #####################################
+
+        ##### 여기에다가 웹에다가 쏴주는 기능 추가 #####
+
+        # 다음 공정에 넣기 위한 데이터 가져오기
+        op20_data_P0_from_DB = MySQL_query.get_machine_data_for_process(product_key_W2P0)
+        # 다음 공정에 넣기 위한 데이터 가져오기
+        op10_data_P1_from_DB = MySQL_query.get_machine_data_for_process(product_key_W1P1)
+
+
+
+        # op20 P0 생산 끝낸 데이터를 다음 공정에 넣을 변수에 저장하기
+        op20_data_list_P0 = []
+
+        product_key_W3P0 = '-' + 'W3' + 'P' + str(0)  # 제품 키 생성
+        op20_l_P0 = op20_data_P0_from_DB[0]['product_size_l']
+        op20_w_P0 = op20_data_P0_from_DB[0]['product_size_w']
+        op20_h_P0 = op20_data_P0_from_DB[0]['product_size_h']
+
+        op20_timestamp_P0 = op20_data_P0_from_DB[0]['product_test_timestamp']  # op20 끝난시간
+
+        op30_process_time_P0 = np.random.triangular(9, 10, 10)  # 다음 공정에 넣어줄 process_time
+        op30_process_time_P0 = round(op30_process_time_P0, 5)
+
+        op30_start_time_P0 = op20_timestamp_P0 + timedelta(seconds=op30_setup_time)  # 앞공정 끝난시간이 뒷공정 시작시간 + 셋업타임
+
+        op20_data_list_P0.append(product_key_W3P0)
+        op20_data_list_P0.append(op20_l_P0)
+        op20_data_list_P0.append(op20_w_P0)
+        op20_data_list_P0.append(op20_h_P0)
+        op20_data_list_P0.append(op20_timestamp_P0)
+        op20_data_list_P0.append(op30_process_time_P0)
+        op20_data_list_P0.append(op30_start_time_P0)
+
+
+        # op10 P1 생산 끝낸 데이터를 다음 공정에 넣을 변수에 저장하기
+        op10_data_list_P1 = []
+
+        product_key_W2P1 = '-' + 'W2' + 'P' + str(1)  # 제품 키 생성
+        op10_l_P1 = op10_data_P1_from_DB[0]['product_size_l']
+        op10_w_P1 = op10_data_P1_from_DB[0]['product_size_w']
+        op10_h_P1 = op10_data_P1_from_DB[0]['product_size_h']
+
+        op10_timestamp_P1 = op10_data_P1_from_DB[0]['product_test_timestamp']  # op20 끝난시간
+
+        op20_process_time_P1 = np.random.triangular(9, 10, 10)  # 다음 공정에 넣어줄 process_time
+        op20_process_time_P1 = round(op20_process_time_P1, 5)
+
+        op20_start_time_P1 = op10_timestamp_P1 + timedelta(seconds=op20_setup_time)  # 앞공정 끝난시간이 뒷공정 시작시간 + 셋업타임
+
+        op10_data_list_P1.append(product_key_W2P1)
+        op10_data_list_P1.append(op10_l_P1)
+        op10_data_list_P1.append(op10_w_P1)
+        op10_data_list_P1.append(op10_h_P1)
+        op10_data_list_P1.append(op10_timestamp_P1)
+        op10_data_list_P1.append(op20_process_time_P1)
+        op10_data_list_P1.append(op20_start_time_P1)
+
+
+        body_P2 = []  # P1 제품에 대한 body 값 저장할 리스트
+
+        product_key_W1P2 = '-' + 'W1' + 'P' + str(2)  # 첫번째 제품 primary_key 생성 -> machine에서 시간 추가할 예정
+        body_P2.append(product_key_W1P2)
+
+        body_l_P2 = np.random.normal(200, std)  # body 치수 데이터 생성
+        body_l_P2 = round(body_l_P2, 5)
+        body_P2.append(body_l_P2)
+
+        body_w_P2 = np.random.normal(200, std)
+        body_w_P2 = round(body_w_P2, 5)
+        body_P2.append(body_w_P2)
+
+        body_h_P2 = np.random.normal(200, std)
+        body_h_P2 = round(body_h_P2, 5)
+        body_P2.append(body_h_P2)
+
+        op10_process_time_P2 = np.random.triangular(9, 10, 10)  # process_time 생성
+        op10_process_time_P2 = round(op10_process_time_P2, 5)
+
+        body_P2.append(op10_process_time_P2)
+        body_P2.append(op10_timestamp_P1)  # 세번째 제품은 P1 끝난시간부터 시작
+
+
+
+        # op30, 20, 10 시작
+
+        time.sleep(10)
+
+        # op30 공정 실행 (W3P0)
+        op30_data_P0 = machine_operate.op30(op20_data_list_P0)  # <- 앞공정 재공품 받아서 실행
+        product_key_W3P0 = op30_data_P0['product_key']
+
+        #################################### W3P0 생산 및 DB 저장 완료 #####################################
+
+        # op20 공정 실행 (W2P0)
+        op20_data_P1 = machine_operate.op20(op10_data_list_P1)  # <- 앞공정 재공품 받아서 실행
+        product_key_W2P1 = op20_data_P1['product_key']
+
+        #################################### W2P1 생산 및 DB 저장 완료 #####################################
+
+        # op10 공정 실행 (W1P1)
+        op10_data_P2 = machine_operate.op10(body_P2)
+        product_key_W1P2 = op10_data_P2['product_key']
+
+        #################################### W1P2 생산 및 DB 저장 완료 #####################################
+
+        # 다음 공정에 넣기 위한 데이터 가져오기
+        op30_data_P0_from_DB = MySQL_query.get_machine_data_for_process(product_key_W3P0)
+        # 다음 공정에 넣기 위한 데이터 가져오기
+        op20_data_P1_from_DB = MySQL_query.get_machine_data_for_process(product_key_W2P1)
+        # 다음 공정에 넣기 위한 데이터 가져오기
+        op10_data_P2_from_DB = MySQL_query.get_machine_data_for_process(product_key_W1P2)
+
+
+        # op30 P0 생산 끝낸 데이터를 다음 공정에 넣을 변수에 저장하기
+        op30_data_list_P0 = []
+
+        product_key_W4P0 = '-' + 'W4' + 'P' + str(0)  # 제품 키 생성
+        op30_l_P0 = op30_data_P0_from_DB[0]['product_size_l']
+        op30_w_P0 = op30_data_P0_from_DB[0]['product_size_w']
+        op30_h_P0 = op30_data_P0_from_DB[0]['product_size_h']
+
+        op30_timestamp_P0 = op30_data_P0_from_DB[0]['product_test_timestamp']  # op20 끝난시간
+
+        op40_process_time_P0 = np.random.triangular(9, 10, 10)  # 다음 공정에 넣어줄 process_time
+        op40_process_time_P0 = round(op40_process_time_P0, 5)
+
+        op40_start_time_P0 = op30_timestamp_P0 + timedelta(seconds=op30_setup_time)  # 앞공정 끝난시간이 뒷공정 시작시간 + 셋업타임
+
+        op30_data_list_P0.append(product_key_W4P0)
+        op30_data_list_P0.append(op30_l_P0)
+        op30_data_list_P0.append(op30_w_P0)
+        op30_data_list_P0.append(op30_h_P0)
+        op30_data_list_P0.append(op30_timestamp_P0)
+        op30_data_list_P0.append(op40_process_time_P0)
+        op30_data_list_P0.append(op40_start_time_P0)
+
+        # op20 P1 생산 끝낸 데이터를 다음 공정에 넣을 변수에 저장하기
+        op20_data_list_P1 = []
+
+        product_key_W3P1 = '-' + 'W3' + 'P' + str(1)  # 제품 키 생성
+        op20_l_P1 = op20_data_P1_from_DB[0]['product_size_l']
+        op20_w_P1 = op20_data_P1_from_DB[0]['product_size_w']
+        op20_h_P1 = op20_data_P1_from_DB[0]['product_size_h']
+
+        op20_timestamp_P1 = op20_data_P1_from_DB[0]['product_test_timestamp']  # op20 끝난시간
+
+        op30_process_time_P1 = np.random.triangular(9, 10, 10)  # 다음 공정에 넣어줄 process_time
+        op30_process_time_P1 = round(op30_process_time_P1, 5)
+
+        op30_start_time_P1 = op20_timestamp_P1 + timedelta(seconds=op30_setup_time)  # 앞공정 끝난시간이 뒷공정 시작시간 + 셋업타임
+
+        op20_data_list_P1.append(product_key_W3P1)
+        op20_data_list_P1.append(op20_l_P1)
+        op20_data_list_P1.append(op20_w_P1)
+        op20_data_list_P1.append(op20_h_P1)
+        op20_data_list_P1.append(op20_timestamp_P1)
+        op20_data_list_P1.append(op30_process_time_P1)
+        op20_data_list_P1.append(op30_start_time_P1)
+
+
+        # op10 P1 생산 끝낸 데이터를 다음 공정에 넣을 변수에 저장하기
+        op10_data_list_P2 = []
+
+        product_key_W2P2 = '-' + 'W2' + 'P' + str(2)  # 제품 키 생성
+        op10_l_P2 = op10_data_P2_from_DB[0]['product_size_l']
+        op10_w_P2 = op10_data_P2_from_DB[0]['product_size_w']
+        op10_h_P2 = op10_data_P2_from_DB[0]['product_size_h']
+
+        op10_timestamp_P2 = op10_data_P2_from_DB[0]['product_test_timestamp']  # op20 끝난시간
+
+        op20_process_time_P2 = np.random.triangular(9, 10, 10)  # 다음 공정에 넣어줄 process_time
+        op20_process_time_P2 = round(op20_process_time_P2, 5)
+
+        op20_start_time_P2 = op10_timestamp_P2 + timedelta(seconds=op20_setup_time)  # 앞공정 끝난시간이 뒷공정 시작시간 + 셋업타임
+
+        op10_data_list_P2.append(product_key_W2P2)
+        op10_data_list_P2.append(op10_l_P2)
+        op10_data_list_P2.append(op10_w_P2)
+        op10_data_list_P2.append(op10_h_P2)
+        op10_data_list_P2.append(op10_timestamp_P2)
+        op10_data_list_P2.append(op20_process_time_P2)
+        op10_data_list_P2.append(op20_start_time_P2)
+
+
+        body_P3 = []  # P1 제품에 대한 body 값 저장할 리스트
+
+        product_key_W1P3 = '-' + 'W1' + 'P' + str(3)  # 첫번째 제품 primary_key 생성 -> machine에서 시간 추가할 예정
+        body_P3.append(product_key_W1P3)
+
+        body_l_P2 = np.random.normal(200, std)  # body 치수 데이터 생성
+        body_l_P2 = round(body_l_P2, 5)
+        body_P3.append(body_l_P2)
+
+        body_w_P2 = np.random.normal(200, std)
+        body_w_P2 = round(body_w_P2, 5)
+        body_P3.append(body_w_P2)
+
+        body_h_P2 = np.random.normal(200, std)
+        body_h_P2 = round(body_h_P2, 5)
+        body_P3.append(body_h_P2)
+
+        op10_process_time_P2 = np.random.triangular(9, 10, 10)  # process_time 생성
+        op10_process_time_P2 = round(op10_process_time_P2, 5)
+
+        body_P3.append(op10_process_time_P2)
+        body_P3.append(op10_timestamp_P2)  # 네번째 제품은 P2 끝난시간부터 시작
+
+        ### 여기까지 다음 공정으로 넣을 4개 재공품들 변수에 저장해둠
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        # 다음 공정에 넣기 위한 데이터 가져와서 넣기
+        op10_data_P1 = MySQL_query.get_machine_data_for_process(product_key_W1P1)
 
         op10_data_list_P0 = []  # P0 재공품 다음공정으로 넣어줄 데이터 저장할 리스트
 
@@ -84,73 +381,6 @@ class process_operate:
         op20_start_time_P0 = op10_timestamp_P0 + timedelta(seconds=op20_setup_time)  # 앞공정 끝난시간이 뒷공정 시작시간 + 셋업타임
         op10_data_list_P0.append(op20_start_time_P0)  # 재공품 정보에 시작해야할 시간 저장 / 인덱스 6번
 
-
-
-        body_P1 = []  # P1 제품에 대한 body 값 저장할 리스트
-
-        product_key_P1 = '-' + 'W1' + 'P' + str(1)  # 첫번째 제품 primary_key 생성 -> machine에서 시간 추가할 예정
-        body_P1.append(product_key_P1)
-
-        body_l_P1 = np.random.normal(200, std)  # body 치수 데이터 생성
-        body_l_P1 = round(body_l_P1, 5)
-        body_P1.append(body_l_P1)
-
-        body_w_P1 = np.random.normal(200, std)
-        body_w_P1 = round(body_w_P1, 5)
-        body_P1.append(body_w_P1)
-
-        body_h_P1 = np.random.normal(200, std)
-        body_h_P1 = round(body_h_P1, 5)
-        body_P1.append(body_h_P1)
-
-        op10_process_time_P1 = np.random.triangular(9, 10, 10)  # process_time 생성
-        op10_process_time_P1 = round(op10_process_time_P1, 5)
-
-        body_P1.append(op10_process_time_P1)
-        body_P1.append(op10_timestamp_P0)  # 두번째 제품은 P0 끝난시간부터 시작
-
-        time.sleep(10)  # 10초 텀
-
-
-        # op20 공정 실행 (W2P0)
-        machine_operate.op20(op10_data_list_P0)  # <- 앞공정 재공품 받아서 실행
-
-        #################################### W2P0 생산 및 DB 저장 완료 #####################################
-
-        # op10 공정 실행 (W1P1)
-        machine_operate.op10(body_P1)
-
-        #################################### W1P1 생산 및 DB 저장 완료 #####################################
-
-        ##### 여기에다가 웹에다가 쏴주는 기능 추가 #####
-
-        # 다음 공정에 넣기 위한 데이터 가져오기
-        op20_data_P0 = MySQL_query.get_machine_data_for_process(product_key_P0)
-        # 다음 공정에 넣기 위한 데이터 가져오기
-        op10_data_P1 = MySQL_query.get_machine_data_for_process(product_key_P1)
-
-        op20_data_list_P0 = []
-
-        op30_product_key_P0 = '-' + 'W3' + 'P' + str(0)  # 제품 키 생성
-        op20_l_P0 = op20_data_P0[0]['product_size_l']
-        op20_w_P0 = op20_data_P0[0]['product_size_w']
-        op20_h_P0 = op20_data_P0[0]['product_size_h']
-
-        op20_timestamp_P0 = op20_data_P0[0]['product_test_timestamp']  # op20 끝난시간
-
-        op30_process_time_P0 = np.random.triangular(9, 10, 10)  # 다음 공정에 넣어줄 process_time
-        op30_process_time_P0 = round(op30_process_time_P0, 5)
-
-        op30_start_time_P0 = op20_timestamp_P0 + timedelta(seconds=op30_setup_time)  # 앞공정 끝난시간이 뒷공정 시작시간 + 셋업타임
-
-        op20_data_list_P0.append(op30_product_key_P0)
-        op20_data_list_P0.append(op20_l_P0)
-        op20_data_list_P0.append(op20_w_P0)
-        op20_data_list_P0.append(op20_h_P0)
-        op20_data_list_P0.append(op20_timestamp_P0)
-        op20_data_list_P0.append(op30_process_time_P0)
-        op20_data_list_P0.append(op30_start_time_P0)
-        
 
 
 
