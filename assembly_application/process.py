@@ -1,8 +1,6 @@
 import numpy as np
-import pandas as pd
 import time
-from datetime import datetime, timedelta
-import joblib
+from datetime import datetime
 from machine import machine_operate
 from SQL import MySQL_query
 from predict_model import Predict
@@ -11,6 +9,8 @@ class process_operate:
 
     def process_start(amount):
         std = 0.0025  # 표준편차
+
+        total_test_data = []  # 예측할 test 데이터들을 뽑기 위한 모음
 
         ## 초기 셋업 타임 설정
         op10_setup_time = 0
@@ -93,11 +93,11 @@ class process_operate:
         body_l_P1 = round(body_l_P1, 5)
         body_P1.append(body_l_P1)
 
-        body_w_P1 = np.random.normal(200, std)
+        body_w_P1 = np.random.normal(100, std)
         body_w_P1 = round(body_w_P1, 5)
         body_P1.append(body_w_P1)
 
-        body_h_P1 = np.random.normal(200, std)
+        body_h_P1 = np.random.normal(50, std)
         body_h_P1 = round(body_h_P1, 5)
         body_P1.append(body_h_P1)
 
@@ -188,11 +188,11 @@ class process_operate:
         body_l_P2 = round(body_l_P2, 5)
         body_P2.append(body_l_P2)
 
-        body_w_P2 = np.random.normal(200, std)
+        body_w_P2 = np.random.normal(100, std)
         body_w_P2 = round(body_w_P2, 5)
         body_P2.append(body_w_P2)
 
-        body_h_P2 = np.random.normal(200, std)
+        body_h_P2 = np.random.normal(50, std)
         body_h_P2 = round(body_h_P2, 5)
         body_P2.append(body_h_P2)
 
@@ -211,6 +211,10 @@ class process_operate:
 
         # op30 공정 실행 (W3P0)
         op30_data_P0 = machine_operate.op30(op20_data_list_P0)  # <- 앞공정 재공품 받아서 실행
+
+        pred = Predict.predict_quality(op10_data_P0, op20_data_P0, op30_data_P0)
+        print("P0 예측값 : " + str(pred))
+
         product_key_W3P0 = op30_data_P0['product_key']
 
         #################################### W3P0 생산 및 DB 저장 완료 #####################################
@@ -308,11 +312,11 @@ class process_operate:
         body_l_P2 = round(body_l_P2, 5)
         body_P3.append(body_l_P2)
 
-        body_w_P2 = np.random.normal(200, std)
+        body_w_P2 = np.random.normal(100, std)
         body_w_P2 = round(body_w_P2, 5)
         body_P3.append(body_w_P2)
 
-        body_h_P2 = np.random.normal(200, std)
+        body_h_P2 = np.random.normal(50, std)
         body_h_P2 = round(body_h_P2, 5)
         body_P3.append(body_h_P2)
 
@@ -333,6 +337,10 @@ class process_operate:
 
         # op30 공정 실행 (W3P1)
         op30_data_P1 = machine_operate.op30(op20_data_list_P1)  # <- 앞공정 재공품 받아서 실행
+
+        pred = Predict.predict_quality(op10_data_P1, op20_data_P1, op30_data_P1)
+        print("P1 예측값 : " + str(pred))
+
         product_key_W3P1 = op30_data_P1['product_key']
 
         #################################### W3P1 생산 및 DB 저장 완료 #####################################
@@ -346,6 +354,7 @@ class process_operate:
         # op10 공정 실행 (W1P3)
         op10_data_P3 = machine_operate.op10(body_P3)
         product_key_W1P3 = op10_data_P3['product_key']
+        total_test_data.append(op10_data_P3)
 
         #################################### W1P3 생산 및 DB 저장 완료 #####################################
 
@@ -453,11 +462,11 @@ class process_operate:
         body_l_P3 = round(body_l_P3, 5)
         body_P4.append(body_l_P3)
 
-        body_w_P3 = np.random.normal(200, std)
+        body_w_P3 = np.random.normal(100, std)
         body_w_P3 = round(body_w_P3, 5)
         body_P4.append(body_w_P3)
 
-        body_h_P3 = np.random.normal(200, std)
+        body_h_P3 = np.random.normal(50, std)
         body_h_P3 = round(body_h_P3, 5)
         body_P4.append(body_h_P3)
 
@@ -484,6 +493,10 @@ class process_operate:
 
         # op30 공정 실행 (W3P2)
         op30_data_P2 = machine_operate.op30(op20_data_list_P2)  # <- 앞공정 재공품 받아서 실행
+
+        pred = Predict.predict_quality(op10_data_P2, op20_data_P2, op30_data_P2)
+        print("P2 예측값 : " + str(pred))
+
         product_key_W3P2 = op30_data_P2['product_key']
 
         #################################### W3P2 생산 및 DB 저장 완료 #####################################
@@ -491,20 +504,23 @@ class process_operate:
         # op20 공정 실행 (W2P3)
         op20_data_P3 = machine_operate.op20(op10_data_list_P3)
         product_key_W2P3 = op20_data_P3['product_key']
+        total_test_data.append(op20_data_P3)
 
         #################################### W2P3 생산 및 DB 저장 완료 #####################################
 
         # op10 공정 실행 (W1P4)
         op10_data_P4 = machine_operate.op10(body_P4)
         product_key_W1P4 = op10_data_P4['product_key']
+        total_test_data.append(op10_data_P4)
 
         #################################### W1P4 생산 및 DB 저장 완료 #####################################
 
 
         # 여기서부터 6개씩 반복
         print('for문 진입')
+
+
         for i in range(5, 10000):
-            quality_predict_data = {}
 
             op10_process_time = np.random.triangular(9, 10, 10)
             op10_process_time = round(op10_process_time, 5)
@@ -709,8 +725,18 @@ class process_operate:
 
             op10_data = machine_operate.op10(body)
 
+            total_test_data.append(op30_data)
+            total_test_data.append(op20_data)
+            total_test_data.append(op10_data)
+
+
+            op10_data = total_test_data.pop(0)
+            op20_data = total_test_data.pop(0)
+            op30_data = total_test_data.pop(1)
+
+
             pred = Predict.predict_quality(op10_data, op20_data, op30_data)
-            print('품질 예측값: ' + pred)
+            print('P' + str(i-2) + ' 품질 예측값: ' + str(pred))
 
             print('6개 생산 완료!')
 

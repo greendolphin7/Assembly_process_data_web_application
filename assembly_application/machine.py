@@ -7,7 +7,7 @@ from SQL import MySQL_query
 class machine_operate:
 
     def __init__(self):
-        print('hello')
+        pass
 
     def op10(body):
         op10_data = {}
