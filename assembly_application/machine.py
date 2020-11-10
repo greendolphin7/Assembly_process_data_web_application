@@ -115,7 +115,7 @@ class machine_operate:
             wavyfin_test = 'NOK'
 
         now = body[5]  # 현재 시간
-        time_stamp = now + timedelta(seconds=op10_process_time)  # 현재 시간에서 가동시간만큼 추가된 시간
+        time_stamp = now + timedelta(seconds=10)  # 현재 시간에서 가동시간만큼 추가된 시간
         op10_data['op10_time_stamp'] = time_stamp  # 추가된 시간이 완료되고 나가는 시간
         time_stamp = str(time_stamp)  # 문자형으로 저장
         product_key = time_stamp + product_key  # 키는 시간 + 아이템 정보로 저장
@@ -237,7 +237,7 @@ class machine_operate:
         pipe1_h = np.random.normal(30, std)
         pipe1_h = round(pipe1_h, 5)
 
-        op20_process_time = op10[5]
+        op20_process_time = op10[4]
 
         op20_electricity = np.random.uniform(89, 100)
         op20_electricity = round(op20_electricity, 5)
@@ -305,8 +305,8 @@ class machine_operate:
         else:
             pipe1_test = 'NOK'
 
-        now = op10[6]
-        time_stamp = now + timedelta(seconds=op20_process_time)
+        now = op10[5]
+        time_stamp = now + timedelta(seconds=10)
         op20_data['op20_time_stamp'] = time_stamp
         time_stamp = str(time_stamp)
 
@@ -404,7 +404,7 @@ class machine_operate:
         pipe2_h = np.random.normal(30, std)
         pipe2_h = round(pipe2_h, 5)
 
-        op30_process_time = op20[5]
+        op30_process_time = op20[4]
 
         op30_electricity = np.random.uniform(89, 100)
         op30_electricity = round(op30_electricity, 5)
@@ -473,8 +473,8 @@ class machine_operate:
         else:
             pipe2_test = 'NOK'
 
-        now = op20[6]
-        time_stamp = now + timedelta(seconds=op30_process_time)
+        now = op20[5]
+        time_stamp = now + timedelta(seconds=10)
         op30_data['op30_time_stamp'] = time_stamp
         time_stamp = str(time_stamp)
 
@@ -572,7 +572,7 @@ class machine_operate:
         flange1_h = np.random.normal(40, std)
         flange1_h = round(flange1_h, 5)
 
-        op40_process_time = op30[5]
+        op40_process_time = op30[4]
 
         op40_temperature = np.random.uniform(489, 511)
         op40_temperature = round(op40_temperature, 5)
@@ -641,8 +641,8 @@ class machine_operate:
         else:
             flange1_test = 'NOK'
 
-        now = op30[4]
-        time_stamp = now + timedelta(seconds=op40_process_time)
+        now = op30[5]
+        time_stamp = now + timedelta(seconds=10)
         op40_data['op40_time_stamp'] = time_stamp
         time_stamp = str(time_stamp)
 
@@ -737,7 +737,7 @@ class machine_operate:
         flange2_h = np.random.normal(40, std)
         flange2_h = round(flange2_h, 5)
 
-        op50_process_time = op40[5]
+        op50_process_time = op40[4]
 
         op50_temperature = np.random.uniform(489, 511)
         op50_temperature = round(op50_temperature, 5)
@@ -806,8 +806,8 @@ class machine_operate:
         else:
             flange2_test = 'NOK'
 
-        now = op40[4]
-        time_stamp = now + timedelta(seconds=op50_process_time)
+        now = op40[5]
+        time_stamp = now + timedelta(seconds=10)
         op50_data['op50_time_stamp'] = time_stamp
         time_stamp = str(time_stamp)
 
@@ -896,7 +896,7 @@ class machine_operate:
 
         product_key = op50[0]
 
-        op60_process_time = op50[5]
+        op60_process_time = op50[4]
 
         op60_l = op50[1]
         op60_data['op60_l'] = op60_l
@@ -931,8 +931,8 @@ class machine_operate:
             op60_test = 'NOK'
             op60_data['op60_test'] = op60_test
 
-        now = op50[4]
-        time_stamp = now + timedelta(seconds=op60_process_time)
+        now = op50[5]
+        time_stamp = now + timedelta(seconds=10)
         op60_data['op60_time_stamp'] = time_stamp
         time_stamp = str(time_stamp)
 

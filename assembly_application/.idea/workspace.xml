@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="118d2fbb-0fa9-4a75-ba5b-338f53a13c93" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/machine.py" beforeDir="false" afterPath="$PROJECT_DIR$/machine.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/process.py" beforeDir="false" afterPath="$PROJECT_DIR$/process.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -18,8 +20,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="182" column="14" lean-forward="true" selection-start-line="182" selection-start-column="14" selection-end-line="182" selection-end-column="14" />
+            <state relative-caret-position="3458">
+              <caret line="182" column="14" selection-start-line="182" selection-start-column="14" selection-end-line="182" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -27,8 +29,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/process.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="536" column="43" lean-forward="true" selection-start-line="536" selection-start-column="43" selection-end-line="536" selection-end-column="43" />
+            <state relative-caret-position="236">
+              <caret line="683" column="54" lean-forward="true" selection-start-line="683" selection-start-column="54" selection-end-line="683" selection-end-column="54" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -39,8 +41,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/machine.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-684">
-              <caret line="939" column="46" selection-start-line="939" selection-start-column="46" selection-end-line="939" selection-end-column="46" />
+            <state relative-caret-position="-3268">
+              <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -51,8 +53,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SQL.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="138">
-              <caret line="325" lean-forward="true" selection-start-line="325" selection-end-line="325" />
+            <state relative-caret-position="6175">
+              <caret line="325" selection-start-line="325" selection-end-line="325" />
             </state>
           </provider>
         </entry>
@@ -165,14 +167,14 @@
         <option value="$PROJECT_DIR$/templates/data_generator_test.py" />
         <option value="$PROJECT_DIR$/templates/data_generator_test.html" />
         <option value="$PROJECT_DIR$/app.py" />
-        <option value="$PROJECT_DIR$/machine.py" />
         <option value="$PROJECT_DIR$/process.py" />
+        <option value="$PROJECT_DIR$/machine.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="252" />
-    <option name="y" value="78" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="267" />
+    <option name="y" value="-14" />
     <option name="width" value="1545" />
     <option name="height" value="930" />
   </component>
@@ -381,10 +383,11 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="202" y="63" width="1236" height="744" extended-state="0" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" sideWeight="0.5011876" side_tool="true" weight="0.23583333" />
-      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.49881235" visible="true" weight="0.23583333" />
+      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.49881235" visible="true" weight="0.18692206" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="0" weight="0.32843137" />
       <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
@@ -392,7 +395,7 @@
       <window_info anchor="bottom" id="Python Console" order="3" />
       <window_info anchor="bottom" id="Message" order="4" />
       <window_info anchor="bottom" id="Find" order="5" />
-      <window_info anchor="bottom" id="Run" order="6" weight="0.3120915" />
+      <window_info active="true" anchor="bottom" id="Run" order="6" visible="true" weight="0.31161472" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
@@ -622,6 +625,15 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test.py" />
+    <entry file="file://$PROJECT_DIR$/templates/data_generator_test.py" />
+    <entry file="file://$PROJECT_DIR$/templates/data_generator_test.html" />
+    <entry file="file://$PROJECT_DIR$/SQL.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6175">
+          <caret line="325" selection-start-line="325" selection-end-line="325" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/templates/Quality_index.html">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -662,34 +674,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/data_generator_test.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/data_generator_test.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="7" selection-start-line="7" selection-end-line="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="182" column="14" lean-forward="true" selection-start-line="182" selection-start-column="14" selection-end-line="182" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SQL.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="325" lean-forward="true" selection-start-line="325" selection-end-line="325" />
+        <state relative-caret-position="3458">
+          <caret line="182" column="14" selection-start-line="182" selection-start-column="14" selection-end-line="182" selection-end-column="14" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/machine.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-684">
-          <caret line="939" column="46" selection-start-line="939" selection-start-column="46" selection-end-line="939" selection-end-column="46" />
+        <state relative-caret-position="-3268">
+          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
@@ -698,8 +693,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/process.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="536" column="43" lean-forward="true" selection-start-line="536" selection-start-column="43" selection-end-line="536" selection-end-column="43" />
+        <state relative-caret-position="236">
+          <caret line="683" column="54" lean-forward="true" selection-start-line="683" selection-start-column="54" selection-end-line="683" selection-end-column="54" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
