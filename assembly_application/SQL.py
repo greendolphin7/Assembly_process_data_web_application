@@ -1,4 +1,5 @@
 import pymysql
+from datetime import datetime, timedelta
 
 class MySQL_query:
     def __init__(self):
@@ -333,6 +334,89 @@ class MySQL_query:
                 'product_size_h': obj[2],
                 'product_test': obj[3],
                 'product_test_timestamp': obj[4],
+            }
+            data_list.append(data_dic)
+
+        conn.close()
+
+        return data_list
+
+    def get_time_for_availability(self):
+        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+
+        sql = '''
+            select machine_code, process_time
+            from machine where end_time between '%s' AND '%s'
+        ''' %(datetime.now() - timedelta(days = 1), datetime.now())
+
+        cursor = conn.cursor()
+        cursor.execute(sql)
+        row = cursor.fetchall()
+
+        data_list = []
+
+        for obj in row:
+            data_dic = {
+                'machine_code': obj[0],
+                'process_time': obj[1]
+            }
+            data_list.append(data_dic)
+
+        conn.close()
+
+        return data_list
+
+    def get_item_count_for_productivity(self):
+        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+
+        sql = '''
+
+        SELECT count(product_code)
+        FROM product_history WHERE product_timestamp BETWEEN '%s' AND '%s'
+        AND product_code = "EGRC";
+
+        ''' % (datetime.now() - timedelta(days=1), datetime.now())
+
+        cursor = conn.cursor()
+        cursor.execute(sql)
+        row = cursor.fetchall()
+
+        data_list = []
+
+        for obj in row:
+            data_dic = {
+                'total_item_count': obj[0],
+            }
+            data_list.append(data_dic)
+
+        conn.close()
+
+        return data_list
+
+    def get_item_count_for_quality(self):
+        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+
+        sql = '''
+
+            SELECT product_test,
+            count(product_quality.product_test)
+            FROM product_history INNER JOIN product_quality
+            ON  product_history.product_key = product_quality.product_key
+            WHERE product_code = 'EGRC' AND product_timestamp BETWEEN '%s' AND '%s'
+            group by product_test;
+
+        ''' % (datetime.now() - timedelta(days=1), datetime.now())
+
+        cursor = conn.cursor()
+        cursor.execute(sql)
+        row = cursor.fetchall()
+
+        data_list = []
+
+        for obj in row:
+            data_dic = {
+                'test_result': obj[0],
+                'item_count': obj[1]
             }
             data_list.append(data_dic)
 
