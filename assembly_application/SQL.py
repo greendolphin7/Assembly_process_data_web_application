@@ -423,3 +423,44 @@ class MySQL_query:
         conn.close()
 
         return data_list
+
+    def get_item_count_for_gauge():
+        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+
+        a = datetime.today().hour
+        b = datetime.today().minute
+        c = datetime.today().second
+        d = datetime.today().microsecond
+
+        midnight = datetime.now() - timedelta(hours=a)
+        midnight = midnight - timedelta(minutes=b)
+        midnight = midnight - timedelta(seconds=c)
+        midnight = midnight - timedelta(microseconds=d)
+
+        sql = '''
+
+            SELECT product_test,
+            count(product_quality.product_test)
+            FROM product_history INNER JOIN product_quality
+            ON  product_history.product_key = product_quality.product_key
+            WHERE product_code = 'EGRC' AND product_timestamp BETWEEN '%s' AND '%s'
+            group by product_test;
+
+        ''' % (midnight, datetime.now())
+
+        cursor = conn.cursor()
+        cursor.execute(sql)
+        row = cursor.fetchall()
+
+        data_list = []
+
+        for obj in row:
+            data_dic = {
+                'test_result': obj[0],
+                'item_count': obj[1]
+            }
+            data_list.append(data_dic)
+
+        conn.close()
+
+        return data_list

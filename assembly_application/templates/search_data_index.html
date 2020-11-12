@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>조립공정 데이터 실시간 모니터링 웹 애플리케이션</title>
+
+    <form method="POST" action="/selectin">
+        <h1> 공정 데이터 출력 </h1>
+        <h3> 사용자가 원하는 공정(OP)을 입력하시오</br></h3>
+        <input type="text" name="num">
+        <button type="submit">검색</button>
+    </form>
+
+    <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>body_h</th>
+      <th>body_l</th>
+      <th>body_w</th>
+      <th>flange1_h</th>
+      <th>flange1_l</th>
+      <th>flange1_w</th>
+      <th>flange2_h</th>
+      <th>flange2_l</th>
+      <th>flange2_w</th>
+      <th>op10_electricity</th>
+      <th>op10_h</th>
+      <th>op10_l</th>
+      <th>op10_process_time</th>
+      <th>op10_test</th>
+      <th>op10_time_stamp</th>
+      <th>op10_w</th>
+      <th>op20_electricity</th>
+      <th>op20_h</th>
+      <th>op20_l</th>
+      <th>op20_process_time</th>
+      <th>op20_test</th>
+      <th>op20_time_stamp</th>
+      <th>op20_w</th>
+      <th>op30_electricity</th>
+      <th>op30_h</th>
+      <th>op30_l</th>
+      <th>op30_process_time</th>
+      <th>op30_test</th>
+      <th>op30_time_stamp</th>
+      <th>op30_w</th>
+      <th>op40_h</th>
+      <th>op40_l</th>
+      <th>op40_process_time</th>
+      <th>op40_temperature</th>
+      <th>op40_test</th>
+      <th>op40_time_stamp</th>
+      <th>op40_w</th>
+      <th>op50_h</th>
+      <th>op50_l</th>
+      <th>op50_process_time</th>
+      <th>op50_temperature</th>
+      <th>op50_test</th>
+      <th>op50_time_stamp</th>
+      <th>op50_w</th>
+      <th>op60_h</th>
+      <th>op60_l</th>
+      <th>op60_process_time</th>
+      <th>op60_test</th>
+      <th>op60_time_stamp</th>
+      <th>op60_w</th>
+      <th>pipe1_h</th>
+      <th>pipe1_l</th>
+      <th>pipe1_w</th>
+      <th>pipe2_h</th>
+      <th>pipe2_l</th>
+      <th>pipe2_w</th>
+      <th>production_key</th>
+      <th>wavyfin_h</th>
+      <th>wavyfin_l</th>
+      <th>wavyfin_w</th></b>
+    </tr>
+  </thead>
+  <tbody>
+    <b>
+      {% for i in range(1,10) %}
+        <th>23232</th>
+        <td>50.00079</td>
+        <td>200.00277</td>
+        <td>99.99905</td>
+        <td>39.99700</td>
+        <td>29.99844</td>
+        <td>79.99651</td>
+        <td>40.00090</td>
+        <td>30.00175</td>
+        <td>79.99983</td>
+        <td>94.50061</td>
+        <td>59.99873</td>
+        <td>200.00277</td>
+        <td>24.19317</td>
+        <td>0</td>
+        <td>2020-10-09 15:33:30</td>
+        <td>99.99905</td>
+        <td>90.12160</td>
+        <td>59.99873</td>
+        <td>200.00277</td>
+        <td>3.95894</td>
+        <td>0</td>
+        <td>2020-10-09 15:33:30</td>
+        <td>140.00012</td>
+        <td>90.66463</td>
+        <td>59.99873</td>
+        <td>200.00277</td>
+        <td>1.52307</td>
+        <td>0</td>
+        <td>2020-10-09 15:33:30</td>
+        <td>180.00052</td>
+        <td>59.99873</td>
+        <td>230.00121</td>
+        <td>28.85122</td>
+        <td>496.73240</td>
+        <td>0</td>
+        <td>2020-10-09 15:33:30</td>
+        <td>180.00052</td>
+        <td>59.99873</td>
+        <td>260.00296</td>
+        <td>4.80941</td>
+        <td>498.91865</td>
+        <td>0</td>
+        <td>2020-10-09 15:33:30</td>
+        <td>180.00052</td>
+        <td>59.99873</td>
+        <td>260.00296</td>
+        <td>2.71534</td>
+        <td>0</td>
+        <td>2020-10-09 15:33:30</td>
+        <td>180.00052</td>
+        <td>29.99780</td>
+        <td>29.99909</td>
+        <td>50.00107</td>
+        <td>29.99766</td>
+        <td>29.99854</td>
+        <td>50.00040</td>
+        <td>0</td>
+        <td>59.99873</td>
+        <td>99.99790</td>
+      <td>50.00084</td></b>
+      {% endfor %}
+    </tr>
+  </tbody>
+</table>
+</head>
+<body>
+
+</body>
+</html>

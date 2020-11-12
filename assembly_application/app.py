@@ -118,7 +118,9 @@ def home():
 
 @app.route('/')
 def Korenas_monitoring():
-    return render_template('Korens_monitoring.html')
+    return render_template('index.html')
+
+
 
 
 @app.route('/process_load', methods=['POST', 'GET'])
@@ -171,7 +173,7 @@ def machine_data_load():
 
 @app.route('/data')
 def data():
-    return render_template('index.html')
+    return render_template('search_data_index.html')
 
 
 @app.route('/dataop')
