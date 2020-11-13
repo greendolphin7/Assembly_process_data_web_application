@@ -424,7 +424,7 @@ class MySQL_query:
 
         return data_list
 
-    def get_item_count_for_gauge():
+    def get_item_count_for_gauge(self):
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
 
         a = datetime.today().hour
@@ -464,3 +464,4 @@ class MySQL_query:
         conn.close()
 
         return data_list
+
