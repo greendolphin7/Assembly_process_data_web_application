@@ -617,6 +617,8 @@ class process_operate:
                 op10_WIP.append(op20_process_time)
                 op10_WIP.append(op20_start_time)
 
+                op10_time_stamp = datetime.now()
+
             else:  # 한바퀴 돌고 난 다음
                 op50_WIP = []
                 product_key_W6 = '-' + 'W6' + 'P' + str(i - 5)
@@ -624,14 +626,13 @@ class process_operate:
                 op50_l = op50_data['op50_l']
                 op50_w = op50_data['op50_w']
                 op50_h = op50_data['op50_h']
-                op60_start_time = op50_data['op50_time_stamp']
 
                 op50_WIP.append(product_key_W6)
                 op50_WIP.append(op50_l)
                 op50_WIP.append(op50_w)
                 op50_WIP.append(op50_h)
                 op50_WIP.append(op60_process_time)
-                op50_WIP.append(op60_start_time)
+                op50_WIP.append(datetime.now())
 
 
                 op40_WIP = []
@@ -640,15 +641,14 @@ class process_operate:
                 op40_l = op40_data['op40_l']
                 op40_w = op40_data['op40_w']
                 op40_h = op40_data['op40_h']
-                op50_start_time = op40_data['op40_time_stamp']
-
 
                 op40_WIP.append(product_key_W5)
                 op40_WIP.append(op40_l)
                 op40_WIP.append(op40_w)
                 op40_WIP.append(op40_h)
                 op40_WIP.append(op50_process_time)
-                op40_WIP.append(op50_start_time)
+                op40_WIP.append(datetime.now())
+
 
                 op30_WIP = []
                 product_key_W4 = '-' + 'W4' + 'P' + str(i - 3)
@@ -656,14 +656,14 @@ class process_operate:
                 op30_l = op30_data['op30_l']
                 op30_w = op30_data['op30_w']
                 op30_h = op30_data['op30_h']
-                op40_start_time = op30_data['op30_time_stamp']
 
                 op30_WIP.append(product_key_W4)
                 op30_WIP.append(op30_l)
                 op30_WIP.append(op30_w)
                 op30_WIP.append(op30_h)
                 op30_WIP.append(op40_process_time)
-                op30_WIP.append(op40_start_time)
+                op30_WIP.append(datetime.now())
+
 
                 op20_WIP = []
                 product_key_W3 = '-' + 'W3' + 'P' + str(i - 2)
@@ -671,14 +671,15 @@ class process_operate:
                 op20_l = op20_data['op20_l']
                 op20_w = op20_data['op20_w']
                 op20_h = op20_data['op20_h']
-                op30_start_time = op20_data['op20_time_stamp']
+
 
                 op20_WIP.append(product_key_W3)
                 op20_WIP.append(op20_l)
                 op20_WIP.append(op20_w)
                 op20_WIP.append(op20_h)
                 op20_WIP.append(op30_process_time)
-                op20_WIP.append(op30_start_time)
+                op20_WIP.append(datetime.now())
+
 
                 op10_WIP = []
                 product_key_W2 = '-' + 'W2' + 'P' + str(i - 1)
@@ -686,23 +687,14 @@ class process_operate:
                 op10_l = op10_data['op10_l']
                 op10_w = op10_data['op10_w']
                 op10_h = op10_data['op10_h']
-                op20_start_time = op10_data['op10_time_stamp']
 
                 op10_WIP.append(product_key_W2)
                 op10_WIP.append(op10_l)
                 op10_WIP.append(op10_w)
                 op10_WIP.append(op10_h)
                 op10_WIP.append(op20_process_time)
-                op10_WIP.append(op20_start_time)
+                op10_WIP.append(datetime.now())
 
-            time.sleep(10)
-
-            # 공정들 6개 실행
-            op60_data = machine_operate.op60(op50_WIP)
-            op50_data = machine_operate.op50(op40_WIP)
-            op40_data = machine_operate.op40(op30_WIP)
-            op30_data = machine_operate.op30(op20_WIP)
-            op20_data = machine_operate.op20(op10_WIP)
 
             # 새 제품 생산
             body = []
@@ -716,24 +708,32 @@ class process_operate:
             body_h = np.random.normal(50, std)  # body 치수 데이터 생성
             body_h = round(body_h, 5)
 
+            op10_time_stamp = datetime.now()
+
             body.append(product_key_W1)
             body.append(body_l)
             body.append(body_w)
             body.append(body_h)
             body.append(op10_process_time)
-            body.append(datetime.now())
+            body.append(op10_time_stamp)  # 시작 시간
 
+            time.sleep(10)
+
+            # 공정들 6개 실행
+            op60_data = machine_operate.op60(op50_WIP)
+            op50_data = machine_operate.op50(op40_WIP)
+            op40_data = machine_operate.op40(op30_WIP)
+            op30_data = machine_operate.op30(op20_WIP)
+            op20_data = machine_operate.op20(op10_WIP)
             op10_data = machine_operate.op10(body)
 
             total_test_data.append(op30_data)
             total_test_data.append(op20_data)
             total_test_data.append(op10_data)
 
-
             op10_data = total_test_data.pop(0)
             op20_data = total_test_data.pop(0)
             op30_data = total_test_data.pop(1)
-
 
             pred = Predict.predict_quality(op10_data, op20_data, op30_data)
             print('P' + str(i-2) + ' 품질 예측값: ' + str(pred))

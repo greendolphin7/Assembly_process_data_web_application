@@ -987,4 +987,7 @@ class machine_operate:
         machine_data_list.append(machine_data_insert)
 
         MySQL_query.insert_machine(machine_data_list)  # machine 데이터 DB 적재
+
+
+
         return op60_data
