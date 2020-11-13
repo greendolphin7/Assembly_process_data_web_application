@@ -465,3 +465,40 @@ class MySQL_query:
 
         return data_list
 
+    def get_machine_data_for_realtime(machine_code, product_key):  # 데이터 모니터링할 때 실시간 조회 가능하게 만들어주는 함수
+
+        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+
+        sql = '''
+
+                SELECT machine.product_key, machine.machine_code, machine.machine_data, machine.process_time, machine.start_time, 
+                machine.end_time, product_quality.product_size_l, product_quality.product_size_w, product_quality.product_size_h
+                FROM machine INNER JOIN product_quality
+                ON  machine.product_key = product_quality.product_key
+                WHERE machine.machine_code = '%s' AND machine.product_key = '%s';
+
+        ''' % (machine_code, product_key)
+
+        cursor = conn.cursor()
+        cursor.execute(sql)
+        row = cursor.fetchall()
+
+        data_list = []
+
+        for obj in row:
+            data_dic = {
+                'product_key': obj[0],
+                'machine_code': obj[1],
+                'machine_data': obj[2],
+                'process_time': obj[3],
+                'start_time': obj[4],
+                'end_time': obj[5],
+                'product_size_l': obj[6],
+                'product_size_w': obj[7],
+                'product_size_h': obj[8]
+            }
+            data_list.append(data_dic)
+
+        conn.close()
+
+        return data_list
