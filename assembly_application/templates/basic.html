@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="{{url_for('static', filename='css/basic.css') }}" />
+  <script src="/static/js/basic.js" defer></script>
+</head>
+<body>
+  <!--차트-->
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<figure class="highcharts-figure">
+  <div id="container-speed" class="chart-container"></div>
+  <div id="container-rpm" class="chart-container"></div>
+  <div id="container-1" class="chart-container"></div>
+  <div id="container-2" class="chart-container"></div>
+</figure>
+</body>
+</html>

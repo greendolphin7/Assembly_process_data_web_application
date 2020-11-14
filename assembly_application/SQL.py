@@ -472,7 +472,7 @@ class MySQL_query:
         sql = '''
 
                 SELECT machine.product_key, machine.machine_code, machine.machine_data, machine.process_time, machine.start_time, 
-                machine.end_time, product_quality.product_size_l, product_quality.product_size_w, product_quality.product_size_h
+                machine.end_time, product_quality.product_test, product_quality.product_size_l, product_quality.product_size_w, product_quality.product_size_h
                 FROM machine INNER JOIN product_quality
                 ON  machine.product_key = product_quality.product_key
                 WHERE machine.machine_code = '%s' AND machine.product_key = '%s';
@@ -493,9 +493,40 @@ class MySQL_query:
                 'process_time': obj[3],
                 'start_time': obj[4],
                 'end_time': obj[5],
-                'product_size_l': obj[6],
-                'product_size_w': obj[7],
-                'product_size_h': obj[8]
+                'product_test': obj[6],
+                'product_size_l': obj[7],
+                'product_size_w': obj[8],
+                'product_size_h': obj[9]
+            }
+            data_list.append(data_dic)
+
+        conn.close()
+
+        return data_list
+
+    def get_product_key_machine_code(self):
+
+
+        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+
+        sql = '''
+        
+            SELECT product_key, machine_code
+            from machine where machine_code = 'OP10' 
+            order by end_time DESC LIMIT 1;
+
+        '''
+
+        cursor = conn.cursor()
+        cursor.execute(sql)
+        row = cursor.fetchall()
+
+        data_list = []
+
+        for obj in row:
+            data_dic = {
+                'product_key': obj[0],
+                'machine_code': obj[1]
             }
             data_list.append(data_dic)
 

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/Signin.css') }}" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap"
+      rel="stylesheet"
+    />
+    <title>DayTory</title>
+    <script
+      src="https://kit.fontawesome.com/2d323a629b.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/static/js/Signin.js" defer></script>
+
+  </head>
+  <body>
+  <!--<header>  
+    <nav class="navbar">
+      <div class="navbar__logo">
+        <i class="fab fa-accusoft"></i>
+        <a href="Login.html">DayTory</a>
+      </div>
+  </header>-->
+  <br><br>
+  <div class = "container">
+    <div class ="register">
+      <br><h1> Sign In <h1>
+      <div class = "label"> ID </div>
+      <div class = "form">
+      <input type="text" id = "userId" placeholder="Enter Username"/>
+      </div>
+      <div class = "label">Email</div>
+      <div class = "form">
+          <input type="email" id = "userEmail" placeholder="Enter Email"/>
+      </div>
+      <div class = "label">Password</div>
+      <div class = "form">
+          <input type="text" id = "pass" placeholder="Enter Password"/>
+      </div>  
+      <div class = "label">Confirm Password</div>
+      <div class = "form">
+      <input type="text" id = "pass2" placeholder="Enter Password again"/>
+      </div>   
+      <a href="Login.html"><button class="button">Sign UP</button></a>
+    </div>
+  </div>  
+
+</body>
+</html>

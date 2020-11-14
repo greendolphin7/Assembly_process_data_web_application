@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-    <link rel="stylesheet" href="{{url_for('static', filename='css/Home.css') }}" />
-    <script src="/static/css/Home.js" defer></script>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/Date1.css') }}" />
+    <link rel="stylesheet" href="{{url_for('static', filename='css/Date.css') }}" />
+    <script src="/static/js/Date1.js" defer></script>
+    <script src="/static/js/Date.js" defer></script>
     <link
       href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap"
       rel="stylesheet"
@@ -47,23 +49,32 @@
 </header>
 <main>
   <div id="AA">
-      <div id="slider">
-        <div id="slide-holder">
-          <div class="slide"><img src="https://unsplash.it/400/200/?image=934" alt="" /></div>
-          <div class="slide"><img src="https://unsplash.it/400/200/?image=1045" alt="" /></div>
-          <div class="slide"><img src="https://unsplash.it/400/200/?image=215" alt="" /></div>
-        </div>
-        </div> 
-        </div>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    
+    <figure class="highcharts-figure2">
+    <div id="container1"></div>
+    </figure>
+  </div>
   <div id="BB">
-    <box>
-      2
-    </box>
+    <br><br><br><br>
+    <div id="chartContainer" style="height: 230px; width: 100%;"></div>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
   </div>
   <div id="CC">
-    <box>
-      3
-    </box>
+    <p id="Search"><input type="date"><input type="date">
+    <input type="submit" value="Submit">&nbsp;&nbsp;&nbsp;&nbsp;</p>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+
+    <figure class="highcharts-figure">
+      <div id="container"></div>
+    </figure>
+    <p id="DAYTORY"><i class="fab fa-accusoft"></i>DAYTORY</p>
   </div>
 </main>
 </body>

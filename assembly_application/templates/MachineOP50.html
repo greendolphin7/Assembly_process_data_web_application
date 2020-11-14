@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/Machine.css') }}" />
+    <script src="/static/js/MachineOP50.js" defer></script>
+    <script src="/static/js/Machine2.js" defer></script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap"
+      rel="stylesheet"
+    />
+    <title>Nav bar</title>
+    <script
+      src="https://kit.fontawesome.com/2d323a629b.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+  <header>
+    <!-- Nav container -->
+    <nav class="navbar">
+      <!-- Logo with text -->
+      <div class="navbar__logo">
+        <i class="fab fa-accusoft"></i>
+        <a href="Home">DayTory</a>
+      </div>
+      <!-- Menu -->
+      <ul class="navbar__menu">
+        <li><a href="Monitoring">MONITORING</a></li>
+        <li><a href="Machine">MACHINE</a></li>
+        <li><a href="Date">DATE</a></li>
+        <li><a href="Item">ITEM</a></li>
+        <li><a href="Analysis">ANALYSIS</a></li>
+        <li><a href="Predict">PREDICT</a></li>
+      </ul>
+      <!-- Icons -->
+      <ul class="navbar__Logout">
+        <li><a href="Login.html">Log Out</a></li>
+      </ul>
+      <!-- Toggle button -->
+    <a href="#" class="navbar__toggleBtn">
+    <i class="fas fa-bars"></i>
+    </a>
+  </nav>
+</header>
+<main>
+  <div id="AA">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="/static/js/MachineOP50.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+    <figure class="highcharts-figure">
+      <div id="container"></div>
+    </figure>
+  </div>
+  <div id="BB">
+    <table id="datatable">
+      <thead>
+        <tr>
+          <th></th>
+          <th>들어간부품</th>
+          <th>재공품</th>
+          <th>전기,온도값</th>
+          <th>프로세스타임</th>
+          <th>시작시간</th>
+          <th>끝시간</th>
+          <th>양품,불량</th>
+          <th>치수</th>
+          <th>치수</th>
+          <th>치수</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>1번</th>
+          <th>0</th>
+          <th>1</th>
+          <th>2</th>
+          <th>3</th>
+          <th>4</th>
+          <th>5</th>
+          <th>6</th>
+          <th>7</th>
+          <th>8</th>
+          <th>9</th>
+        </tr>
+        <tr>
+          <th>2번</th>
+          <th>0</th>
+          <th>1</th>
+          <th>2</th>
+          <th>3</th>
+          <th>4</th>
+          <th>5</th>
+          <th>6</th>
+          <th>7</th>
+          <th>8</th>
+          <th>9</th>
+        </tr>
+        <tr>
+          <th>3번</th>
+          <th>0</th>
+          <th>1</th>
+          <th>2</th>
+          <th>3</th>
+          <th>4</th>
+          <th>5</th>
+          <th>6</th>
+          <th>7</th>
+          <th>8</th>
+          <th>9</th>
+        </tr>
+        <tr>
+          <th>4번</th>
+          <th>0</th>
+          <th>1</th>
+          <th>2</th>
+          <th>3</th>
+          <th>4</th>
+          <th>5</th>
+          <th>6</th>
+          <th>7</th>
+          <th>8</th>
+          <th>9</th>
+        </tr>
+        <tr>
+          <th>5번</th>
+          <th>0</th>
+          <th>1</th>
+          <th>2</th>
+          <th>3</th>
+          <th>4</th>
+          <th>5</th>
+          <th>6</th>
+          <th>7</th>
+          <th>8</th>
+          <th>9</th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div id="CC">
+    <br><br>
+      <a href="Machine">
+        <button class="button" >OP10</button></a>
+    <br><br><br><br><br><br>
+    <a href="MachineOP20">
+        <button class="button" >OP20</button></a>
+    <br><br><br><br><br><br>
+    <a href="MachineOP30">
+        <button class="button" >OP30</button></a>
+    <br><br><br><br><br><br>
+    <a href="MachineOP40">
+        <button class="button" >OP40</button></a>
+    <br><br><br><br><br><br>
+    <a href="MachineOP50">
+        <button class="button" >OP50</button></a>
+  </div>
+</main>
+</body>
+</html>

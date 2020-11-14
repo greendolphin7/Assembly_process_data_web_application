@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/Monitoring.css') }}" />
+    <script src="/static/js/Monitoring.js" defer></script>
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap"
+      rel="stylesheet"
+    />
+    <title>Nav bar</title>
+    <script
+      src="https://kit.fontawesome.com/2d323a629b.js"
+      crossorigin="anonymous"
+    ></script>
+    <!--차트-->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+  </head>
+  <body>
+  <header> 
+    <!-- Nav container -->
+    <nav class="navbar">
+      <!-- Logo with text -->
+      <div class="navbar__logo">
+        <i class="fab fa-accusoft"></i>
+        <a href="Home">DayTory</a>
+      </div>
+      <!-- Menu -->
+      <ul class="navbar__menu">
+        <li><a href="Monitoring">MONITORING</a></li>
+        <li><a href="Machine">MACHINE</a></li>
+        <li><a href="Date">DATE</a></li>
+        <li><a href="Item">ITEM</a></li>
+        <li><a href="Analysis">ANALYSIS</a></li>
+        <li><a href="Predict">PREDICT</a></li>
+      </ul>
+      <!-- Icons -->
+      <ul class="navbar__Logout">
+        <li><a href="Login.html">Log Out</a></li>
+      </ul>
+      <!-- Toggle button -->
+    <a href="#" class="navbar__toggleBtn">
+    <i class="fas fa-bars"></i>
+    </a>
+  </nav>
+</header>
+<main>
+  <div id="AA">
+    <p id="aa">&nbsp;&nbsp;&nbsp;설비 종합 효율</p>
+    <figure class="highcharts-figure">
+      <div id="container-speed" class="chart-container"></div>
+      <div id="container-rpm" class="chart-container"></div>
+      <div id="container-1" class="chart-container"></div>
+      <div id="container-2" class="chart-container"></div>
+    </figure>
+  </div>
+  <div id="BB">
+    <p id="bb">&nbsp;&nbsp;&nbsp;공정 진행 상황</p>
+    <box id="bbb" >
+    </box>
+  </div>
+  <div id="CC">
+    <br>
+    <!--실시간 데이터 송출-->
+    <p id="생산물품">생산물품</p>
+    <div id="DD"><p id=EGR>EGR 쿨러</p></div>
+    <p id="진행상황">진행상황</p>
+    <div id="EE">
+      <progress id="file" max="100" value="70"> 70% </progress>
+    </div>  
+    <p id="목표값">목표값</p>
+    <div id="FF"><p id=egr1>8000</p></div>
+    <p id="실제값">실제값</p>
+    <div id="GG"><p id=egr2>4000</p></div> 
+  </div>
+</main>
+</body>
+</html>
