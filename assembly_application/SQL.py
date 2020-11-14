@@ -1,5 +1,7 @@
 import pymysql
 from datetime import datetime, timedelta
+from flask import jsonify
+
 
 class MySQL_query:
     def __init__(self):
@@ -465,7 +467,7 @@ class MySQL_query:
 
         return data_list
 
-    def get_machine_data_for_realtime(machine_code, product_key):  # 데이터 모니터링할 때 실시간 조회 가능하게 만들어주는 함수
+    def get_machine_data_for_realtime(machine_code, product_key):
 
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
 
@@ -489,14 +491,14 @@ class MySQL_query:
             data_dic = {
                 'product_key': obj[0],
                 'machine_code': obj[1],
-                'machine_data': obj[2],
-                'process_time': obj[3],
-                'start_time': obj[4],
-                'end_time': obj[5],
-                'product_test': obj[6],
-                'product_size_l': obj[7],
-                'product_size_w': obj[8],
-                'product_size_h': obj[9]
+                'machine_data': str(obj[2]),
+                'process_time': str(obj[3]),
+                'start_time': str(obj[4]),
+                'end_time': str(obj[5]),
+                'product_test': str(obj[6]),
+                'product_size_l': str(obj[7]),
+                'product_size_w': str(obj[8]),
+                'product_size_h': str(obj[9])
             }
             data_list.append(data_dic)
 
@@ -505,7 +507,6 @@ class MySQL_query:
         return data_list
 
     def get_product_key_machine_code(self):
-
 
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
 
@@ -528,6 +529,7 @@ class MySQL_query:
                 'product_key': obj[0],
                 'machine_code': obj[1]
             }
+
             data_list.append(data_dic)
 
         conn.close()

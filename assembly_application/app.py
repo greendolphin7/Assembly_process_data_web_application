@@ -52,15 +52,15 @@ def live_Electronic_OP10():
     return response
 
 
-@app.route('/realtime_table')
-def post_realtime_table():
+@app.route('/realtime_data')
+def post_realtime_data():
     parameter = MySQL_query.get_product_key_machine_code(1)
     product_key = parameter[0]['product_key']
     machine_code = parameter[0]['machine_code']
 
     data = MySQL_query.get_machine_data_for_realtime(machine_code, product_key)
 
-    data = data[0]
+    data = data[0]  # 여기서 data가 딕셔너리 형태로 변환
 
     data_list = []
     product_key = product_key[-4:]
@@ -85,7 +85,14 @@ def post_realtime_table():
     data_list.append(product_size_w)
     data_list.append(product_size_h)
 
-    return jsonify(data_list)
+    return data
+
+@app.route('/realtime_table')
+def post_realtime_table():
+
+    return render_template('realtime_table.html')
+
+
     #
     # results = cursor.fetchall()
     # result_list = list(results[-1])
