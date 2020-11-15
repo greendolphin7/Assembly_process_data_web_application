@@ -62,91 +62,29 @@
     </figure>
   </div>
   <div id="BB">
-    <table id="datatable">
-      <thead>
-        <tr>
-          <th></th>
-          <th>들어간부품</th>
-          <th>재공품</th>
-          <th>전기,온도값</th>
-          <th>프로세스타임</th>
-          <th>시작시간</th>
-          <th>끝시간</th>
-          <th>양품,불량</th>
-          <th>치수</th>
-          <th>치수</th>
-          <th>치수</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th>1번</th>
-          <th>0</th>
-          <th>1</th>
-          <th>2</th>
-          <th>3</th>
-          <th>4</th>
-          <th>5</th>
-          <th>6</th>
-          <th>7</th>
-          <th>8</th>
-          <th>9</th>
-        </tr>
-        <tr>
-          <th>2번</th>
-          <th>0</th>
-          <th>1</th>
-          <th>2</th>
-          <th>3</th>
-          <th>4</th>
-          <th>5</th>
-          <th>6</th>
-          <th>7</th>
-          <th>8</th>
-          <th>9</th>
-        </tr>
-        <tr>
-          <th>3번</th>
-          <th>0</th>
-          <th>1</th>
-          <th>2</th>
-          <th>3</th>
-          <th>4</th>
-          <th>5</th>
-          <th>6</th>
-          <th>7</th>
-          <th>8</th>
-          <th>9</th>
-        </tr>
-        <tr>
-          <th>4번</th>
-          <th>0</th>
-          <th>1</th>
-          <th>2</th>
-          <th>3</th>
-          <th>4</th>
-          <th>5</th>
-          <th>6</th>
-          <th>7</th>
-          <th>8</th>
-          <th>9</th>
-        </tr>
-        <tr>
-          <th>5번</th>
-          <th>0</th>
-          <th>1</th>
-          <th>2</th>
-          <th>3</th>
-          <th>4</th>
-          <th>5</th>
-          <th>6</th>
-          <th>7</th>
-          <th>8</th>
-          <th>9</th>
-        </tr>
-      </tbody>
-    </table>
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="/static/js/table.js" ></script>
+    <link href="https://nightly.datatables.net/css/jquery.dataTables.css" rel="stylesheet" type="text/css" />
+    <script src="https://nightly.datatables.net/js/jquery.dataTables.js"></script>
+    <div class="container">
+      <table id="coinTable" class="display nowrap" width="100%">
+        <thead>
+          <tr>
+            <th>product_key</th>
+            <th>machine_code</th>
+            <th>process_time</th>
+            <th>start_time</th>
+            <th>end_time</th>
+            <th>product_test</th>
+            <th>product_size_l</th>
+            <th>product_size_w</th>
+            <th>product_size_h</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
   </div>
+
   <div id="CC">
     <br><br>
       <a href="Machine">

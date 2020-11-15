@@ -6,7 +6,7 @@ from time import time
 import json
 import pymysql
 
-app.count = 0
+app.count = 1
 
 @app.route('/Home')
 def Home():
@@ -87,25 +87,45 @@ def post_realtime_data():
 
     return data
 
-@app.route('/realtime_table')
-def post_realtime_table():
+@app.route('/realtime_table_OP10')
+def realtime_table_OP10():
+    count = app.count
+    conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
 
-    return render_template('realtime_table.html')
+    sql = '''
+                   SELECT machine.product_key, machine.machine_code, machine.machine_data, machine.process_time, 
+                   machine.start_time, machine.end_time, product_quality.product_test, 
+                   product_quality.product_size_l, product_quality.product_size_w, product_quality.product_size_h
+                   FROM machine INNER JOIN product_quality
+                   ON  machine.product_key = product_quality.product_key
+                   WHERE machine.machine_code = 'OP10' order by end_time ASC LIMIT %s
+                   
+           ''' % (count)
 
+#order by end_time DESC LIMIT 5
+    cursor = conn.cursor()
+    cursor.execute(sql)
+    row = cursor.fetchall()
+    app.count += 1
+    data_list = []
+    for obj in row:
+        data_dic = {
+            'product_key': obj[0][-4:],
+            'machine_code': obj[1],
+            'machine_data': str(obj[2]),
+            'process_time': str(obj[3]),
+            'start_time': obj[4],
+            'end_time': obj[5],
+            'product_test': obj[6],
+            'product_size_l': str(obj[7]),
+            'product_size_w': str(obj[8]),
+            'product_size_h': str(obj[9])
+        }
+        data_list.append(data_dic)
 
-    #
-    # results = cursor.fetchall()
-    # result_list = list(results[-1])
-    # result = str(result_list)
-    # result_re1 = result.replace("[", "")
-    # result_re2 = result_re1.replace("]", "")
-    # result_re3 = float(result_re2)
-    # app.count += 1
-    # data = [time() * 5000, result_re3]
-    # response = make_response(json.dumps(data))
-    # print(result_re3)
-    # response.content_type = 'application/json'
-    # return response
+    conn.close()
+
+    return jsonify(data_list)
 
 
 @app.route('/MachineOP20')
@@ -234,4 +254,4 @@ def Signin():
 
 
 if __name__ == '__main__':
-   app.run('0.0.0.0', port=5001, debug=True)
+   app.run('0.0.0.0', port=5002, debug=True)
