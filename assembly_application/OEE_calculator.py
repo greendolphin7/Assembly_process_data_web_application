@@ -4,14 +4,14 @@ class OEE_cal():
 
     def Availability_Calculator(self):
 
-        data = MySQL_query.get_time_for_availability()
+        data = MySQL_query.get_time_for_availability(1)
 
-        op10_makespan = 0
-        op20_makespan = 0
-        op30_makespan = 0
-        op40_makespan = 0
-        op50_makespan = 0
-        op60_makespan = 0
+        op10_makespan = 1
+        op20_makespan = 1
+        op30_makespan = 1
+        op40_makespan = 1
+        op50_makespan = 1
+        op60_makespan = 1
 
         op10_count = 0
         op20_count = 0
@@ -63,23 +63,29 @@ class OEE_cal():
             total_availability = (op10_availability + op20_availability + op30_availability
                                   + op40_availability + op50_availability + op60_availability) / 6
 
+            total_availability = round(total_availability, 1)
+
         return total_availability
 
     def Productivity_Calculator(self):
 
-        data = MySQL_query.get_item_count_for_productivity()
+        data = MySQL_query.get_item_count_for_productivity(1)
 
         total_productivity = (data[0]['total_item_count'] / 8640) * 100
+
+        total_productivity = round(total_productivity, 1)
 
         return total_productivity
 
     def Quality_Calculator(self):
 
-        data = MySQL_query.get_item_count_for_quality()
+        data = MySQL_query.get_item_count_for_quality(1)
 
         OK_count = data[0]['item_count']
         NOK_count = data[1]['item_count']
 
         quality = OK_count / (OK_count + NOK_count) * 100
+
+        quality = round(quality, 1)
 
         return quality

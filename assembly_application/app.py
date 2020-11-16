@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, request, url_for, jsonify, make_response
 app = Flask(__name__)
 from process import process_operate
+from OEE_calculator import OEE_cal
 from SQL import MySQL_query
 from time import time
 import json
@@ -21,6 +22,30 @@ def Monitoring():
 @app.route('/OEE')
 def OEE():
     return render_template('OEE.html')
+
+
+@app.route('/OEE_Cal')
+def OEE_Cal():
+
+    OEE_list = []
+    OEE_dict = {}
+
+    availability = OEE_cal.Availability_Calculator(1)
+
+    productivity = OEE_cal.Productivity_Calculator(1)
+
+    quality = OEE_cal.Quality_Calculator(1)
+
+    OEE = (availability * productivity * quality) / 1000000
+
+    OEE_dict['OEE'] = str(OEE)
+    OEE_dict['availability'] = str(availability)
+    OEE_dict['productivity'] = str(productivity)
+    OEE_dict['quality'] = str(quality)
+
+    OEE_list.append(OEE_dict)
+
+    return jsonify(OEE_list)
 
 
 @app.route('/Machine')
@@ -98,8 +123,7 @@ def realtime_table_OP10():
                    product_quality.product_size_l, product_quality.product_size_w, product_quality.product_size_h
                    FROM machine INNER JOIN product_quality
                    ON  machine.product_key = product_quality.product_key
-                   WHERE machine.machine_code = 'OP10' order by end_time ASC LIMIT %s
-                   
+                   WHERE machine.machine_code = 'OP10' order by end_time DESC LIMIT %s
            ''' % (count)
 
 #order by end_time DESC LIMIT 5
@@ -254,4 +278,4 @@ def Signin():
 
 
 if __name__ == '__main__':
-   app.run('0.0.0.0', port=5002, debug=True)
+   app.run('0.0.0.0', port=5009, debug=True)

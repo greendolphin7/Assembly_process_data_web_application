@@ -349,7 +349,7 @@ class MySQL_query:
         sql = '''
             select machine_code, process_time
             from machine where end_time between '%s' AND '%s'
-        ''' %(datetime.now() - timedelta(days = 1), datetime.now())
+        ''' %(datetime.now() - timedelta(days=1), datetime.now())
 
         cursor = conn.cursor()
         cursor.execute(sql)

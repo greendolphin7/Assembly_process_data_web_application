@@ -4,7 +4,7 @@ let UPDATE = 10000;
 $(document).ready(function() {
 	  var table = $('#coinTable').DataTable( {
              ajax: {
-                 url: "http://127.0.0.1:5002/realtime_table_OP10",
+                 url: "http://localhost:5005/realtime_table_OP10",
                  dataSrc: ''
              },
 		    colReorder: {
@@ -28,6 +28,6 @@ $(document).ready(function() {
 
 setInterval( function () {
   console.log('reload');
-    $('#coinTable').DataTable().ajax.reload();
-//    $('#coinTable').DataTable().ajax.reload(null, false);
+    //$('#coinTable').DataTable().ajax.reload();
+       $('#coinTable').DataTable().ajax.reload(null, true);
 }, UPDATE  );

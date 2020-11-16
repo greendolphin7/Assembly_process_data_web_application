@@ -200,7 +200,7 @@ setInterval(function () {
 
   if (chartspeed) {
     point = chartspeed.series[0].points[0];
-    inc = Math.round((Math.random() - 0.5) * 100);
+    inc = 80;
     newVal = point.y + inc;
 
     if (newVal < 0 || newVal > 200) {
