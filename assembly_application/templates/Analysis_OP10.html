@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet"  href="{{url_for('static', filename='css/Analysis.css') }}" />
+    <script src="/static/js/Analysis.js" defer></script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap"
+      rel="stylesheet"
+    />
+    <title>Nav bar</title>
+    <script
+      src="https://kit.fontawesome.com/2d323a629b.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+  <header> 
+    <!-- Nav container -->
+    <nav class="navbar">
+      <!-- Logo with text -->
+      <div class="navbar__logo">
+        <a id="name" href="Home.html" >
+        <img class="Logo" src="Logo1.png">
+        </a> 
+      </div>
+      <!-- Menu -->
+      <ul class="navbar__menu">
+        <li><a href="Monitoring">MONITORING</a></li>
+        <li><a href="Machine">MACHINE</a></li>
+        <li><a href="Date">DATE</a></li>
+        <li><a href="Item">ITEM</a></li>
+        <li><a href="Analysis">ANALYSIS</a></li>
+        <li><a href="Predict">PREDICT</a></li>
+      </ul>
+      <!-- Icons -->
+      <ul class="navbar__Logout">
+        <li><a href="Login.html">Log Out</a></li>
+      </ul>
+      <!-- Toggle button -->
+    <a href="#" class="navbar__toggleBtn">
+    <i class="fas fa-bars"></i>
+    </a>
+  </nav>
+</header>
+<main>
+  <div id="AA">
+    <box id="SS">
+      <script src="https://code.highcharts.com/highcharts.js"></script>
+      <script src="https://code.highcharts.com/highcharts-more.js"></script>
+      <script src="https://code.highcharts.com/modules/exporting.js"></script>
+      <script src="https://code.highcharts.com/modules/export-data.js"></script>
+      <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+      <figure class="highcharts-figure">
+      <div id="container"></div>
+      </figure>
+      <br>
+    </box>
+
+    <box id="TT">
+      <figure class="highcharts-figure">
+        <div id="container2"></div>
+        </figure>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </box>
+    <box id="UU">
+      <figure class="highcharts-figure">
+        <div id="container3"></div>
+        </figure>
+  </box>
+  </div>
+  <div id="BB">
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/pareto.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <figure class="highcharts-figure4">
+      <div id="container4"></div>
+    </figure>
+  </div>
+  <div id="CC">
+    <br><br>
+    <button class="button">OP10</button>
+    <br><br><br><br><br><br>
+    <button class="button">OP20</button>
+    <br><br><br><br><br><br>
+    <button class="button">OP30</button>
+    <br><br><br><br><br><br>
+    <button class="button">OP40</button>
+    <br><br><br><br><br><br>
+    <button class="button">OP50</button>
+  </div>
+</main>
+</body>
+</html>

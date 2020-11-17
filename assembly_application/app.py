@@ -47,6 +47,7 @@ def OEE_Cal():
 
     return jsonify(OEE_list)
 
+
 @app.route('/re_data', methods=["GET", "POST"])
 def re_data():
     a = OEE_cal.Availability_Calculator(1)  # 시간가동률
@@ -60,6 +61,7 @@ def re_data():
     response.content_type = 'application/json'
 
     return response
+
 
 @app.route('/Machine')
 def Machine():
@@ -124,6 +126,7 @@ def post_realtime_data():
     data_list.append(product_size_h)
 
     return data
+
 
 @app.route('/realtime_table_OP10')
 def realtime_table_OP10():
@@ -216,6 +219,7 @@ def live_Electronic_OP30():
 def MachineOP40():
     return render_template('MachineOP40.html')
 
+
 @app.route('/live_Temperature_OP40')
 def live_Temperature_OP40():
     conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
@@ -274,9 +278,20 @@ def Predict():
     return render_template('Predict.html')
 
 
-@app.route('/Analysis')
-def Analysis():
-    return render_template('Analysis.html')
+@app.route('/Analysis_OP10')
+def Analysis_OP10():
+    return render_template('Analysis_OP10.html')
+
+@app.route('/Scatter_OP10')
+def Scatter_OP10():
+    machine_code = 'OP10'
+    size = 'l'
+    char1 = '2020-11-16'
+    char2 = '2020-11-17'
+
+    data = MySQL_query.get_data_for_scatter(machine_code, size, char1, char2)
+
+    return jsonify(data)
 
 
 @app.route('/Login')
@@ -290,4 +305,4 @@ def Signin():
 
 
 if __name__ == '__main__':
-   app.run('0.0.0.0', port=5010, debug=True)
+   app.run('0.0.0.0', port=5015, debug=True)

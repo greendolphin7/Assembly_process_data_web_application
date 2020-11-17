@@ -588,8 +588,6 @@ class MySQL_query:
 
         ''' % (machine_code, char1, char2)
 
-        product_size = 'product_size_' + size
-
         cursor = conn.cursor()
         cursor.execute(sql)
         row = cursor.fetchall()

@@ -185,7 +185,7 @@ def Predict():
 
 @app.route('/Analysis')
 def Analysis():
-    return render_template('Analysis.html')
+    return render_template('Analysis_OP10.html')
 
 
 @app.route('/Login')
