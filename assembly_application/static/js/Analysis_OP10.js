@@ -6,9 +6,23 @@ toggleBtn.addEventListener("click", () => {
   menu.classList.toggle("active");
   icons.classList.toggle("active");
 });
-Highcharts.chart("container", {
+
+var data1= [];
+setInterval(function () {
+
+
+    var requests = $.get('/Scatter_OP10');  // $. <- 제이쿼리,
+        var tm = requests.done(function(result) // 성공하면 result 값을 받아옴
+            {
+//                var data1= []; // [[[ ]]]  [[ ]]
+                data1.push(result);  // 값 업데이트
+                data1 = data1[0]
+                console.log(data1)
+            });
+
+    Highcharts.chart("container", {
   title: {
-    text: "Quality vs Length",
+    text: "Electricity vs Length",
   },
   subtitle: {
     text: "",
@@ -17,7 +31,7 @@ Highcharts.chart("container", {
     gridLineWidth: 1,
     title: {
       enabled: true,
-      text: "Electric . Temperature",
+      text: "Electricity",
     },
     startOnTick: true,
     endOnTick: true,
@@ -38,7 +52,7 @@ Highcharts.chart("container", {
       name: "Observations",
       type: "scatter",
       color: "red",
-      data: [],
+      data: data1,
     },
   ],
   tooltip: {
@@ -62,9 +76,15 @@ Highcharts.chart("container", {
     ],
   },
 });
+
+}, 5000);
+
+
+
+
 Highcharts.chart("container2", {
   title: {
-    text: "Quality vs Width",
+    text: "Electricity vs Width",
   },
   subtitle: {
     text: "",
@@ -73,7 +93,7 @@ Highcharts.chart("container2", {
     gridLineWidth: 1,
     title: {
       enabled: true,
-      text: "Electric . Temperature",
+      text: "Electricity",
     },
     startOnTick: true,
     endOnTick: true,
@@ -379,9 +399,10 @@ Highcharts.chart("container2", {
     ],
   },
 });
+
 Highcharts.chart("container3", {
   title: {
-    text: "Quality vs Heghit",
+    text: "Electricity vs Height",
   },
   subtitle: {
     text: "",
@@ -390,7 +411,7 @@ Highcharts.chart("container3", {
     gridLineWidth: 1,
     title: {
       enabled: true,
-      text: "Electric . Temperature",
+      text: "Electricity",
     },
     startOnTick: true,
     endOnTick: true,

@@ -284,14 +284,26 @@ def Analysis_OP10():
 
 @app.route('/Scatter_OP10')
 def Scatter_OP10():
+
     machine_code = 'OP10'
     size = 'l'
     char1 = '2020-11-16'
     char2 = '2020-11-17'
 
-    data = MySQL_query.get_data_for_scatter(machine_code, size, char1, char2)
+    list_dict = MySQL_query.get_data_for_scatter(machine_code, size, char1, char2)
 
-    return jsonify(data)
+    data_list = []
+    for i in range(len(list_dict)):
+        temp_list = []
+
+        x = list_dict[i]['machine_data']
+        y = list_dict[i]['product_size']
+        temp_list.append(x)
+        temp_list.append(y)
+
+        data_list.append(temp_list)
+
+    return jsonify(data_list)
 
 
 @app.route('/Login')
@@ -305,4 +317,4 @@ def Signin():
 
 
 if __name__ == '__main__':
-   app.run('0.0.0.0', port=5015, debug=True)
+   app.run('0.0.0.0', port=5035, debug=True)
