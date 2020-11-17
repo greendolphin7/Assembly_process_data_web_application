@@ -306,6 +306,35 @@ def Scatter_OP10():
     return jsonify(data_list)
 
 
+@app.route('/Pareto')
+def Pareto():
+
+    char1 = '2020-11-16'
+    char2 = '2020-11-17'
+
+    count_list = []
+
+    OP10_NOK = MySQL_query.get_data_for_pareto('OP10', char1, char2)
+    OP20_NOK = MySQL_query.get_data_for_pareto('OP20', char1, char2)
+    OP30_NOK = MySQL_query.get_data_for_pareto('OP30', char1, char2)
+    OP40_NOK = MySQL_query.get_data_for_pareto('OP40', char1, char2)
+    OP50_NOK = MySQL_query.get_data_for_pareto('OP50', char1, char2)
+
+    count_OP10 = OP10_NOK[0]['NOK']
+    count_OP20 = OP20_NOK[0]['NOK']
+    count_OP30 = OP30_NOK[0]['NOK']
+    count_OP40 = OP40_NOK[0]['NOK']
+    count_OP50 = OP50_NOK[0]['NOK']
+
+    count_list.append(count_OP10)
+    count_list.append(count_OP20)
+    count_list.append(count_OP30)
+    count_list.append(count_OP40)
+    count_list.append(count_OP50)
+
+    return jsonify(count_list)
+
+
 @app.route('/Login')
 def Login():
     return render_template('Login.html')
@@ -317,4 +346,4 @@ def Signin():
 
 
 if __name__ == '__main__':
-   app.run('0.0.0.0', port=5035, debug=True)
+   app.run('0.0.0.0', port=5046, debug=True)

@@ -604,3 +604,36 @@ class MySQL_query:
         conn.close()
 
         return data_list
+
+
+    def get_data_for_pareto(machine_code, char1, char2):
+        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+
+        sql = '''
+    
+                SELECT count(product_quality.product_test),
+                date_format( product_quality.product_test_timestamp, '%%Y년%%m월%%d일 %%H시%%i분%%s초' ) as insert_date
+    
+                FROM machine INNER JOIN product_quality
+                ON  machine.product_key = product_quality.product_key
+    
+                WHERE machine.machine_code = '%s' AND date_format(product_test_timestamp , '%%Y-%%m-%%d') >= '%s'
+                AND date_format(product_test_timestamp , '%%Y-%%m-%%d') <= '%s' AND product_quality.product_test = 'NOK'
+    
+        ''' % (machine_code, char1, char2)
+
+        cursor = conn.cursor()
+        cursor.execute(sql)
+        row = cursor.fetchall()
+
+        data_list = []
+
+        for obj in row:
+            data_dic = {
+                'NOK': obj[0],
+            }
+            data_list.append(data_dic)
+
+        conn.close()
+
+        return data_list
