@@ -535,3 +535,74 @@ class MySQL_query:
         conn.close()
 
         return data_list
+
+    def get_data_for_scatter(machine_code, size, char1, char2):
+
+        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+
+        if size == 'l':
+            sql = '''
+
+                SELECT machine.machine_data, product_quality.product_size_l,
+                date_format( product_quality.product_test_timestamp, '%%Y년%%m월%%d일 %%H시%%i분%%s초' ) as insert_date
+
+                FROM machine INNER JOIN product_quality
+
+                ON  machine.product_key = product_quality.product_key
+
+                WHERE machine.machine_code = '%s' AND date_format(product_test_timestamp , '%%Y-%%m-%%d') >= '%s'
+                AND date_format(product_test_timestamp , '%%Y-%%m-%%d') <= '%s'
+
+
+        ''' % (machine_code, char1, char2)
+
+        if size == 'w':
+            sql = '''
+
+                SELECT machine.machine_data, product_quality.product_size_w,
+                date_format( product_quality.product_test_timestamp, '%%Y년%%m월%%d일 %%H시%%i분%%s초' ) as insert_date
+
+                FROM machine INNER JOIN product_quality
+
+                ON  machine.product_key = product_quality.product_key
+
+                WHERE machine.machine_code = '%s' AND date_format(product_test_timestamp , '%%Y-%%m-%%d') >= '%s'
+                AND date_format(product_test_timestamp , '%%Y-%%m-%%d') <= '%s'
+
+
+        ''' % (machine_code, char1, char2)
+
+        if size == 'h':
+            sql = '''
+
+                SELECT machine.machine_data, product_quality.product_size_h,
+                date_format( product_quality.product_test_timestamp, '%%Y년%%m월%%d일 %%H시%%i분%%s초' ) as insert_date
+
+                FROM machine INNER JOIN product_quality
+
+                ON  machine.product_key = product_quality.product_key
+
+                WHERE machine.machine_code = '%s' AND date_format(product_test_timestamp , '%%Y-%%m-%%d') >= '%s'
+                AND date_format(product_test_timestamp , '%%Y-%%m-%%d') <= '%s'
+
+
+        ''' % (machine_code, char1, char2)
+
+        product_size = 'product_size_' + size
+
+        cursor = conn.cursor()
+        cursor.execute(sql)
+        row = cursor.fetchall()
+
+        data_list = []
+
+        for obj in row:
+            data_dic = {
+                'machine_data': obj[0],
+                'product_size': obj[1],
+            }
+            data_list.append(data_dic)
+
+        conn.close()
+
+        return data_list

@@ -6,7 +6,7 @@
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <link rel="stylesheet" href="{{url_for('static', filename='css/Monitoring.css') }}" />
-    <script src="/static/js/Monitoring.js" defer></script>
+    <script src="/static/js/gauge.js" defer></script>
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap"
       rel="stylesheet"
     />
@@ -60,6 +60,13 @@
       <div id="container-1" class="chart-container"></div>
       <div id="container-2" class="chart-container"></div>
     </figure>
+
+
+
+
+
+
+    </figure>
   </div>
   <div id="BB">
     <p id="bb">&nbsp;&nbsp;&nbsp;공정 진행 상황</p>
@@ -83,3 +90,11 @@
 </main>
 </body>
 </html>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/highcharts-more.js"></script>
+  <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+  <script src="/static/js/gauge.js"></script>

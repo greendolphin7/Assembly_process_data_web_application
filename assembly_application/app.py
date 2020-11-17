@@ -36,7 +36,7 @@ def OEE_Cal():
 
     quality = OEE_cal.Quality_Calculator(1)
 
-    OEE = (availability * productivity * quality) / 1000000
+    OEE = (availability * productivity * quality) / 10000
 
     OEE_dict['OEE'] = str(OEE)
     OEE_dict['availability'] = str(availability)
@@ -47,6 +47,19 @@ def OEE_Cal():
 
     return jsonify(OEE_list)
 
+@app.route('/re_data', methods=["GET", "POST"])
+def re_data():
+    a = OEE_cal.Availability_Calculator(1)  # 시간가동률
+    b = OEE_cal.Productivity_Calculator(1)  # 성능가동률
+    c = OEE_cal.Quality_Calculator(1)  # 품질
+    d = a * b * c / 10000  # OEE
+    data = [time() * 1000, d, a, b, c]
+
+    response = make_response(json.dumps(data))
+
+    response.content_type = 'application/json'
+
+    return response
 
 @app.route('/Machine')
 def Machine():
@@ -126,7 +139,6 @@ def realtime_table_OP10():
                    WHERE machine.machine_code = 'OP10' order by end_time DESC LIMIT %s
            ''' % (count)
 
-#order by end_time DESC LIMIT 5
     cursor = conn.cursor()
     cursor.execute(sql)
     row = cursor.fetchall()
@@ -278,4 +290,4 @@ def Signin():
 
 
 if __name__ == '__main__':
-   app.run('0.0.0.0', port=5009, debug=True)
+   app.run('0.0.0.0', port=5010, debug=True)

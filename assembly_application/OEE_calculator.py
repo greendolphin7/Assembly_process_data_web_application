@@ -6,7 +6,7 @@ class OEE_cal():
 
         data = MySQL_query.get_time_for_availability(1)
 
-        op10_makespan = 1
+        op10_makespan = 1  # 0으로 나누는거 방지
         op20_makespan = 1
         op30_makespan = 1
         op40_makespan = 1
@@ -53,12 +53,12 @@ class OEE_cal():
             op50_idle_time = op50_count * 10 - op50_makespan
             op60_idle_time = op60_count * 10 - op60_makespan
 
-            op10_availability = (op10_makespan - op10_idle_time) / op10_makespan * 100
-            op20_availability = (op20_makespan - op20_idle_time) / op20_makespan * 100
-            op30_availability = (op30_makespan - op30_idle_time) / op30_makespan * 100
-            op40_availability = (op40_makespan - op40_idle_time) / op40_makespan * 100
-            op50_availability = (op50_makespan - op50_idle_time) / op50_makespan * 100
-            op60_availability = (op60_makespan - op60_idle_time) / op60_makespan * 100
+            op10_availability = (op10_makespan - op10_idle_time) / 86400 * 100
+            op20_availability = (op20_makespan - op20_idle_time) / 86400 * 100
+            op30_availability = (op30_makespan - op30_idle_time) / 86400 * 100
+            op40_availability = (op40_makespan - op40_idle_time) / 86400 * 100
+            op50_availability = (op50_makespan - op50_idle_time) / 86400 * 100
+            op60_availability = (op60_makespan - op60_idle_time) / 86400 * 100
 
             total_availability = (op10_availability + op20_availability + op30_availability
                                   + op40_availability + op50_availability + op60_availability) / 6
