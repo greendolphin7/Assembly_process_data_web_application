@@ -6,6 +6,60 @@ toggleBtn.addEventListener('click', () => {
   menu.classList.toggle('active');
   icons.classList.toggle('active');
 });
+
+// charts = one minute
+let UPDATE = 10000;
+
+$(document).ready(function() {
+	  var table = $('#coinTable').DataTable( {
+             ajax: {
+                 url: "http://localhost:5009/Predict_data",
+                 dataSrc: ''
+             },
+		    colReorder: {
+			realtime: true
+		    },
+            "aoColumns" : [
+                {data : 'product_key'},
+                {data : 'body_size_l'},
+                {data : 'body_size_w'},
+                {data : 'body_size_h'},
+                {data : 'wavyfin_size_l'},
+                {data : 'wavyfin_size_w'},
+                {data : 'wavyfin_size_h'},
+                {data : 'op10_machine_data'},
+                {data : 'op10_size_l'},
+                {data : 'op10_size_w'},
+                {data : 'op10_size_h'},
+
+                {data : 'pipe1_size_l'},
+                {data : 'pipe1_size_w'},
+                {data : 'pipe1_size_h'},
+                {data : 'op20_machine_data'},
+                {data : 'op20_size_l'},
+                {data : 'op20_size_w'},
+                {data : 'op20_size_h'},
+
+                {data : 'pipe2_size_l'},
+                {data : 'pipe2_size_w'},
+                {data : 'pipe2_size_h'},
+                {data : 'op30_machine_data'},
+                {data : 'op30_size_l'},
+                {data : 'op30_size_w'},
+                {data : 'op30_size_h'},
+                {data : 'predict_result'},
+		    ]
+	        } );
+
+} );
+
+setInterval( function () {
+  console.log('reload');
+//    $('#coinTable').DataTable().ajax.reload();
+       $('#coinTable').DataTable().ajax.reload(null, true);
+}, UPDATE);
+
+
 function exportTableToCsv(tableId, filename) {
   if (filename == null || typeof filename == undefined) filename = tableId;
   filename += ".csv";

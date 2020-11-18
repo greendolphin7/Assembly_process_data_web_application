@@ -18,7 +18,7 @@
     ></script>
   </head>
   <body>
-  <header> 
+  <header>
     <!-- Nav container -->
     <nav class="navbar">
       <!-- Logo with text -->
@@ -33,12 +33,12 @@
         <li><a href="Machine">MACHINE</a></li>
         <li><a href="Date">DATE</a></li>
         <li><a href="Item">ITEM</a></li>
-        <li><a href="Analysis_OP10">ANALYSIS</a></li>
+        <li><a href="Analysis">ANALYSIS</a></li>
         <li><a href="Predict">PREDICT</a></li>
       </ul>
       <!-- Icons -->
       <ul class="navbar__Logout">
-        <li><a href="Login">Log Out</a></li>
+        <li><a href="Login.html">Log Out</a></li>
       </ul>
       <!-- Toggle button -->
     <a href="#" class="navbar__toggleBtn">
@@ -48,14 +48,16 @@
 </header>
 <main>
   <div id="AA">
-  <table id="example-table1" border="1">
-    <thead>
-        <tr>
+    <p id = "Siz">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;실시간 예측 데이터</p>
+       <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="/static/js/Predict.js" ></script>
+    <link href="https://nightly.datatables.net/css/jquery.dataTables.css" rel="stylesheet" type="text/css" />
+    <script src="https://nightly.datatables.net/js/jquery.dataTables.js"></script>
+    <div class="container">
+      <table id="coinTable" class="display nowrap" width="100%">
+        <thead>
+          <tr>
             <th>Productkey</th>
-            <th>재품명</th>
-            <th>재품 L</th>
-            <th>재품 W</th>
-            <th>재품 H</th>
             <th>BY L</th>
             <th>BY W</th>
             <th>BY H</th>
@@ -81,45 +83,15 @@
             <th>OP30W</th>
             <th>OP30H</th>
             <th>OK</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>0000000000000000000000000000000</td>
-            <td>000000</td>
-            <td>000000</td>
-            <td>000000</td>
-            <td>000000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-        </tr>
-    </tbody>
-</table>
+
+          </tr>
+        </thead>
+      </table>
+    </div>
   </div>
+
   <div id="BB">
+    <p id = "Siz">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;날짜별 분석 데이터</p>
     <p id="Search"><input type="date"><input type="date">
       <input type="submit" value="검색"><button type="button" onclick="exportTableToCsv('example-table', 'Export example')">
       다운
@@ -130,10 +102,6 @@
     <thead>
         <tr>
           <th>Productkey</th>
-          <th>재품명</th>
-          <th>재품 L</th>
-          <th>재품 W</th>
-          <th>재품 H</th>
           <th>BY L</th>
           <th>BY W</th>
           <th>BY H</th>
@@ -164,40 +132,35 @@
     <tbody>
         <tr>
           <td>0000000000000000000000000000000</td>
+          <td>0000000</td>
+          <td>0000000</td>
+          <td>0000000</td>
+          <td>0000000</td>
           <td>000000</td>
           <td>000000</td>
           <td>000000</td>
           <td>000000</td>
-          <td>00000</td>
-          <td>00000</td>
-          <td>00000</td>
-          <td>00000</td>
-          <td>00000</td>
-          <td>00000</td>
-          <td>00000</td>
-          <td>00000</td>
-          <td>00000</td>
-          <td>00000</td>
-          <td>00000</td>
-          <td>00000</td>
-          <td>00000</td>
-          <td>00000</td>
-          <td>00000</td>
-          <td>00000</td>
-          <td>00000</td>
-          <td>00000</td>
-          <td>00000</td>
-          <td>00000</td>
-          <td>00000</td>
-          <td>00000</td>
-          <td>00000</td>
-          <td>00000</td>
-          <td>00000</td>
+          <td>000000</td>
+          <td>000000</td>
+          <td>000000</td>
+          <td>000000</td>
+          <td>000000</td>
+          <td>000000</td>
+          <td>000000</td>
+          <td>000000</td>
+          <td>000000</td>
+          <td>000000</td>
+          <td>000000</td>
+          <td>000000</td>
+          <td>000000</td>
+          <td>000000</td>
+          <td>000000</td>
+          <td>000000</td>
+          <td>000000</td>
         </tr>
     </tbody>
-
 </table>
-  </div>
+</div>
  <!-- <div id="CC">
     <box>
       3

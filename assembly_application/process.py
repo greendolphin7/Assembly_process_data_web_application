@@ -212,8 +212,10 @@ class process_operate:
         # op30 공정 실행 (W3P0)
         op30_data_P0 = machine_operate.op30(op20_data_list_P0)  # <- 앞공정 재공품 받아서 실행
 
-        pred = Predict.predict_quality(op10_data_P0, op20_data_P0, op30_data_P0)
-        print("P0 예측값 : " + str(pred))
+        pred_P0 = Predict.predict_quality(op10_data_P0, op20_data_P0, op30_data_P0)
+        print("P0 예측값 : " + str(pred_P0))
+
+        MySQL_query.insert_product_prediction(op30_data_P0, op20_data_P0, op10_data_P0, pred_P0)
 
         product_key_W3P0 = op30_data_P0['product_key']
 
@@ -338,8 +340,10 @@ class process_operate:
         # op30 공정 실행 (W3P1)
         op30_data_P1 = machine_operate.op30(op20_data_list_P1)  # <- 앞공정 재공품 받아서 실행
 
-        pred = Predict.predict_quality(op10_data_P1, op20_data_P1, op30_data_P1)
-        print("P1 예측값 : " + str(pred))
+        pred_P1 = Predict.predict_quality(op10_data_P1, op20_data_P1, op30_data_P1)
+        print("P1 예측값 : " + str(pred_P1))
+
+        MySQL_query.insert_product_prediction(op30_data_P1, op20_data_P1, op10_data_P1, pred_P1)
 
         product_key_W3P1 = op30_data_P1['product_key']
 
@@ -494,8 +498,10 @@ class process_operate:
         # op30 공정 실행 (W3P2)
         op30_data_P2 = machine_operate.op30(op20_data_list_P2)  # <- 앞공정 재공품 받아서 실행
 
-        pred = Predict.predict_quality(op10_data_P2, op20_data_P2, op30_data_P2)
-        print("P2 예측값 : " + str(pred))
+        pred_P2 = Predict.predict_quality(op10_data_P2, op20_data_P2, op30_data_P2)
+        print("P2 예측값 : " + str(pred_P2))
+
+        MySQL_query.insert_product_prediction(op30_data_P2, op20_data_P2, op10_data_P2, pred_P2)
 
         product_key_W3P2 = op30_data_P2['product_key']
 
@@ -738,6 +744,10 @@ class process_operate:
             pred = Predict.predict_quality(op10_data, op20_data, op30_data)
             print('P' + str(i-2) + ' 품질 예측값: ' + str(pred))
 
-            print('6개 생산 완료!')
+            MySQL_query.insert_product_prediction(op30_data, op20_data, op10_data, pred)
+
+            now_product = op60_data['product_key']
+
+            print('6개 생산 완료! %s 제품이 생산되었습니다.' % (now_product))
 
         return "공정 실행 완료!"

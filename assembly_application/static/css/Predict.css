@@ -19,7 +19,7 @@ body {
   font-family: "Source Sans Pro";
 }
 main {
-  background-image: url('/static/img/background.jpg');
+  background-image: url("Logo1.png");
   font-family: "Source Sans Pro";
 }
 
@@ -152,6 +152,7 @@ a {
   text-align: center;
   width: 100%;
   max-width: 1000px;
+  font-size: 15px;
 }
 #example-table caption {
   font-size: 20px;
@@ -192,6 +193,7 @@ a {
   text-align: center;
   width: 100%;
   max-width: 1000px;
+  font-size: 15px;
 }
 #example-table1 caption {
   font-size: 20px;
@@ -211,4 +213,7 @@ a {
 }
 #example-table1 tr:hover {
   background: #f1f7ff;
+}
+#Siz {
+  font-size: 30px;
 }
