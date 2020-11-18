@@ -2,12 +2,54 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="118d2fbb-0fa9-4a75-ba5b-338f53a13c93" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/static/js/Pareto.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SQL.py" beforeDir="false" afterPath="$PROJECT_DIR$/SQL.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OEE_calculator.py" beforeDir="false" afterPath="$PROJECT_DIR$/OEE_calculator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/Analysis.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/Analysis.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/Date.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/Date.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/Home.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/Home.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/Item.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/Item.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/Machine.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/Machine.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/Monitoring.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/Monitoring.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/OEE.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/OEE.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/Predict.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/Predict.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/js/Analysis_OP10.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/Analysis_OP10.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/Date.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/Date.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/Date1.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/Date1.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/Home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/Item.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/Item.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/Loginmain.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/Loginmain.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/Machine.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/Machine.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/Machine2.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/Machine2.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/MachineOP20.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/MachineOP20.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/MachineOP300.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/MachineOP300.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/MachineOP40.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/MachineOP40.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/MachineOP50.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/MachineOP50.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/Monitoring.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/Monitoring.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/OEE.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/OEE.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/Pareto.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/Pareto.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/Predict.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/Predict.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/Signin.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/Signin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/basic.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/basic.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/gauge.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/gauge.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/table.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/table.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/Analysis_OP10.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Analysis_OP10.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Date.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Date.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Item.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Item.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Machine.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Machine.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/MachineOP20.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/MachineOP20.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/MachineOP30.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/MachineOP30.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/MachineOP40.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/MachineOP40.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/MachineOP50.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/MachineOP50.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Monitoring.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Monitoring.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/OEE.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/OEE.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Predict.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Predict.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Signin.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Signin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/basic.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/basic.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/realtime_table.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/realtime_table.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,11 +62,34 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4850">
-              <caret line="344" column="41" lean-forward="true" selection-start-line="344" selection-start-column="41" selection-end-line="344" selection-end-column="41" />
+            <state relative-caret-position="418">
+              <caret line="22" column="10" lean-forward="true" selection-start-line="22" selection-start-column="10" selection-end-line="22" selection-end-column="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/js/OEE.js">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/js/processtime.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="95">
+              <caret line="5" column="3" lean-forward="true" selection-start-line="5" selection-start-column="3" selection-end-line="5" selection-end-column="3" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/static/js/sssss.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="114">
+              <caret line="6" column="2" lean-forward="true" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="2" />
             </state>
           </provider>
         </entry>
@@ -32,8 +97,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SQL.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="138">
-              <caret line="607" lean-forward="true" selection-start-line="607" selection-end-line="607" />
+            <state relative-caret-position="591">
+              <caret line="425" lean-forward="true" selection-start-line="425" selection-end-line="425" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -42,28 +107,28 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/Analysis_OP10.html">
+        <entry file="file://$PROJECT_DIR$/OEE_calculator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="82" column="48" lean-forward="true" selection-start-line="82" selection-start-column="48" selection-end-line="83" selection-end-column="39" />
+            <state relative-caret-position="263">
+              <caret line="88" column="27" lean-forward="true" selection-start-line="88" selection-start-column="27" selection-end-line="88" selection-end-column="27" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/js/Analysis_OP10.js">
+        <entry file="file://$PROJECT_DIR$/static/js/table.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1632">
-              <caret line="73" column="10" lean-forward="true" selection-start-line="73" selection-start-column="10" selection-end-line="73" selection-end-column="10" />
+            <state relative-caret-position="114">
+              <caret line="6" column="44" selection-start-line="6" selection-start-column="44" selection-end-line="6" selection-end-column="44" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/js/Pareto.js">
+        <entry file="file://$PROJECT_DIR$/static/js/Monitoring.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="95">
-              <caret line="5" column="3" selection-start-line="5" selection-start-column="3" selection-end-line="5" selection-end-column="3" />
+            <state relative-caret-position="-285">
+              <caret line="216" column="27" lean-forward="true" selection-start-line="216" selection-start-column="27" selection-end-line="216" selection-end-column="27" />
             </state>
           </provider>
         </entry>
@@ -71,41 +136,19 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/js/gauge.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="183" column="4" lean-forward="true" selection-start-line="183" selection-start-column="4" selection-end-line="183" selection-end-column="4" />
+            <state relative-caret-position="342">
+              <caret line="198" column="50" lean-forward="true" selection-start-line="198" selection-start-column="50" selection-end-line="198" selection-end-column="50" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/Monitoring.html">
+        <entry file="file://$PROJECT_DIR$/datamake.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="347">
-              <caret line="97" column="76" lean-forward="true" selection-start-line="97" selection-start-column="76" selection-end-line="97" selection-end-column="76" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/product_master_table.py">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/progress_ gauge.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="57">
-              <caret line="3" selection-start-line="3" selection-end-line="3" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/register.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="76">
+              <caret line="4" column="25" selection-start-line="4" selection-start-column="25" selection-end-line="4" selection-end-column="25" />
               <folding>
-                <element signature="e#0#96#0" expanded="true" />
+                <element signature="e#0#35#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -133,6 +176,7 @@
       <find>time.sleep(10)</find>
       <find>timedelta(seconds=10)</find>
       <find>get_time_for_availability</find>
+      <find>get_item_count_for_quality</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -141,7 +185,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/templates/data_makes.html" />
         <option value="$PROJECT_DIR$/master_table.py" />
         <option value="$PROJECT_DIR$/templates/home.html" />
         <option value="$PROJECT_DIR$/templates/machine_data_lists.html" />
@@ -177,13 +220,10 @@
         <option value="$PROJECT_DIR$/static/js/realtime_table.js" />
         <option value="$PROJECT_DIR$/static/js/Machine.js" />
         <option value="$PROJECT_DIR$/static/css/Machine.css" />
-        <option value="$PROJECT_DIR$/static/js/table.js" />
         <option value="$PROJECT_DIR$/templates/Machine.html" />
         <option value="$PROJECT_DIR$/static/js/Monitoring.js" />
         <option value="$PROJECT_DIR$/static/js/gague.js" />
         <option value="$PROJECT_DIR$/templates/Monitoring.html" />
-        <option value="$PROJECT_DIR$/static/js/gauge.js" />
-        <option value="$PROJECT_DIR$/OEE_calculator.py" />
         <option value="$PROJECT_DIR$/templates/Analysis.html" />
         <option value="$PROJECT_DIR$/static/js/Analysis.js" />
         <option value="$PROJECT_DIR$/templates/Home.html" />
@@ -191,13 +231,17 @@
         <option value="$PROJECT_DIR$/static/js/Analysis_OP10.js" />
         <option value="$PROJECT_DIR$/static/js/Pareto.js" />
         <option value="$PROJECT_DIR$/templates/Analysis_OP10.html" />
+        <option value="$PROJECT_DIR$/static/js/gauge.js" />
+        <option value="$PROJECT_DIR$/OEE_calculator.py" />
+        <option value="$PROJECT_DIR$/static/js/table.js" />
         <option value="$PROJECT_DIR$/app.py" />
+        <option value="$PROJECT_DIR$/static/js/processtime.js" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="217" />
-    <option name="y" value="-17" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="168" />
+    <option name="y" value="-23" />
     <option name="width" value="1540" />
     <option name="height" value="930" />
   </component>
@@ -411,10 +455,11 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" sideWeight="0.5101626" side_tool="true" weight="0.18692206" />
-      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.4898374" visible="true" weight="0.18692206" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.4898374" visible="true" weight="0.18692206" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="0" weight="0.32843137" />
       <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
@@ -422,7 +467,7 @@
       <window_info anchor="bottom" id="Python Console" order="3" />
       <window_info anchor="bottom" id="Message" order="4" />
       <window_info anchor="bottom" id="Find" order="5" weight="0.32843137" />
-      <window_info anchor="bottom" id="Run" order="6" weight="0.30311614" />
+      <window_info anchor="bottom" id="Run" order="6" visible="true" weight="0.26203966" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
@@ -437,12 +482,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="api 설계" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/static/js/Quality-main.js" />
-    <entry file="file://$PROJECT_DIR$/static/js/OEE-main.js" />
-    <entry file="file://$PROJECT_DIR$/templates/Analysis_index.html" />
-    <entry file="file://$PROJECT_DIR$/templates/Home_index.html" />
-    <entry file="file://$PROJECT_DIR$/templates/index.html" />
-    <entry file="file://$PROJECT_DIR$/templates/process_load.html" />
     <entry file="file://$PROJECT_DIR$/templates/quality_load.html" />
     <entry file="file://$PROJECT_DIR$/templates/select_input.html" />
     <entry file="file://$PROJECT_DIR$/templates/test_load_chart.html" />
@@ -501,13 +540,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/table.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="6" column="44" selection-start-line="6" selection-start-column="44" selection-end-line="6" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/OEE.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1121">
@@ -519,13 +551,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3971">
           <caret line="209" column="1" selection-start-line="209" selection-start-column="1" selection-end-line="209" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/Monitoring.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
         </state>
       </provider>
     </entry>
@@ -550,16 +575,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/datamake.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="49">
-          <caret line="4" column="25" selection-start-line="4" selection-start-column="25" selection-end-line="4" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/machine.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="163">
@@ -570,26 +585,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2432">
-          <caret line="206" lean-forward="true" selection-start-line="206" selection-end-line="206" />
-          <folding>
-            <element signature="e#0#93#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/machine_master_table.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-399" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/OEE_calculator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-665">
-          <caret line="12" column="25" lean-forward="true" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="25" />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/master_table.py">
@@ -635,6 +633,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/templates/Analysis_OP10.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1577">
+          <caret line="83" column="48" selection-start-line="83" selection-start-column="48" selection-end-line="83" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/Analysis_OP10.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1349">
+          <caret line="71" column="10" selection-start-line="71" selection-start-column="10" selection-end-line="71" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/Pareto.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="10" column="3" selection-start-line="10" selection-start-column="3" selection-end-line="10" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/Monitoring.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1748">
+          <caret line="92" column="38" selection-start-line="92" selection-start-column="38" selection-end-line="92" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/product_master_table.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -654,55 +680,94 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/gauge.js">
+    <entry file="file://$PROJECT_DIR$/templates/Item.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/Date.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/Login.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="183" column="4" lean-forward="true" selection-start-line="183" selection-start-column="4" selection-end-line="183" selection-end-column="4" />
+        <state relative-caret-position="1289">
+          <caret line="206" lean-forward="true" selection-start-line="206" selection-end-line="206" />
+          <folding>
+            <element signature="e#0#93#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/Monitoring.html">
+    <entry file="file://$PROJECT_DIR$/datamake.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="347">
-          <caret line="97" column="76" lean-forward="true" selection-start-line="97" selection-start-column="76" selection-end-line="97" selection-end-column="76" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/Analysis_OP10.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1632">
-          <caret line="73" column="10" lean-forward="true" selection-start-line="73" selection-start-column="10" selection-end-line="73" selection-end-column="10" />
+        <state relative-caret-position="76">
+          <caret line="4" column="25" selection-start-line="4" selection-start-column="25" selection-end-line="4" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SQL.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="607" lean-forward="true" selection-start-line="607" selection-end-line="607" />
+        <state relative-caret-position="591">
+          <caret line="425" lean-forward="true" selection-start-line="425" selection-end-line="425" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/Pareto.js">
+    <entry file="file://$PROJECT_DIR$/OEE_calculator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" column="3" selection-start-line="5" selection-start-column="3" selection-end-line="5" selection-end-column="3" />
+        <state relative-caret-position="263">
+          <caret line="88" column="27" lean-forward="true" selection-start-line="88" selection-start-column="27" selection-end-line="88" selection-end-column="27" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/Analysis_OP10.html">
+    <entry file="file://$PROJECT_DIR$/static/js/Monitoring.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="82" column="48" lean-forward="true" selection-start-line="82" selection-start-column="48" selection-end-line="83" selection-end-column="39" />
+        <state relative-caret-position="-285">
+          <caret line="216" column="27" lean-forward="true" selection-start-line="216" selection-start-column="27" selection-end-line="216" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/gauge.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="198" column="50" lean-forward="true" selection-start-line="198" selection-start-column="50" selection-end-line="198" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/table.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" column="44" selection-start-line="6" selection-start-column="44" selection-end-line="6" selection-end-column="44" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4850">
-          <caret line="344" column="41" lean-forward="true" selection-start-line="344" selection-start-column="41" selection-end-line="344" selection-end-column="41" />
+        <state relative-caret-position="418">
+          <caret line="22" column="10" lean-forward="true" selection-start-line="22" selection-start-column="10" selection-end-line="22" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/OEE.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/processtime.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" column="3" lean-forward="true" selection-start-line="5" selection-start-column="3" selection-end-line="5" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/sssss.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" column="2" lean-forward="true" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="2" />
         </state>
       </provider>
     </entry>

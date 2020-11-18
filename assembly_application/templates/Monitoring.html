@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap"
       rel="stylesheet"
     />
-    <title>Nav bar</title>
+    <title>Monitoring</title>
     <script
       src="https://kit.fontawesome.com/2d323a629b.js"
       crossorigin="anonymous"
@@ -19,8 +19,8 @@
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/highcharts-more.js"></script>
     <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="export-data.js"></script>
+    <script src="exporting.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
   </head>
   <body>
@@ -29,8 +29,9 @@
     <nav class="navbar">
       <!-- Logo with text -->
       <div class="navbar__logo">
-        <i class="fab fa-accusoft"></i>
-        <a href="Home">DayTory</a>
+        <a id="name" href="Home.html" >
+        <img class="Logo" src="/static/img/Logo1.png">
+        </a>
       </div>
       <!-- Menu -->
       <ul class="navbar__menu">
@@ -38,12 +39,12 @@
         <li><a href="Machine">MACHINE</a></li>
         <li><a href="Date">DATE</a></li>
         <li><a href="Item">ITEM</a></li>
-        <li><a href="Analysis">ANALYSIS</a></li>
+        <li><a href="Analysis_OP10">ANALYSIS</a></li>
         <li><a href="Predict">PREDICT</a></li>
       </ul>
       <!-- Icons -->
       <ul class="navbar__Logout">
-        <li><a href="Login.html">Log Out</a></li>
+        <li><a href="Login">Log Out</a></li>
       </ul>
       <!-- Toggle button -->
     <a href="#" class="navbar__toggleBtn">
@@ -52,7 +53,7 @@
   </nav>
 </header>
 <main>
-  <div id="AA">
+  <div id="A">
     <p id="aa">&nbsp;&nbsp;&nbsp;설비 종합 효율</p>
     <figure class="highcharts-figure">
       <div id="container-speed" class="chart-container"></div>
@@ -60,18 +61,12 @@
       <div id="container-1" class="chart-container"></div>
       <div id="container-2" class="chart-container"></div>
     </figure>
-
-
-
-
-
-
-    </figure>
   </div>
-  <div id="BB">
-    <p id="bb">&nbsp;&nbsp;&nbsp;공정 진행 상황</p>
-    <box id="bbb" >
-    </box>
+ <div id="B">
+    <p id="bb">&nbsp;&nbsp;&nbsp;공정 흐름도</p>
+    <video id="bbbb" muted autoplay loop>
+      <source id="dddd" src="/static/img/Video.mp4" type="video/mp4">
+    </video>
   </div>
   <div id="CC">
     <br>
@@ -94,7 +89,7 @@
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <script src="https://code.highcharts.com/highcharts-more.js"></script>
   <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
-  <script src="https://code.highcharts.com/modules/exporting.js"></script>
-  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <script src="export-data.js"></script>
+  <script src="exporting.js"></script>
   <script src="https://code.highcharts.com/modules/accessibility.js"></script>
   <script src="/static/js/gauge.js"></script>

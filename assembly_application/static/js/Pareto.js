@@ -1,25 +1,44 @@
-const toggleBtn = document.querySelector(".navbar__toggleBtn");
-const menu = document.querySelector(".navbar__menu");
-const icons = document.querySelector(".navbar__Logout");
+//const toggleBtn = document.querySelector('.navbar__toggleBtn');
+//const menu = document.querySelector('.navbar__menu');
+//const icons = document.querySelector('.navbar__Logout');
+//
+//toggleBtn.addEventListener('click', () => {
+//  menu.classList.toggle('active');
+//  icons.classList.toggle('active');
+//});
 
-toggleBtn.addEventListener("click", () => {
-  menu.classList.toggle("active");
-  icons.classList.toggle("active");
-});
-
-
-    var requests = $.get('/Pareto');  // $. <- 제이쿼리,
-        var tm = requests.done(function(result) // 성공하면 result 값을 받아옴
-            {
+//var data1= [];
+//setInterval(function () {
+//    var requests = $.get('/Pareto');  // $. <- 제이쿼리,
+//        var tm = requests.done(function(result) // 성공하면 result 값을 받아옴
+//            {
 //                var data1= []; // [[[ ]]]  [[ ]]
-                data1.push(result);  // 값 업데이트
-                console.log(data1)
-            });
+//                data1.update(result);  // 값 업데이트
+//                console.log(data1)
+//            });
+//
+//}, 5000);
 
-Highcharts.chart("container4", {
-  chart: {
-    renderTo: "container4",
-    type: "column",
+
+
+//function requestData() {
+//    var requests = $.get('/Pareto');  // $. <- 제이쿼리,
+//        var tm = requests.done(function(result) // 성공하면 result 값을 받아옴
+//            {
+//                var data1= []; // [[[ ]]]  [[ ]]
+//                data1.push(result);  // 값 업데이트
+//                console.log(data1)
+//                setTimeout(requestData, 10000);
+//            });
+//        cache: false
+//}
+
+//$(document).ready(function() {
+//    chart = new
+Highcharts.Chart({
+        chart: {
+            renderTo: 'container4',
+            type: "column",
   },
   title: {
     text: "Pareto",
@@ -67,7 +86,11 @@ Highcharts.chart("container4", {
       name: "Defective Product",
       type: "column",
       zIndex: 2,
-      data: [data1],
-    },
-  ],
+      data: {
+            csvURL: 'http://127.0.0.1:5023/Pareto',
+            enablePolling: true
+            },
+
+  }],
 });
+//});

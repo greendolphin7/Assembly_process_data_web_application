@@ -13,7 +13,7 @@
 }
 
 body {
-  width: 1535px;
+  width: 1515px;
   height: 705px;
   margin: 0;
   font-family: "Source Sans Pro";
@@ -131,13 +131,13 @@ a {
 }
 #BB {
   width: 800px;
-  height: 333px;
+  height: 343px;
   color: green;
   float: left;
 }
 #CC {
   width: 700px;
-  height: 667px;
+  height: 677px;
   color: #263343;
   float: right;
 }
@@ -190,4 +190,12 @@ a {
 }
 #DAYTORY i {
   color: var(--accent-color);
+}
+.Logo {
+  width: 70px;
+  height: 60px;
+}
+.Logo2 {
+  width: 100px;
+  height: 90px;
 }

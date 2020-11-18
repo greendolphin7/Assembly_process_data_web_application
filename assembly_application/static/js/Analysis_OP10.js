@@ -9,8 +9,6 @@ toggleBtn.addEventListener("click", () => {
 
 var data1= [];
 setInterval(function () {
-
-
     var requests = $.get('/Scatter_OP10');  // $. <- 제이쿼리,
         var tm = requests.done(function(result) // 성공하면 result 값을 받아옴
             {
@@ -20,7 +18,7 @@ setInterval(function () {
                 console.log(data1)
             });
 
-    Highcharts.chart("container", {
+  Highcharts.chart("container", {
   title: {
     text: "Electricity vs Length",
   },

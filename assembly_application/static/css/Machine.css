@@ -13,7 +13,7 @@
 }
 
 body {
-  width: 1535px;
+  width: 1515px;
   height: 705px;
   margin: 0;
   font-family: "Source Sans Pro";
@@ -132,13 +132,13 @@ a {
 }
 #BB {
   width: 1350px;
-  height: 233px;
+  height: 633px;
   color: black;
   float: left;
 }
 #CC {
   width: 250px;
-  height: 667px;
+  height: 1067px;
   color: tomato;
   float: right;
   border-block: 0;
@@ -189,10 +189,10 @@ a {
 
 .button {
   font-size: 20px;
-  padding: 20px 40px;
+  padding: 20px 30px;
   border-radius: 27px;
   position: absolute;
-  left: 1340px;
+  left: 1400px;
 }
 
 #datatable {
@@ -222,4 +222,8 @@ a {
 }
 #datatable tr:hover {
   background: #f1f7ff;
+}
+.Logo {
+  width: 70px;
+  height: 60px;
 }

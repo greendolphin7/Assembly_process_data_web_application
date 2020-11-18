@@ -147,13 +147,13 @@ a {
 }
 #BB {
   width: 1300px;
-  height: 420px;
+  height: 450px;
   color: green;
   float: left;
 }
 #CC {
   width: 150px;
-  height: 800px;
+  height: 830px;
   float: right;
 }
 .Logo {
@@ -213,4 +213,7 @@ a {
   border-radius: 27px;
   position: absolute;
   left: 1390px;
+}
+#Search {
+  float: right;
 }

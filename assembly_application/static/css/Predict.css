@@ -13,15 +13,16 @@
 }
 
 body {
-  width: 1535px;
+  width: 1515px;
   height: 705px;
   margin: 0;
   font-family: "Source Sans Pro";
 }
-/* main {
-    font-family: "Source Sans Pro";
-    columns: 2;
-  } */
+main {
+  background-image: url('/static/img/background.jpg');
+  font-family: "Source Sans Pro";
+}
+
 a {
   text-decoration: none;
   color: var(--text-color);
@@ -124,19 +125,52 @@ a {
 }
 
 #AA {
-  background-color: cornflowerblue;
-  height: 334px;
-  width: 1535px;
+  background-image: url("background.jpg");
+  height: 555px;
+  width: 1515px;
   float: left;
-  color: red;
+  color: black;
   box-sizing: 800px 400px;
 }
 #BB {
-  background-color: salmon;
-  width: 1535px;
-  height: 333px;
-  color: green;
+  background-image: url("background.jpg");
+  width: 1515px;
+  height: 560px;
+  color: black;
   float: left;
+}
+#Search {
+  float: right;
+  size: 150px 150px;
+}
+
+#example-table {
+  font-family: "Source Sans Pro";
+  border-collapse: collapse;
+  border: 1px solid #ebebeb;
+  margin: 30px auto;
+  text-align: center;
+  width: 100%;
+  max-width: 1000px;
+}
+#example-table caption {
+  font-size: 20px;
+  color: #555;
+}
+#example-table th {
+  font-weight: 1000px;
+}
+#example-table td,
+#example-table th,
+#example-table caption {
+  padding: 0;
+}
+#example-table thead tr,
+#example-table tr:nth-child(even) {
+  background: #f8f8f8;
+}
+#example-table tr:hover {
+  background: #f1f7ff;
 }
 /* #CC {
     background-color: palegreen;
@@ -145,3 +179,36 @@ a {
     color: tomato;
     float: right;
   }*/
+.Logo {
+  width: 70px;
+  height: 60px;
+}
+
+#example-table1 {
+  font-family: "Source Sans Pro";
+  border-collapse: collapse;
+  border: 1px solid #ebebeb;
+  margin: 30px auto;
+  text-align: center;
+  width: 100%;
+  max-width: 1000px;
+}
+#example-table1 caption {
+  font-size: 20px;
+  color: #555;
+}
+#example-table1 th {
+  font-weight: 1000px;
+}
+#example-table1 td,
+#example-table1 th,
+#example-table1 caption {
+  padding: 0;
+}
+#example-table1 thead tr,
+#example-table1 tr:nth-child(even) {
+  background: #f8f8f8;
+}
+#example-table1 tr:hover {
+  background: #f1f7ff;
+}

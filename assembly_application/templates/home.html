@@ -6,7 +6,7 @@
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <link rel="stylesheet" href="{{url_for('static', filename='css/Home.css') }}" />
-    <script src="/static/css/Home.js" defer></script>
+    <script src="/static/js/Home.js" defer></script>
     <link
       href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap"
       rel="stylesheet"
@@ -23,8 +23,10 @@
     <nav class="navbar">
       <!-- Logo with text -->
       <div class="navbar__logo">
-        <i class="fab fa-accusoft"></i>
-        <a href="Home">DayTory</a>
+        <a id="name" href="Home" >
+        <img class="Logo" src="/static/img/Logo1.png">
+
+        </a>
       </div>
       <!-- Menu -->
       <ul class="navbar__menu">
@@ -37,7 +39,7 @@
       </ul>
       <!-- Icons -->
       <ul class="navbar__Logout">
-        <li><a href="Login.html">Log Out</a></li>
+        <li><a href="Login">Log Out</a></li>
       </ul>
       <!-- Toggle button -->
     <a href="#" class="navbar__toggleBtn">
@@ -47,23 +49,32 @@
 </header>
 <main>
   <div id="AA">
-      <div id="slider">
-        <div id="slide-holder">
-          <div class="slide"><img src="https://unsplash.it/400/200/?image=934" alt="" /></div>
-          <div class="slide"><img src="https://unsplash.it/400/200/?image=1045" alt="" /></div>
-          <div class="slide"><img src="https://unsplash.it/400/200/?image=215" alt="" /></div>
-        </div>
-        </div> 
-        </div>
+    <div class="w3-content" style="max-width:800px">
+      <img class="mySlides" src="/static/img/BANANA.jpg" style="width:100%">
+      <img class="mySlides" src="/static/img/SVV.jpg" style="width:100%">
+      <img class="mySlides" src="/static/img/dt.jpg" style="width:100%">
+      <img class="mySlides" src="/static/img/apple.jpg" style="width:100%">
+    </div>
+ </div>
   <div id="BB">
-    <box>
-      2
-    </box>
+    <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <img class="ZZZZ" src="/static/img/ZZZZ.png">
   </div>
   <div id="CC">
-    <box>
-      3
-    </box>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <p><b>&nbsp;&nbsp;&nbsp;&nbsp;프로그램 제작 기간 : 2020.08.01 ~ 2020.12.03</b></p>
+    <p><b>&nbsp;&nbsp;&nbsp;&nbsp;마일스톤 일정: 공정 설계 08/24 -> DB 구축 10/15 -> API 서버 구축 11/18 -> AWS 연결 12/03</b></p>
+    <br>
+    <div id="git">
+    <br><br><br><br>
+    <p><b>&nbsp;&nbsp;개발자 정보</b></p>
+    <p><b>&nbsp;&nbsp;김재우 <a class="ww" href="https://github.com/greendolphin7">https://github.com/greendolphin7</a>
+      &nbsp;&nbsp;진익철 <a class="ww" href="https://github.com/jinikcheol">https://github.com/jinikcheol</a></b></p>
+    <p><b>&nbsp;&nbsp;정동교 <a class="ww" href="https://github.com/Eliotj-4860">https://github.com/Eliotj-4860</a>
+      &nbsp;&nbsp;장규빈 <a class="ww" href="https://github.com/Binsreoun">https://github.com/Binsreoun</a></b></p>
+  </div>
   </div>
 </main>
 </body>

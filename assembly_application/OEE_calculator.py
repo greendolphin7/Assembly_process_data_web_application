@@ -82,7 +82,13 @@ class OEE_cal():
         data = MySQL_query.get_item_count_for_quality(1)
 
         OK_count = data[0]['item_count']
+
         NOK_count = data[1]['item_count']
+
+        if OK_count < NOK_count:
+            temp = OK_count
+            OK_count = NOK_count
+            NOK_count = temp
 
         quality = OK_count / (OK_count + NOK_count) * 100
 

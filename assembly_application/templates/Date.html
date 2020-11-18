@@ -13,7 +13,7 @@
       href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap"
       rel="stylesheet"
     />
-    <title>Nav bar</title>
+    <title>Date</title>
     <script
       src="https://kit.fontawesome.com/2d323a629b.js"
       crossorigin="anonymous"
@@ -25,8 +25,9 @@
     <nav class="navbar">
       <!-- Logo with text -->
       <div class="navbar__logo">
-        <i class="fab fa-accusoft"></i>
-        <a href="Home">DayTory</a>
+        <a id="name" href="Home" >
+        <img class="Logo" src="/static/img/Logo1.png">
+        </a>
       </div>
       <!-- Menu -->
       <ul class="navbar__menu">
@@ -34,12 +35,12 @@
         <li><a href="Machine">MACHINE</a></li>
         <li><a href="Date">DATE</a></li>
         <li><a href="Item">ITEM</a></li>
-        <li><a href="Analysis">ANALYSIS</a></li>
+        <li><a href="Analysis_OP10">ANALYSIS</a></li>
         <li><a href="Predict">PREDICT</a></li>
       </ul>
       <!-- Icons -->
       <ul class="navbar__Logout">
-        <li><a href="Login.html">Log Out</a></li>
+        <li><a href="Login">Log Out</a></li>
       </ul>
       <!-- Toggle button -->
     <a href="#" class="navbar__toggleBtn">
@@ -50,8 +51,8 @@
 <main>
   <div id="AA">
     <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="export-data.js"></script>
+    <script src="exporting.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     
     <figure class="highcharts-figure2">
@@ -68,13 +69,12 @@
     <input type="submit" value="Submit">&nbsp;&nbsp;&nbsp;&nbsp;</p>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/series-label.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
-
+    <script src="export-data.js"></script>
+    <script src="exporting.js"></script>
     <figure class="highcharts-figure">
       <div id="container"></div>
     </figure>
-    <p id="DAYTORY"><i class="fab fa-accusoft"></i>DAYTORY</p>
+    <p id="DAYTORY">&nbsp;&nbsp;<img class="Logo2" src="/static/img/Logo1.png"></i>&nbsp;DayTory</p>
   </div>
 </main>
 </body>

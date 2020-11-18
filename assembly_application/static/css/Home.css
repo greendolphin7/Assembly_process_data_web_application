@@ -13,7 +13,7 @@
 }
 
 body {
-  width: 1535px;
+  width: 1515px;
   height: 705px;
   margin: 0;
   font-family: "Source Sans Pro";
@@ -38,7 +38,8 @@ a {
 
 /* Logo with text */
 .navbar__logo {
-  font-size: 24px;
+  font-size: 20px;
+  align-items: center;
   color: var(--text-color);
 }
 
@@ -124,77 +125,44 @@ a {
 }
 
 #AA {
-  background-color: rgb(54, 15, 226);
   height: 667px;
-  width: 800px;
+  width: 775px;
   float: left;
-  color: red;
-  box-sizing: 800px 400px;
 }
 #BB {
-  background-color: orange;
   width: 800px;
   height: 334px;
-  color: green;
+  color: black;
   float: left;
+  font-size: 7px;
 }
 #CC {
-  background-color: red;
-  width: 800px;
-  height: 333px;
-  color: tomato;
+  width: 780px;
+  height: 353px;
+  color: black;
   float: left;
+  line-height: 8px;
 }
 
-#slider {
-  width: 775px;
+.mySlides {
+  display: none;
+  width: 770px;
   height: 667px;
-  overflow: hidden;
-
-  float: left;
 }
-
-.slide {
-  width: 775px;
-  height: 667px;
-  float: left;
-  position: relative;
+.Logo {
+  width: 70px;
+  height: 60px;
 }
-
-#slide-holder {
-  width: 100%;
-  position: relative;
-  left: 0;
-  animation: scroller 10s infinite;
+.ZZZZ {
+  width: 650px;
+  height: 500px;
 }
-
-@keyframes scroller {
-  0% {
-    transform: translateX(0);
-  }
-  33% {
-    transform: translateX(800px);
-  }
-  66% {
-    transform: translateX(800px);
-  }
-  100% {
-    transform: translateX(0);
-  }
+.ww {
+  color: black;
 }
-
-#slider {
-  margin: 0 auto;
-}
-
-.slide:nth-child(1) {
-  background: #c69;
-}
-
-.slide:nth-child(2) {
-  background: wheat;
-}
-
-.slide:nth-child(3) {
-  background: #eee;
+#git {
+  width: 390px;
+  font-size: 10px;
+  float: right;
+  right: 70%;
 }

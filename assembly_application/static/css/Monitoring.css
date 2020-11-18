@@ -13,7 +13,7 @@
 }
 
 body {
-  width: 1535px;
+  width: 1515px;
   height: 705px;
   margin: 0;
   font-family: "Source Sans Pro";
@@ -123,9 +123,9 @@ a {
   }
 }
 
-#AA {
+#A {
   height: 300px;
-  width: 1200px;
+  width: 1250px;
   float: left;
   color: black;
   box-sizing: 800px 400px;
@@ -135,9 +135,9 @@ a {
   font-size: 25px;
 }
 
-#BB {
-  width: 1200px;
-  height: 367px;
+#B {
+  width: 1250px;
+  height: 377px;
   color: black;
   float: left;
 }
@@ -146,19 +146,18 @@ a {
   font-size: 25px;
 }
 
-#bbb {
-  background-color: skyblue;
-  color: skyblue;
-  width: 1000px;
-  height: 267px;
-  float: left;
-  position: absolute;
-  left: 5%;
+#bbbb {
+  width: 1250px;
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+  max-width: 300%;
+  left: 0;
 }
 
 #CC {
-  width: 400px;
-  height: 667px;
+  width: 350px;
+  height: 677px;
   color: black;
   float: right;
   border-block: 0;
@@ -273,4 +272,8 @@ a {
     float: none;
     margin: 0 auto;
   }
+}
+.Logo {
+  width: 70px;
+  height: 60px;
 }

@@ -12,7 +12,7 @@
       href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap"
       rel="stylesheet"
     />
-    <title>Nav bar</title>
+    <title>MachineOP20</title>
     <script
       src="https://kit.fontawesome.com/2d323a629b.js"
       crossorigin="anonymous"
@@ -24,8 +24,9 @@
     <nav class="navbar">
       <!-- Logo with text -->
       <div class="navbar__logo">
-        <i class="fab fa-accusoft"></i>
-        <a href="Home">DayTory</a>
+        <a id="name" href="Home" >
+        <img class="Logo" src="/static/img/Logo1.png">
+        </a>
       </div>
       <!-- Menu -->
       <ul class="navbar__menu">
@@ -33,12 +34,12 @@
         <li><a href="Machine">MACHINE</a></li>
         <li><a href="Date">DATE</a></li>
         <li><a href="Item">ITEM</a></li>
-        <li><a href="Analysis">ANALYSIS</a></li>
+        <li><a href="Analysis_OP10">ANALYSIS</a></li>
         <li><a href="Predict">PREDICT</a></li>
       </ul>
       <!-- Icons -->
       <ul class="navbar__Logout">
-        <li><a href="Login.html">Log Out</a></li>
+        <li><a href="Login">Log Out</a></li>
       </ul>
       <!-- Toggle button -->
     <a href="#" class="navbar__toggleBtn">
@@ -51,8 +52,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/series-label.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="export-data.js"></script>
+    <script src="exporting.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <script src="/static/js/MachineOP20.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
@@ -62,90 +63,27 @@
     </figure>
   </div>
   <div id="BB">
-    <table id="datatable">
-      <thead>
-        <tr>
-          <th></th>
-          <th>들어간부품</th>
-          <th>재공품</th>
-          <th>전기,온도값</th>
-          <th>프로세스타임</th>
-          <th>시작시간</th>
-          <th>끝시간</th>
-          <th>양품,불량</th>
-          <th>치수</th>
-          <th>치수</th>
-          <th>치수</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th>1번</th>
-          <th>0</th>
-          <th>1</th>
-          <th>2</th>
-          <th>3</th>
-          <th>4</th>
-          <th>5</th>
-          <th>6</th>
-          <th>7</th>
-          <th>8</th>
-          <th>9</th>
-        </tr>
-        <tr>
-          <th>2번</th>
-          <th>0</th>
-          <th>1</th>
-          <th>2</th>
-          <th>3</th>
-          <th>4</th>
-          <th>5</th>
-          <th>6</th>
-          <th>7</th>
-          <th>8</th>
-          <th>9</th>
-        </tr>
-        <tr>
-          <th>3번</th>
-          <th>0</th>
-          <th>1</th>
-          <th>2</th>
-          <th>3</th>
-          <th>4</th>
-          <th>5</th>
-          <th>6</th>
-          <th>7</th>
-          <th>8</th>
-          <th>9</th>
-        </tr>
-        <tr>
-          <th>4번</th>
-          <th>0</th>
-          <th>1</th>
-          <th>2</th>
-          <th>3</th>
-          <th>4</th>
-          <th>5</th>
-          <th>6</th>
-          <th>7</th>
-          <th>8</th>
-          <th>9</th>
-        </tr>
-        <tr>
-          <th>5번</th>
-          <th>0</th>
-          <th>1</th>
-          <th>2</th>
-          <th>3</th>
-          <th>4</th>
-          <th>5</th>
-          <th>6</th>
-          <th>7</th>
-          <th>8</th>
-          <th>9</th>
-        </tr>
-      </tbody>
-    </table>
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="/static/js/table.js" ></script>
+    <link href="https://nightly.datatables.net/css/jquery.dataTables.css" rel="stylesheet" type="text/css" />
+    <script src="https://nightly.datatables.net/js/jquery.dataTables.js"></script>
+    <div class="container">
+      <table id="coinTable" class="display nowrap" width="100%">
+        <thead>
+          <tr>
+            <th>product_key</th>
+            <th>machine_code</th>
+            <th>process_time</th>
+            <th>start_time</th>
+            <th>end_time</th>
+            <th>product_test</th>
+            <th>product_size_l</th>
+            <th>product_size_w</th>
+            <th>product_size_h</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
   </div>
   <div id="CC">
     <br><br>
