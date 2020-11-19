@@ -977,7 +977,7 @@ class MySQL_query:
         conn.close()
 
         return data_list
-    
+
 
     def get_key60_for_search(char1, char2):
 
@@ -1011,3 +1011,33 @@ class MySQL_query:
         conn.close()
 
         return data_list
+
+
+def get_key_for_search(head):
+
+    conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+
+    sql = '''
+
+        SELECT product_key
+        FROM product_history
+        WHERE product_key LIKE '%%%s'
+
+    ''' % (head)
+
+    cursor = conn.cursor()
+    cursor.execute(sql)
+    row = cursor.fetchall()
+
+    data_list = []
+
+    for obj in row:
+        data_dic = {
+            'product_key': obj[0]
+        }
+
+        data_list.append(data_dic)
+
+    conn.close()
+
+    return data_list

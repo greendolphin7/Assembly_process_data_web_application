@@ -10,6 +10,21 @@ class process_operate:
     def process_start(amount):
         std = 0.0025  # 표준편차
 
+        num = MySQL_query.key_for_count()
+        n = num[0]['product_key']
+        bar_count = 0
+        for index in range(len(n)):
+
+            if n[index] == '-':
+                bar_count = bar_count + 1
+
+                if bar_count == 3:
+                    break
+
+        n = int(n[index + 4:]) + 1
+
+        # n = 10000 처음 시작할 때는 요걸 풀어주고 한개만 생산하고 다시 주석하고 위에 주석 풀어줌
+
         total_test_data = []  # 예측할 test 데이터들을 뽑기 위한 모음
 
         ## 초기 셋업 타임 설정
@@ -26,7 +41,7 @@ class process_operate:
 
         body_P0 = []  # 공정에 넣을 body 데이터 리스트 틀
 
-        product_key_W1P0 = '-' + 'W1' + 'P' + str(0)  # 첫번째 제품 primary_key 생성 -> machine에서 시간 추가할 예정
+        product_key_W1P0 = '-' + 'W1' + 'P' + str(n)  # 첫번째 제품 primary_key 생성 -> machine에서 시간 추가할 예정
         body_P0.append(product_key_W1P0)
 
         body_l_P0 = np.random.normal(200, std)  # body 치수 데이터 생성
@@ -71,7 +86,7 @@ class process_operate:
         op20_process_time_P0 = np.random.triangular(9, 10, 10)  # 다음 공정에 넣어줄 process_time 새로 생성
         op20_process_time_P0 = round(op20_process_time_P0, 5)
 
-        op20_product_key_P0 = '-' + 'W2' + 'P' + str(0)  # 제품 키 생성
+        op20_product_key_P0 = '-' + 'W2' + 'P' + str(n)  # 제품 키 생성
 
         op20_start_time_P0 = datetime.now()
 
@@ -86,7 +101,7 @@ class process_operate:
 
         body_P1 = []  # P1 제품에 대한 body 값 저장할 리스트
 
-        product_key_W1P1 = '-' + 'W1' + 'P' + str(1)  # 첫번째 제품 primary_key 생성 -> machine에서 시간 추가할 예정
+        product_key_W1P1 = '-' + 'W1' + 'P' + str(n+1)  # 첫번째 제품 primary_key 생성 -> machine에서 시간 추가할 예정
         body_P1.append(product_key_W1P1)
 
         body_l_P1 = np.random.normal(200, std)  # body 치수 데이터 생성
@@ -136,7 +151,7 @@ class process_operate:
         # op20 P0 생산 끝낸 데이터를 다음 공정에 넣을 변수에 저장하기
         op20_data_list_P0 = []
 
-        product_key_W3P0 = '-' + 'W3' + 'P' + str(0)  # 제품 키 생성
+        product_key_W3P0 = '-' + 'W3' + 'P' + str(n)  # 제품 키 생성
         op20_l_P0 = op20_data_P0_from_DB[0]['product_size_l']
         op20_w_P0 = op20_data_P0_from_DB[0]['product_size_w']
         op20_h_P0 = op20_data_P0_from_DB[0]['product_size_h']
@@ -159,7 +174,7 @@ class process_operate:
         # op10 P1 생산 끝낸 데이터를 다음 공정에 넣을 변수에 저장하기
         op10_data_list_P1 = []
 
-        product_key_W2P1 = '-' + 'W2' + 'P' + str(1)  # 제품 키 생성
+        product_key_W2P1 = '-' + 'W2' + 'P' + str(n+1)  # 제품 키 생성
         op10_l_P1 = op10_data_P1_from_DB[0]['product_size_l']
         op10_w_P1 = op10_data_P1_from_DB[0]['product_size_w']
         op10_h_P1 = op10_data_P1_from_DB[0]['product_size_h']
@@ -181,7 +196,7 @@ class process_operate:
 
         body_P2 = []  # P1 제품에 대한 body 값 저장할 리스트
 
-        product_key_W1P2 = '-' + 'W1' + 'P' + str(2)  # 첫번째 제품 primary_key 생성 -> machine에서 시간 추가할 예정
+        product_key_W1P2 = '-' + 'W1' + 'P' + str(n+2)  # 첫번째 제품 primary_key 생성 -> machine에서 시간 추가할 예정
         body_P2.append(product_key_W1P2)
 
         body_l_P2 = np.random.normal(200, std)  # body 치수 데이터 생성
@@ -244,7 +259,7 @@ class process_operate:
         # op30 P0 생산 끝낸 데이터를 다음 공정에 넣을 변수에 저장하기
         op30_data_list_P0 = []
 
-        product_key_W4P0 = '-' + 'W4' + 'P' + str(0)  # 제품 키 생성
+        product_key_W4P0 = '-' + 'W4' + 'P' + str(n)  # 제품 키 생성
         op30_l_P0 = op30_data_P0_from_DB[0]['product_size_l']
         op30_w_P0 = op30_data_P0_from_DB[0]['product_size_w']
         op30_h_P0 = op30_data_P0_from_DB[0]['product_size_h']
@@ -266,7 +281,7 @@ class process_operate:
         # op20 P1 생산 끝낸 데이터를 다음 공정에 넣을 변수에 저장하기
         op20_data_list_P1 = []
 
-        product_key_W3P1 = '-' + 'W3' + 'P' + str(1)  # 제품 키 생성
+        product_key_W3P1 = '-' + 'W3' + 'P' + str(n+1)  # 제품 키 생성
         op20_l_P1 = op20_data_P1_from_DB[0]['product_size_l']
         op20_w_P1 = op20_data_P1_from_DB[0]['product_size_w']
         op20_h_P1 = op20_data_P1_from_DB[0]['product_size_h']
@@ -287,7 +302,7 @@ class process_operate:
         # op10 P1 생산 끝낸 데이터를 다음 공정에 넣을 변수에 저장하기
         op10_data_list_P2 = []
 
-        product_key_W2P2 = '-' + 'W2' + 'P' + str(2)  # 제품 키 생성
+        product_key_W2P2 = '-' + 'W2' + 'P' + str(n+2)  # 제품 키 생성
         op10_l_P2 = op10_data_P2_from_DB[0]['product_size_l']
         op10_w_P2 = op10_data_P2_from_DB[0]['product_size_w']
         op10_h_P2 = op10_data_P2_from_DB[0]['product_size_h']
@@ -307,7 +322,7 @@ class process_operate:
 
         body_P3 = []  # P1 제품에 대한 body 값 저장할 리스트
 
-        product_key_W1P3 = '-' + 'W1' + 'P' + str(3)  # 첫번째 제품 primary_key 생성 -> machine에서 시간 추가할 예정
+        product_key_W1P3 = '-' + 'W1' + 'P' + str(n+3)  # 첫번째 제품 primary_key 생성 -> machine에서 시간 추가할 예정
         body_P3.append(product_key_W1P3)
 
         body_l_P2 = np.random.normal(200, std)  # body 치수 데이터 생성
@@ -376,7 +391,7 @@ class process_operate:
         # op40 P0 생산 끝낸 데이터를 다음 공정에 넣을 변수에 저장하기
         op40_data_list_P0 = []
 
-        product_key_W5P0 = '-' + 'W5' + 'P' + str(0)  # 제품 키 생성
+        product_key_W5P0 = '-' + 'W5' + 'P' + str(n)  # 제품 키 생성
         op40_l_P0 = op40_data_P0_from_DB[0]['product_size_l']
         op40_w_P0 = op40_data_P0_from_DB[0]['product_size_w']
         op40_h_P0 = op40_data_P0_from_DB[0]['product_size_h']
@@ -398,7 +413,7 @@ class process_operate:
         # op30 P1 생산 끝낸 데이터를 다음 공정에 넣을 변수에 저장하기
         op30_data_list_P1 = []
 
-        product_key_W4P1 = '-' + 'W4' + 'P' + str(1)  # 제품 키 생성
+        product_key_W4P1 = '-' + 'W4' + 'P' + str(n+1)  # 제품 키 생성
         op30_l_P1 = op30_data_P1_from_DB[0]['product_size_l']
         op30_w_P1 = op30_data_P1_from_DB[0]['product_size_w']
         op30_h_P1 = op30_data_P1_from_DB[0]['product_size_h']
@@ -420,7 +435,7 @@ class process_operate:
         # op20 P2 생산 끝낸 데이터를 다음 공정에 넣을 변수에 저장하기
         op20_data_list_P2 = []
 
-        product_key_W3P2 = '-' + 'W3' + 'P' + str(2)  # 제품 키 생성
+        product_key_W3P2 = '-' + 'W3' + 'P' + str(n+2)  # 제품 키 생성
         op20_l_P2 = op20_data_P2_from_DB[0]['product_size_l']
         op20_w_P2 = op20_data_P2_from_DB[0]['product_size_w']
         op20_h_P2 = op20_data_P2_from_DB[0]['product_size_h']
@@ -440,7 +455,7 @@ class process_operate:
         # op10 P1 생산 끝낸 데이터를 다음 공정에 넣을 변수에 저장하기
         op10_data_list_P3 = []
 
-        product_key_W2P3 = '-' + 'W2' + 'P' + str(3)  # 제품 키 생성
+        product_key_W2P3 = '-' + 'W2' + 'P' + str(n+3)  # 제품 키 생성
         op10_l_P3 = op10_data_P3_from_DB[0]['product_size_l']
         op10_w_P3 = op10_data_P3_from_DB[0]['product_size_w']
         op10_h_P3 = op10_data_P3_from_DB[0]['product_size_h']
@@ -459,7 +474,7 @@ class process_operate:
 
         body_P4 = []  # P1 제품에 대한 body 값 저장할 리스트
 
-        product_key_W1P4 = '-' + 'W1' + 'P' + str(4)  # 첫번째 제품 primary_key 생성 -> machine에서 시간 추가할 예정
+        product_key_W1P4 = '-' + 'W1' + 'P' + str(n+4)  # 첫번째 제품 primary_key 생성 -> machine에서 시간 추가할 예정
         body_P4.append(product_key_W1P4)
 
         body_l_P3 = np.random.normal(200, std)  # body 치수 데이터 생성
@@ -526,7 +541,7 @@ class process_operate:
         print('for문 진입')
 
 
-        for i in range(5, 10000):
+        for i in range(n + 5, 100000):
 
             op10_process_time = np.random.triangular(9, 10, 10)
             op10_process_time = round(op10_process_time, 5)
@@ -547,7 +562,7 @@ class process_operate:
             op60_process_time = round(op60_process_time, 5)
 
 
-            if i == 5:
+            if i == n + 5:
                 op50_data_P0_from_DB = MySQL_query.get_quality_data_for_process(product_key_W5P0)
                 op50_WIP = []
                 product_key_W6P0 = '-' + 'W6' + 'P' + str(i - 5)

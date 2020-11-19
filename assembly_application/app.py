@@ -435,6 +435,51 @@ def Predict_data():
     return jsonify(total_big_bottle)
 
 
+
+@app.route('/Search_data')
+def Search_data():
+
+    char1 = '2020-11-18'
+    char2 = '2020-11-19'
+
+    key60_list = MySQL_query.get_key60_for_search(char1, char2)
+
+    for i in range(len(key60_list)):
+        key60 = key60_list[i]
+
+        bar_count = 0
+        for index in range(len(key60)):
+
+            if key60[index] == '-':
+                bar_count = bar_count + 1
+
+                if bar_count == 3:
+                    break
+
+        key60_head = key60[index + 1:]
+        key50_head = key60_head.replace('W6', 'W5')
+        key40_head = key60_head.replace('W5', 'W4')
+        key30_head = key60_head.replace('W4', 'W3')
+        key20_head = key60_head.replace('W3', 'W2')
+        key10_head = key60_head.replace('W2', 'W1')
+
+        key50 = MySQL_query.get_key_for_search(key50_head)
+        key40 = MySQL_query.get_key_for_search(key40_head)
+        key30 = MySQL_query.get_key_for_search(key30_head)
+        key20 = MySQL_query.get_key_for_search(key20_head)
+        key10 = MySQL_query.get_key_for_search(key10_head)
+
+
+
+
+
+
+
+
+
+    return jsonify()
+
+
 @app.route('/Login')
 def Login():
     return render_template('Login.html')
