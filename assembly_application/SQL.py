@@ -657,7 +657,7 @@ class MySQL_query:
 
         conn.close()
 
-    def get_product_key_for_test(self):
+    def get_product_key_for_test(count):
 
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
 
@@ -665,9 +665,9 @@ class MySQL_query:
 
             SELECT key30, key20, key10, predict_result
             FROM product_prediction
-            ORDER BY key30 DESC LIMIT 1;
+            ORDER BY key30 DESC LIMIT %s
 
-        '''
+        ''' % (str(count))
 
         cursor = conn.cursor()
         cursor.execute(sql)
@@ -972,6 +972,40 @@ class MySQL_query:
                 'product_size_h': obj[3]
             }
 
+            data_list.append(data_dic)
+
+        conn.close()
+
+        return data_list
+    
+
+    def get_key60_for_search(char1, char2):
+
+        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+
+        sql = '''
+
+                SELECT product_quality.product_key,
+                date_format( product_quality.product_test_timestamp, '%%Y년%%m월%%d일 %%H시%%i분%%s초' ) as insert_date
+
+                FROM machine INNER JOIN product_quality
+                ON  machine.product_key = product_quality.product_key
+
+                WHERE machine.machine_code = 'OP60' AND date_format(product_test_timestamp , '%%Y-%%m-%%d') >= '%s'
+                AND date_format(product_test_timestamp , '%%Y-%%m-%%d') <= '%s'
+
+        ''' % (char1, char2)
+
+        cursor = conn.cursor()
+        cursor.execute(sql)
+        row = cursor.fetchall()
+
+        data_list = []
+
+        for obj in row:
+            data_dic = {
+                'product_key': obj[0],
+            }
             data_list.append(data_dic)
 
         conn.close()

@@ -8,6 +8,7 @@ import json
 import pymysql
 
 app.count = 1
+app.predict_count = 0
 
 @app.route('/Home')
 def Home():
@@ -339,91 +340,99 @@ def Pareto():
 
 @app.route('/Predict_data')
 def Predict_data():
-    total_list = []
-    total_dict = {}
 
-    key_list = MySQL_query.get_product_key_for_test(1)
+    key_list = MySQL_query.get_product_key_for_test(app.predict_count)
 
-    key30 = key_list[0]['key30']
-    key20 = key_list[0]['key20']
-    key10 = key_list[0]['key10']
-    predict_result = key_list[0]['predict_result']
+    total_big_bottle = []
 
-    op30_data = MySQL_query.get_test_data_op30(key30)
-    op20_data = MySQL_query.get_test_data_op20(key20)
-    op10_data = MySQL_query.get_test_data_op10(key10)
+    for i in range(len(key_list)):
+        total_dict = {}
 
-    body_data = MySQL_query.get_test_data_parts_body(key10)
-    wavyfin_data = MySQL_query.get_test_data_parts_wavyfin(key10)
-    pipe1_data = MySQL_query.get_test_data_parts_pipe1(key20)
-    pipe2_data = MySQL_query.get_test_data_parts_pipe2(key30)
+        key30 = key_list[i]['key30']
+        key20 = key_list[i]['key20']
+        key10 = key_list[i]['key10']
+        predict_result = key_list[i]['predict_result']
 
-    product_key = op30_data[0]['product_key']
+        op30_data = MySQL_query.get_test_data_op30(key30)
+        op20_data = MySQL_query.get_test_data_op20(key20)
+        op10_data = MySQL_query.get_test_data_op10(key10)
 
-    body_size_l = body_data[0]['product_size_l']
-    body_size_w = body_data[0]['product_size_w']
-    body_size_h = body_data[0]['product_size_h']
+        body_data = MySQL_query.get_test_data_parts_body(key10)
+        wavyfin_data = MySQL_query.get_test_data_parts_wavyfin(key10)
+        pipe1_data = MySQL_query.get_test_data_parts_pipe1(key20)
+        pipe2_data = MySQL_query.get_test_data_parts_pipe2(key30)
 
-    wavyfin_size_l = wavyfin_data[0]['product_size_l']
-    wavyfin_size_w = wavyfin_data[0]['product_size_w']
-    wavyfin_size_h = wavyfin_data[0]['product_size_h']
+        product_key = op30_data[0]['product_key']
 
-    pipe1_size_l = pipe1_data[0]['product_size_l']
-    pipe1_size_w = pipe1_data[0]['product_size_w']
-    pipe1_size_h = pipe1_data[0]['product_size_h']
+        body_size_l = body_data[0]['product_size_l']
+        body_size_w = body_data[0]['product_size_w']
+        body_size_h = body_data[0]['product_size_h']
 
-    pipe2_size_l = pipe2_data[0]['product_size_l']
-    pipe2_size_w = pipe2_data[0]['product_size_w']
-    pipe2_size_h = pipe2_data[0]['product_size_h']
+        wavyfin_size_l = wavyfin_data[0]['product_size_l']
+        wavyfin_size_w = wavyfin_data[0]['product_size_w']
+        wavyfin_size_h = wavyfin_data[0]['product_size_h']
 
-    op10_machine_data = op10_data[0]['machine_data']
-    op10_size_l = op10_data[0]['product_size_l']
-    op10_size_w = op10_data[0]['product_size_w']
-    op10_size_h = op10_data[0]['product_size_h']
+        pipe1_size_l = pipe1_data[0]['product_size_l']
+        pipe1_size_w = pipe1_data[0]['product_size_w']
+        pipe1_size_h = pipe1_data[0]['product_size_h']
 
-    op20_machine_data = op20_data[0]['machine_data']
-    op20_size_l = op20_data[0]['product_size_l']
-    op20_size_w = op20_data[0]['product_size_w']
-    op20_size_h = op20_data[0]['product_size_h']
+        pipe2_size_l = pipe2_data[0]['product_size_l']
+        pipe2_size_w = pipe2_data[0]['product_size_w']
+        pipe2_size_h = pipe2_data[0]['product_size_h']
 
-    op30_machine_data = op30_data[0]['machine_data']
-    op30_size_l = op30_data[0]['product_size_l']
-    op30_size_w = op30_data[0]['product_size_w']
-    op30_size_h = op30_data[0]['product_size_h']
+        op10_machine_data = op10_data[0]['machine_data']
+        op10_size_l = op10_data[0]['product_size_l']
+        op10_size_w = op10_data[0]['product_size_w']
+        op10_size_h = op10_data[0]['product_size_h']
 
-    total_dict['product_key'] = product_key
-    total_dict['body_size_l'] = str(body_size_l)
-    total_dict['body_size_w'] = str(body_size_w)
-    total_dict['body_size_h'] = str(body_size_h)
-    total_dict['wavyfin_size_l'] = str(wavyfin_size_l)
-    total_dict['wavyfin_size_w'] = str(wavyfin_size_w)
-    total_dict['wavyfin_size_h'] = str(wavyfin_size_h)
-    total_dict['op10_machine_data'] = str(op10_machine_data)
-    total_dict['op10_size_l'] = str(op10_size_l)
-    total_dict['op10_size_w'] = str(op10_size_w)
-    total_dict['op10_size_h'] = str(op10_size_h)
+        op20_machine_data = op20_data[0]['machine_data']
+        op20_size_l = op20_data[0]['product_size_l']
+        op20_size_w = op20_data[0]['product_size_w']
+        op20_size_h = op20_data[0]['product_size_h']
 
-    total_dict['pipe1_size_l'] = str(pipe1_size_l)
-    total_dict['pipe1_size_w'] = str(pipe1_size_w)
-    total_dict['pipe1_size_h'] = str(pipe1_size_h)
-    total_dict['op20_machine_data'] = str(op20_machine_data)
-    total_dict['op20_size_l'] = str(op20_size_l)
-    total_dict['op20_size_w'] = str(op20_size_w)
-    total_dict['op20_size_h'] = str(op20_size_h)
+        op30_machine_data = op30_data[0]['machine_data']
+        op30_size_l = op30_data[0]['product_size_l']
+        op30_size_w = op30_data[0]['product_size_w']
+        op30_size_h = op30_data[0]['product_size_h']
 
-    total_dict['pipe2_size_l'] = str(pipe2_size_l)
-    total_dict['pipe2_size_w'] = str(pipe2_size_w)
-    total_dict['pipe2_size_h'] = str(pipe2_size_h)
-    total_dict['op30_machine_data'] = str(op30_machine_data)
-    total_dict['op30_size_l'] = str(op30_size_l)
-    total_dict['op30_size_w'] = str(op30_size_w)
-    total_dict['op30_size_h'] = str(op30_size_h)
+        total_dict['product_key'] = product_key
+        total_dict['body_size_l'] = str(body_size_l)
+        total_dict['body_size_w'] = str(body_size_w)
+        total_dict['body_size_h'] = str(body_size_h)
+        total_dict['wavyfin_size_l'] = str(wavyfin_size_l)
+        total_dict['wavyfin_size_w'] = str(wavyfin_size_w)
+        total_dict['wavyfin_size_h'] = str(wavyfin_size_h)
+        total_dict['op10_machine_data'] = str(op10_machine_data)
+        total_dict['op10_size_l'] = str(op10_size_l)
+        total_dict['op10_size_w'] = str(op10_size_w)
+        total_dict['op10_size_h'] = str(op10_size_h)
 
-    total_dict['predict_result'] = str(predict_result)
+        total_dict['pipe1_size_l'] = str(pipe1_size_l)
+        total_dict['pipe1_size_w'] = str(pipe1_size_w)
+        total_dict['pipe1_size_h'] = str(pipe1_size_h)
+        total_dict['op20_machine_data'] = str(op20_machine_data)
+        total_dict['op20_size_l'] = str(op20_size_l)
+        total_dict['op20_size_w'] = str(op20_size_w)
+        total_dict['op20_size_h'] = str(op20_size_h)
 
-    total_list.append(total_dict)
+        total_dict['pipe2_size_l'] = str(pipe2_size_l)
+        total_dict['pipe2_size_w'] = str(pipe2_size_w)
+        total_dict['pipe2_size_h'] = str(pipe2_size_h)
+        total_dict['op30_machine_data'] = str(op30_machine_data)
+        total_dict['op30_size_l'] = str(op30_size_l)
+        total_dict['op30_size_w'] = str(op30_size_w)
+        total_dict['op30_size_h'] = str(op30_size_h)
 
-    return jsonify(total_list)
+        total_dict['predict_result'] = str(predict_result)
+
+        total_big_bottle.append(total_dict)
+
+    app.predict_count += 1
+
+    if app.predict_count >= 10:
+        app.predict_count = 10
+
+    return jsonify(total_big_bottle)
 
 
 @app.route('/Login')
@@ -437,4 +446,4 @@ def Signin():
 
 
 if __name__ == '__main__':
-   app.run('0.0.0.0', port=5009, debug=True)
+   app.run('0.0.0.0', port=5017, debug=True)
