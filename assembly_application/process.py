@@ -10,7 +10,7 @@ class process_operate:
     def process_start(amount):
         std = 0.0025  # 표준편차
 
-        num = MySQL_query.key_for_count()
+        num = MySQL_query.key_for_count(1)
         n = num[0]['product_key']
         bar_count = 0
         for index in range(len(n)):
