@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/Search.css') }}" />
+    <script src="/static/js/Search_table.js" defer></script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap"
+      rel="stylesheet"
+    />
+    <title>Search</title>
+    <script
+      src="https://kit.fontawesome.com/2d323a629b.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+  <header>
+    <!-- Nav container -->
+    <nav class="navbar">
+      <!-- Logo with text -->
+      <div class="navbar__logo">
+        <a id="name" href="Home.html" >
+        <img class="Logo" src="Logo1.png">
+        </a>
+      </div>
+      <!-- Menu -->
+      <ul class="navbar__menu">
+        <li><a href="Monitoring">MONITORING</a></li>
+        <li><a href="Machine">MACHINE</a></li>
+        <li><a href="Quality">QUALITY</a></li>
+        <li><a href="Search">SEARCH</a></li>
+        <li><a href="Analysis">ANALYSIS</a></li>
+        <li><a href="Predict">PREDICT</a></li>
+      </ul>
+      <!-- Icons -->
+      <ul class="navbar__Logout">
+        <li><a href="Login.html">Log Out</a></li>
+      </ul>
+      <!-- Toggle button -->
+    <a href="#" class="navbar__toggleBtn">
+    <i class="fas fa-bars"></i>
+    </a>
+  </nav>
+</header>
+<main>
+    <div id="AA">
+      <form method="GET" action="/Search">
+      <p id="Search"><input type="text" name="key">
+      <button type="submit">검색</button></form>
+      <br>
+      <button type="button" onclick="exportTableToCsv('example-table', 'Export example')">
+      다운</button></p>
+
+    <p id = "Siz">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;실시간 예측 데이터</p>
+       <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="/static/js/Search_table.js" ></script>
+    <link href="https://nightly.datatables.net/css/jquery.dataTables.css" rel="stylesheet" type="text/css" />
+    <script src="https://nightly.datatables.net/js/jquery.dataTables.js"></script>
+    <requestLimits maxQueryString="32768" />
+    <div class="container">
+      <table id="coinTable" class="display nowrap" width="100%">
+        <thead>
+          <tr>
+            <th>Product key</th>
+              <th>Time Stamp</th>
+            <th>Body_L</th>
+            <th>Body_W</th>
+            <th>Body_H</th>
+            <th>Wavyfin_L</th>
+            <th>Wavyfin_W</th>
+            <th>Wavyfin_H</th>
+            <th>OP10_Electricity</th>
+              <th>OP10_Process_time</th>
+            <th>OP10_L</th>
+            <th>OP10_W</th>
+            <th>OP10_H</th>
+            <th>Pipe1_L</th>
+            <th>Pipe1_W</th>
+            <th>Pipe1_H</th>
+            <th>OP20_Electricity</th>
+              <th>OP20_Process_time</th>
+            <th>OP20_L</th>
+            <th>OP20_W</th>
+            <th>OP20_H</th>
+            <th>Pipe2_L</th>
+            <th>Pipe2_W</th>
+            <th>Pipe2_H</th>
+            <th>OP30_Electricity</th>
+              <th>OP30_Process_time</th>
+            <th>OP30_L</th>
+            <th>OP30_W</th>
+            <th>OP30_H</th>
+              <th>Flange1_L</th>
+            <th>Flange1_W</th>
+            <th>Flange1_H</th>
+            <th>OP40_Temperature</th>
+              <th>OP40_Process_time</th>
+            <th>OP40_L</th>
+            <th>OP40_W</th>
+            <th>OP40_H</th>
+              <th>Flange2_L</th>
+            <th>Flange2_L</th>
+            <th>Flange2_L</th>
+            <th>OP50_Temperature</th>
+              <th>OP50_Process_time</th>
+            <th>OP50_L</th>
+            <th>OP50_L</th>
+            <th>OP50_L</th>
+
+          </tr>
+        </thead>
+      </table>
+        {% if key == None %}
+      {% else %}
+            {% for obj in quality_data_list %}
+            <tbody>
+                <tr>
+                    <td style="width:10%;padding-right:5px">{{obj.product_key}}</td>
+                    <td>{{obj.product_test}}</td>
+                </tr>
+            </tbody>
+            {% endfor %}
+      </thead>
+      {% endif %}
+    </div>
+  </div>
+ <!-- <div id="CC">
+    <box>
+      3
+    </box>
+  </div>-->
+</main>
+</body>
+</html>

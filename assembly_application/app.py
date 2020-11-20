@@ -435,179 +435,170 @@ def Predict_data():
 
 
 @app.route('/Search_data')
-def Search_data():
-
-    char1 = '2020-11-20'
-    char2 = '2020-11-21'
+def Search_data(key60):
 
     total_big_bottle = []
+    data_dict = {}
 
-    key60_list = MySQL_query.get_key60_for_search(char1, char2)
+    # key60 = '2020-11-20 14:50:12.993887-W6P10105'
 
-    print(key60_list)
+    bar_count = 0
+    for index in range(len(key60)):
 
-    for i in range(10):  # 갯수 설정 일단 10개만 / 전체 갯수 : len(key60_list)
-        data_dict = {}
+        if key60[index] == '-':
+            bar_count = bar_count + 1
 
-        key60 = key60_list[i]['product_key']
+            if bar_count == 3:
+                break
 
-        bar_count = 0
-        for index in range(len(key60)):
+    key60_head = key60[index + 1:]
+    key50_head = key60_head.replace('W6', 'W5')
+    key40_head = key50_head.replace('W5', 'W4')
+    key30_head = key40_head.replace('W4', 'W3')
+    key20_head = key30_head.replace('W3', 'W2')
+    key10_head = key20_head.replace('W2', 'W1')
 
-            if key60[index] == '-':
-                bar_count = bar_count + 1
+    key50 = MySQL_query.get_key_for_search(key50_head)
+    key50 = key50[0]['product_key']
+    key40 = MySQL_query.get_key_for_search(key40_head)
+    key40 = key40[0]['product_key']
+    key30 = MySQL_query.get_key_for_search(key30_head)
+    key30 = key30[0]['product_key']
+    key20 = MySQL_query.get_key_for_search(key20_head)
+    key20 = key20[0]['product_key']
+    key10 = MySQL_query.get_key_for_search(key10_head)
+    key10 = key10[0]['product_key']
 
-                if bar_count == 3:
-                    break
+    body_data = MySQL_query.get_body_data_for_search(key10)
+    wavyfin_data = MySQL_query.get_wavyfin_data_for_search(key10)
+    pipe1_data = MySQL_query.get_pipe1_data_for_search(key20)
+    pipe2_data = MySQL_query.get_pipe2_data_for_search(key30)
+    flange1_data = MySQL_query.get_flange1_data_for_search(key40)
+    flange2_data = MySQL_query.get_flange2_data_for_search(key50)
 
-        key60_head = key60[index + 1:]
-        key50_head = key60_head.replace('W6', 'W5')
-        key40_head = key50_head.replace('W5', 'W4')
-        key30_head = key40_head.replace('W4', 'W3')
-        key20_head = key30_head.replace('W3', 'W2')
-        key10_head = key20_head.replace('W2', 'W1')
+    op10_data = MySQL_query.get_op10_data_for_search(key10)
+    op20_data = MySQL_query.get_op20_data_for_search(key20)
+    op30_data = MySQL_query.get_op30_data_for_search(key30)
+    op40_data = MySQL_query.get_op40_data_for_search(key40)
+    op50_data = MySQL_query.get_op50_data_for_search(key50)
+    op60_data = MySQL_query.get_op60_data_for_search(key60)
 
-        key50 = MySQL_query.get_key_for_search(key50_head)
-        key50 = key50[0]['product_key']
-        key40 = MySQL_query.get_key_for_search(key40_head)
-        key40 = key40[0]['product_key']
-        key30 = MySQL_query.get_key_for_search(key30_head)
-        key30 = key30[0]['product_key']
-        key20 = MySQL_query.get_key_for_search(key20_head)
-        key20 = key20[0]['product_key']
-        key10 = MySQL_query.get_key_for_search(key10_head)
-        key10 = key10[0]['product_key']
+    product_key = op60_data[0]['product_key']
+    op60_timestamp = op60_data[0]['product_test_timestamp']
 
-        body_data = MySQL_query.get_body_data_for_search(key10)
-        wavyfin_data = MySQL_query.get_wavyfin_data_for_search(key10)
-        pipe1_data = MySQL_query.get_pipe1_data_for_search(key20)
-        pipe2_data = MySQL_query.get_pipe2_data_for_search(key30)
-        flange1_data = MySQL_query.get_flange1_data_for_search(key40)
-        flange2_data = MySQL_query.get_flange2_data_for_search(key50)
+    op50_machine_data = op50_data[0]['machine_data']
+    op50_process_time = op50_data[0]['process_time']
+    op50_product_size_l = op50_data[0]['product_size_l']
+    op50_product_size_w = op50_data[0]['product_size_w']
+    op50_product_size_h = op50_data[0]['product_size_h']
 
-        op10_data = MySQL_query.get_op10_data_for_search(key10)
-        op20_data = MySQL_query.get_op20_data_for_search(key20)
-        op30_data = MySQL_query.get_op30_data_for_search(key30)
-        op40_data = MySQL_query.get_op40_data_for_search(key40)
-        op50_data = MySQL_query.get_op50_data_for_search(key50)
-        op60_data = MySQL_query.get_op60_data_for_search(key60)
+    flange2_l = flange2_data[0]['product_size_l']
+    flange2_w = flange2_data[0]['product_size_w']
+    flange2_h = flange2_data[0]['product_size_h']
 
-        product_key = op60_data[0]['product_key']
-        op60_timestamp = op60_data[0]['product_test_timestamp']
+    op40_machine_data = op40_data[0]['machine_data']
+    op40_process_time = op40_data[0]['process_time']
+    op40_product_size_l = op40_data[0]['product_size_l']
+    op40_product_size_w = op40_data[0]['product_size_w']
+    op40_product_size_h = op40_data[0]['product_size_h']
 
-        op50_machine_data = op50_data[0]['machine_data']
-        op50_process_time = op50_data[0]['process_time']
-        op50_product_size_l = op50_data[0]['product_size_l']
-        op50_product_size_w = op50_data[0]['product_size_w']
-        op50_product_size_h = op50_data[0]['product_size_h']
+    flange1_l = flange1_data[0]['product_size_l']
+    flange1_w = flange1_data[0]['product_size_w']
+    flange1_h = flange1_data[0]['product_size_h']
 
-        flange2_l = flange2_data[0]['product_size_l']
-        flange2_w = flange2_data[0]['product_size_w']
-        flange2_h = flange2_data[0]['product_size_h']
+    op30_machine_data = op30_data[0]['machine_data']
+    op30_process_time = op30_data[0]['process_time']
+    op30_product_size_l = op30_data[0]['product_size_l']
+    op30_product_size_w = op30_data[0]['product_size_w']
+    op30_product_size_h = op30_data[0]['product_size_h']
 
-        op40_machine_data = op40_data[0]['machine_data']
-        op40_process_time = op40_data[0]['process_time']
-        op40_product_size_l = op40_data[0]['product_size_l']
-        op40_product_size_w = op40_data[0]['product_size_w']
-        op40_product_size_h = op40_data[0]['product_size_h']
+    pipe2_l = pipe2_data[0]['product_size_l']
+    pipe2_w = pipe2_data[0]['product_size_w']
+    pipe2_h = pipe2_data[0]['product_size_h']
 
-        flange1_l = flange1_data[0]['product_size_l']
-        flange1_w = flange1_data[0]['product_size_w']
-        flange1_h = flange1_data[0]['product_size_h']
+    op20_machine_data = op20_data[0]['machine_data']
+    op20_process_time = op20_data[0]['process_time']
+    op20_product_size_l = op20_data[0]['product_size_l']
+    op20_product_size_w = op20_data[0]['product_size_w']
+    op20_product_size_h = op20_data[0]['product_size_h']
 
-        op30_machine_data = op30_data[0]['machine_data']
-        op30_process_time = op30_data[0]['process_time']
-        op30_product_size_l = op30_data[0]['product_size_l']
-        op30_product_size_w = op30_data[0]['product_size_w']
-        op30_product_size_h = op30_data[0]['product_size_h']
+    pipe1_l = pipe1_data[0]['product_size_l']
+    pipe1_w = pipe1_data[0]['product_size_w']
+    pipe1_h = pipe1_data[0]['product_size_h']
 
-        pipe2_l = pipe2_data[0]['product_size_l']
-        pipe2_w = pipe2_data[0]['product_size_w']
-        pipe2_h = pipe2_data[0]['product_size_h']
+    op10_machine_data = op10_data[0]['machine_data']
+    op10_process_time = op10_data[0]['process_time']
+    op10_product_size_l = op10_data[0]['product_size_l']
+    op10_product_size_w = op10_data[0]['product_size_w']
+    op10_product_size_h = op10_data[0]['product_size_h']
 
-        op20_machine_data = op20_data[0]['machine_data']
-        op20_process_time = op20_data[0]['process_time']
-        op20_product_size_l = op20_data[0]['product_size_l']
-        op20_product_size_w = op20_data[0]['product_size_w']
-        op20_product_size_h = op20_data[0]['product_size_h']
+    wavyfin_l = wavyfin_data[0]['product_size_l']
+    wavyfin_w = wavyfin_data[0]['product_size_w']
+    wavyfin_h = wavyfin_data[0]['product_size_h']
 
-        pipe1_l = pipe1_data[0]['product_size_l']
-        pipe1_w = pipe1_data[0]['product_size_w']
-        pipe1_h = pipe1_data[0]['product_size_h']
-
-        op10_machine_data = op10_data[0]['machine_data']
-        op10_process_time = op10_data[0]['process_time']
-        op10_product_size_l = op10_data[0]['product_size_l']
-        op10_product_size_w = op10_data[0]['product_size_w']
-        op10_product_size_h = op10_data[0]['product_size_h']
-
-        wavyfin_l = wavyfin_data[0]['product_size_l']
-        wavyfin_w = wavyfin_data[0]['product_size_w']
-        wavyfin_h = wavyfin_data[0]['product_size_h']
-
-        body_l = body_data[0]['product_size_l']
-        body_w = body_data[0]['product_size_w']
-        body_h = body_data[0]['product_size_h']
+    body_l = body_data[0]['product_size_l']
+    body_w = body_data[0]['product_size_w']
+    body_h = body_data[0]['product_size_h']
 
 
-        data_dict['product_key'] = product_key
-        data_dict['op60_timestamp'] = op60_timestamp
+    data_dict['product_key'] = product_key
+    data_dict['op60_timestamp'] = op60_timestamp
 
-        data_dict['body_l'] = body_l
-        data_dict['body_w'] = body_w
-        data_dict['body_h'] = body_h
+    data_dict['body_l'] = body_l
+    data_dict['body_w'] = body_w
+    data_dict['body_h'] = body_h
 
-        data_dict['wavyfin_l'] = wavyfin_l
-        data_dict['wavyfin_w'] = wavyfin_w
-        data_dict['wavyfin_h'] = wavyfin_h
+    data_dict['wavyfin_l'] = wavyfin_l
+    data_dict['wavyfin_w'] = wavyfin_w
+    data_dict['wavyfin_h'] = wavyfin_h
 
-        data_dict['op10_machine_data'] = op10_machine_data
-        data_dict['op10_process_time'] = op10_process_time
-        data_dict['op10_product_size_l'] = op10_product_size_l
-        data_dict['op10_product_size_w'] = op10_product_size_w
-        data_dict['op10_product_size_h'] = op10_product_size_h
+    data_dict['op10_machine_data'] = op10_machine_data
+    data_dict['op10_process_time'] = op10_process_time
+    data_dict['op10_product_size_l'] = op10_product_size_l
+    data_dict['op10_product_size_w'] = op10_product_size_w
+    data_dict['op10_product_size_h'] = op10_product_size_h
 
-        data_dict['pipe1_l'] = pipe1_l
-        data_dict['pipe1_w'] = pipe1_w
-        data_dict['pipe1_h'] = pipe1_h
+    data_dict['pipe1_l'] = pipe1_l
+    data_dict['pipe1_w'] = pipe1_w
+    data_dict['pipe1_h'] = pipe1_h
 
-        data_dict['op20_machine_data'] = op20_machine_data
-        data_dict['op20_process_time'] = op20_process_time
-        data_dict['op20_product_size_l'] = op20_product_size_l
-        data_dict['op20_product_size_w'] = op20_product_size_w
-        data_dict['op20_product_size_h'] = op20_product_size_h
+    data_dict['op20_machine_data'] = op20_machine_data
+    data_dict['op20_process_time'] = op20_process_time
+    data_dict['op20_product_size_l'] = op20_product_size_l
+    data_dict['op20_product_size_w'] = op20_product_size_w
+    data_dict['op20_product_size_h'] = op20_product_size_h
 
-        data_dict['pipe2_l'] = pipe2_l
-        data_dict['pipe2_w'] = pipe2_w
-        data_dict['pipe2_h'] = pipe2_h
+    data_dict['pipe2_l'] = pipe2_l
+    data_dict['pipe2_w'] = pipe2_w
+    data_dict['pipe2_h'] = pipe2_h
 
-        data_dict['op30_machine_data'] = op30_machine_data
-        data_dict['op30_process_time'] = op30_process_time
-        data_dict['op30_product_size_l'] = op30_product_size_l
-        data_dict['op30_product_size_w'] = op30_product_size_w
-        data_dict['op30_product_size_h'] = op30_product_size_h
+    data_dict['op30_machine_data'] = op30_machine_data
+    data_dict['op30_process_time'] = op30_process_time
+    data_dict['op30_product_size_l'] = op30_product_size_l
+    data_dict['op30_product_size_w'] = op30_product_size_w
+    data_dict['op30_product_size_h'] = op30_product_size_h
 
-        data_dict['flange1_l'] = flange1_l
-        data_dict['flange1_w'] = flange1_w
-        data_dict['flange1_h'] = flange1_h
+    data_dict['flange1_l'] = flange1_l
+    data_dict['flange1_w'] = flange1_w
+    data_dict['flange1_h'] = flange1_h
 
-        data_dict['op40_machine_data'] = op40_machine_data
-        data_dict['op40_process_time'] = op40_process_time
-        data_dict['op40_product_size_l'] = op40_product_size_l
-        data_dict['op40_product_size_w'] = op40_product_size_w
-        data_dict['op40_product_size_h'] = op40_product_size_h
+    data_dict['op40_machine_data'] = op40_machine_data
+    data_dict['op40_process_time'] = op40_process_time
+    data_dict['op40_product_size_l'] = op40_product_size_l
+    data_dict['op40_product_size_w'] = op40_product_size_w
+    data_dict['op40_product_size_h'] = op40_product_size_h
 
-        data_dict['flange2_l'] = flange2_l
-        data_dict['flange2_w'] = flange2_w
-        data_dict['flange2_h'] = flange2_h
+    data_dict['flange2_l'] = flange2_l
+    data_dict['flange2_w'] = flange2_w
+    data_dict['flange2_h'] = flange2_h
 
-        data_dict['op50_machine_data'] = op50_machine_data
-        data_dict['op50_process_time'] = op50_process_time
-        data_dict['op50_product_size_l'] = op50_product_size_l
-        data_dict['op50_product_size_w'] = op50_product_size_w
-        data_dict['op50_product_size_h'] = op50_product_size_h
+    data_dict['op50_machine_data'] = op50_machine_data
+    data_dict['op50_process_time'] = op50_process_time
+    data_dict['op50_product_size_l'] = op50_product_size_l
+    data_dict['op50_product_size_w'] = op50_product_size_w
+    data_dict['op50_product_size_h'] = op50_product_size_h
 
-        total_big_bottle.append(data_dict)
+    total_big_bottle.append(data_dict)
 
     return jsonify(total_big_bottle)
 
@@ -622,5 +613,17 @@ def Signin():
     return render_template('Signin.html')
 
 
+@app.route('/Search', method=['GET'])
+def Search():
+    if request.method == 'GET':
+        key60 = request.args.get('key')
+
+        content_list = MySQL_query.get_quality_data_list(key60)  # 키주는거
+
+    html = render_template('Search.html', quality_data_list=content_list, key=key60)
+
+    return html
+
+
 if __name__ == '__main__':
-   app.run('0.0.0.0', port=5017, debug=True)
+   app.run('0.0.0.0', port=5019, debug=True)
