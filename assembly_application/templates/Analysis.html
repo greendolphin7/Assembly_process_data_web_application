@@ -4,37 +4,37 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
     <!-- Link Swiper's CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <link rel="stylesheet" href="{{url_for('static' , filename='css/Analysis.css') }}" />
     <script src="/static/js/Analysis.js" defer></script>
+    <script src="Analysis.js" defer></script>
     <link
       href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap"
       rel="stylesheet"
     />
-    <title>Nav bar</title>
+    <title>Analysis</title>
     <script
       src="https://kit.fontawesome.com/2d323a629b.js"
       crossorigin="anonymous"
     ></script>
   </head>
   <body>
-  <header> 
+  <header>
     <!-- Nav container -->
     <nav class="navbar">
       <!-- Logo with text -->
       <div class="navbar__logo">
-        <a id="name" href="Home" >
-        <img class="Logo" src="/static/img/Logo1.png">
+        <a id="name" href="Home.html" >
+        <img class="Logo" src="Logo1.png">
         </a>
       </div>
       <!-- Menu -->
       <ul class="navbar__menu">
-        <li><a href="Monitoring">MONITORING</a></li>
-        <li><a href="Machine">MACHINE</a></li>
-        <li><a href="Date">DATE</a></li>
-        <li><a href="Item">ITEM</a></li>
-        <li><a href="Analysis">ANALYSIS</a></li>
-        <li><a href="Predict">PREDICT</a></li>
+        <li><a href="Monitoring.html">MONITORING</a></li>
+        <li><a href="Machine.html">MACHINE</a></li>
+        <li><a href="Quality.html">QUALITY</a></li>
+        <li><a href="Search.html">SEARCH</a></li>
+        <li><a href="Analysis.html">ANALYSIS</a></li>
+        <li><a href="Predict.html">PREDICT</a></li>
       </ul>
       <!-- Icons -->
       <ul class="navbar__Logout">
@@ -48,25 +48,53 @@
 </header>
 <main>
   <div id="AA">
+
     <box id="SS">
-      1
+      <script src="https://code.highcharts.com/highcharts.js"></script>
+      <script src="https://code.highcharts.com/highcharts-more.js"></script>
+      <script src="export-data.js"></script>
+      <script src="exporting.js"></script>
+      <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+      <figure class="highcharts-figure">
+      <div id="container"></div>
+      </figure>
+      <br>
     </box>
+
     <box id="TT">
-      1
+      <figure class="highcharts-figure">
+        <div id="container2"></div>
+        </figure>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     </box>
     <box id="UU">
-      1
-    </box>
+      <figure class="highcharts-figure">
+        <div id="container3"></div>
+        </figure>
+  </box>
   </div>
   <div id="BB">
-    <box>
-      2
-    </box>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/pareto.js"></script>
+    <script src="export-data.js"></script>
+    <script src="exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <figure class="highcharts-figure4">
+      <div id="container4"></div>
+    </figure>
   </div>
   <div id="CC">
-    <box>
-      3
-  </box>
+    <br><br>
+    <button class="button">OP10</button>
+    <br><br><br><br><br><br>
+    <button class="button">OP20</button>
+    <br><br><br><br><br><br>
+    <button class="button">OP30</button>
+    <br><br><br><br><br><br>
+    <button class="button">OP40</button>
+    <br><br><br><br><br><br>
+    <button class="button">OP50</button>
   </div>
 </main>
 </body>

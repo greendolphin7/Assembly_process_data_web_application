@@ -1010,23 +1010,19 @@ class MySQL_query:
 
         return data_list
 
-
-    def get_key60_for_search(char1, char2):
+    def get_key60_for_search(key):
 
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
 
         sql = '''
 
-                SELECT product_quality.product_key,
-                date_format( product_quality.product_test_timestamp, '%%Y년%%m월%%d일 %%H시%%i분%%s초' ) as insert_date
+                SELECT product_key
 
-                FROM machine INNER JOIN product_quality
-                ON  machine.product_key = product_quality.product_key
+                FROM product_history
 
-                WHERE machine.machine_code = 'OP60' AND date_format(product_test_timestamp , '%%Y-%%m-%%d') >= '%s'
-                AND date_format(product_test_timestamp , '%%Y-%%m-%%d') <= '%s'
+                WHERE product_history.product_key = '%s'
 
-        ''' % (char1, char2)
+        ''' % (key)
 
         cursor = conn.cursor()
         cursor.execute(sql)
@@ -1555,6 +1551,68 @@ class MySQL_query:
                 'product_size_l': obj[0],
                 'product_size_w': obj[1],
                 'product_size_h': obj[2]
+            }
+
+            data_list.append(data_dic)
+
+        conn.close()
+
+        return data_list
+
+
+    def get_key60_count_for_search(insert_key):
+
+        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+
+        sql = '''
+
+                SELECT product_key
+
+                FROM machine
+
+                WHERE product_key LIKE '%%%s'
+
+        ''' % (insert_key)
+
+        cursor = conn.cursor()
+        cursor.execute(sql)
+        row = cursor.fetchall()
+
+        data_list = []
+        count = 0
+
+        for obj in row:
+            data_dic = {
+                'product_key': obj[0],
+            }
+            data_list.append(data_dic)
+            count = count + 1
+
+        conn.close()
+
+        return count
+
+    def get_key_product_for_search(product):
+
+        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+
+        sql = '''
+
+            SELECT product_key
+            FROM machine
+            WHERE product_key LIKE '%%%s' AND machine_code = "OP60"
+
+        ''' % (product)
+
+        cursor = conn.cursor()
+        cursor.execute(sql)
+        row = cursor.fetchall()
+
+        data_list = []
+
+        for obj in row:
+            data_dic = {
+                'product_key': obj[0]
             }
 
             data_list.append(data_dic)

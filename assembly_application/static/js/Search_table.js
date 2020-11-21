@@ -1,10 +1,10 @@
 // charts = one minute
 let UPDATE = 10000;
 
-$(document).ready(function() {
+function() {
 	  var table = $('#coinTable').DataTable( {
              ajax: {
-                 url: "http://localhost:5019/Search_data",
+                 url: "http://localhost:5005/Search_data",
                  dataSrc: ''
              },
 		    colReorder: {
@@ -63,10 +63,9 @@ $(document).ready(function() {
 
 		    ]
 	        } );
-} );
 
 setInterval( function () {
   console.log('reload');
-    //$('#coinTable').DataTable().ajax.reload();
-       $('#coinTable').DataTable().ajax.reload(null, true);
+    //$('#coinTable').DataTable().ajax.load();
+     //$('#coinTable').DataTable().ajax.reload(null, true);
 }, UPDATE  );

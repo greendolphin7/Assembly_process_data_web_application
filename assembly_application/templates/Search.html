@@ -47,26 +47,24 @@
   </nav>
 </header>
 <main>
-    <div id="AA">
+
       <form method="GET" action="/Search">
       <p id="Search"><input type="text" name="key">
       <button type="submit">검색</button></form>
       <br>
-      <button type="button" onclick="exportTableToCsv('example-table', 'Export example')">
-      다운</button></p>
 
-    <p id = "Siz">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;실시간 예측 데이터</p>
-       <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="/static/js/Search_table.js" ></script>
-    <link href="https://nightly.datatables.net/css/jquery.dataTables.css" rel="stylesheet" type="text/css" />
-    <script src="https://nightly.datatables.net/js/jquery.dataTables.js"></script>
-    <requestLimits maxQueryString="32768" />
-    <div class="container">
-      <table id="coinTable" class="display nowrap" width="100%">
+<p id = "Siz">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;완제품 이력 조회</p>
+<!--       <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>-->
+<!--    <script src="/static/js/Search_table.js" ></script>-->
+<!--    <link href="https://nightly.datatables.net/css/jquery.dataTables.css" rel="stylesheet" type="text/css" />-->
+<!--    <script src="https://nightly.datatables.net/js/jquery.dataTables.js"></script>-->
+    <div id="AA" style="width:100%; overflow:auto">
+
+      <table id="example-table" border="1" >
         <thead>
           <tr>
-            <th>Product key</th>
-              <th>Time Stamp</th>
+            <th>Product_key</th>
+              <th>Time_Stamp</th>
             <th>Body_L</th>
             <th>Body_W</th>
             <th>Body_H</th>
@@ -110,29 +108,72 @@
             <th>OP50_L</th>
             <th>OP50_L</th>
             <th>OP50_L</th>
-
           </tr>
-        </thead>
-      </table>
-        {% if key == None %}
+
+      {% if key == None %}
       {% else %}
-            {% for obj in quality_data_list %}
-            <tbody>
-                <tr>
-                    <td style="width:10%;padding-right:5px">{{obj.product_key}}</td>
-                    <td>{{obj.product_test}}</td>
-                </tr>
-            </tbody>
-            {% endfor %}
+          {% for obj in data_list %}
+
+          <tbody>
+          <tr>
+                <td>{{obj.product_key}}</td>
+                <td>{{obj.op60_timestamp}}</td>
+              <td>{{obj.body_l}}</td>
+                <td>{{obj.body_w}}</td>
+              <td>{{obj.body_h}}</td>
+                <td>{{obj.wavyfin_l}}</td>
+              <td>{{obj.wavyfin_w}}</td>
+                <td>{{obj.wavyfin_h}}</td>
+              <td>{{obj.op10_machine_data}}</td>
+                <td>{{obj.op10_process_time}}</td>
+              <td>{{obj.op10_product_size_l}}</td>
+                <td>{{obj.op10_product_size_w}}</td>
+              <td>{{obj.op10_product_size_h}}</td>
+
+              <td>{{obj.pipe1_l}}</td>
+              <td>{{obj.pipe1_w}}</td>
+                <td>{{obj.pipe1_h}}</td>
+              <td>{{obj.op20_machine_data}}</td>
+                <td>{{obj.op20_process_time}}</td>
+              <td>{{obj.op20_product_size_l}}</td>
+                <td>{{obj.op20_product_size_w}}</td>
+              <td>{{obj.op20_product_size_h}}</td>
+
+              <td>{{obj.pipe2_l}}</td>
+              <td>{{obj.pipe2_w}}</td>
+                <td>{{obj.pipe2_h}}</td>
+              <td>{{obj.op30_machine_data}}</td>
+                <td>{{obj.op30_process_time}}</td>
+              <td>{{obj.op30_product_size_l}}</td>
+                <td>{{obj.op30_product_size_w}}</td>
+              <td>{{obj.op30_product_size_h}}</td>
+
+              <td>{{obj.flange1_l}}</td>
+              <td>{{obj.flange1_w}}</td>
+                <td>{{obj.flange1_h}}</td>
+              <td>{{obj.op40_machine_data}}</td>
+                <td>{{obj.op40_process_time}}</td>
+              <td>{{obj.op40_product_size_l}}</td>
+                <td>{{obj.op40_product_size_w}}</td>
+              <td>{{obj.op40_product_size_h}}</td>
+
+              <td>{{obj.flange2_l}}</td>
+              <td>{{obj.flange2_l}}</td>
+                <td>{{obj.flange2_l}}</td>
+              <td>{{obj.op50_machine_data}}</td>
+                <td>{{obj.op50_process_time}}</td>
+              <td>{{obj.op50_product_size_l}}</td>
+                <td>{{obj.op50_product_size_w}}</td>
+              <td>{{obj.op50_product_size_h}}</td>
+            </tr>
+
+          </tbody>
+          {% endfor %}
       </thead>
       {% endif %}
-    </div>
-  </div>
- <!-- <div id="CC">
-    <box>
-      3
-    </box>
-  </div>-->
+      </table>
+   </div>
+
 </main>
 </body>
 </html>

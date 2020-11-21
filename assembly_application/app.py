@@ -437,21 +437,26 @@ def Predict_data():
 @app.route('/Search_data')
 def Search_data(key60):
 
+    key = key60
+
     total_big_bottle = []
     data_dict = {}
 
     # key60 = '2020-11-20 14:50:12.993887-W6P10105'
 
+    index1 = 0
     bar_count = 0
-    for index in range(len(key60)):
+    for index in range(len(key)):
 
-        if key60[index] == '-':
+        if key[index] == '-':
             bar_count = bar_count + 1
 
             if bar_count == 3:
+                index1 = index
                 break
 
-    key60_head = key60[index + 1:]
+
+    key60_head = key[index1 + 1:]
     key50_head = key60_head.replace('W6', 'W5')
     key40_head = key50_head.replace('W5', 'W4')
     key30_head = key40_head.replace('W4', 'W3')
@@ -600,7 +605,7 @@ def Search_data(key60):
 
     total_big_bottle.append(data_dict)
 
-    return jsonify(total_big_bottle)
+    return total_big_bottle
 
 
 @app.route('/Login')
@@ -613,17 +618,43 @@ def Signin():
     return render_template('Signin.html')
 
 
-@app.route('/Search', method=['GET'])
+# @app.route('/Search', methods=["GET", "POST'"])
+# def Search():
+#     if request.method == 'GET':
+#         key60 = request.args.get('key')
+#
+#         product_key = MySQL_query.get_key_product_for_search(key60)
+#         product_key = product_key[0]['product_key']
+#         print(product_key)
+#         data = Search_data(product_key)
+#         print('함수 성공!')
+#
+#         html = render_template('Search.html', key=product_key)
+#         return html
+#
+#     return render_template("Search.html")
+
+@app.route('/Search', methods=['POST', 'GET'])
 def Search():
+    key60 = 'P10001'
+    product_key = MySQL_query.get_key_product_for_search(key60)
+    product_key = product_key[0]['product_key']
+    content_list = Search_data(product_key)
+
     if request.method == 'GET':
+
         key60 = request.args.get('key')
+        if key60 == None:
+            key60 = 'P10001'
+        product_key = MySQL_query.get_key_product_for_search(key60)
+        product_key = product_key[0]['product_key']
+        content_list = Search_data(product_key)
 
-        content_list = MySQL_query.get_quality_data_list(key60)  # 키주는거
+        ## 넘겨받은 값을 원래 페이지로 리다이렉트
+        html = render_template('Search.html', data_list=content_list, key=product_key)
+        return html
 
-    html = render_template('Search.html', quality_data_list=content_list, key=key60)
-
-    return html
-
+    return render_template('Search.html', data_list=content_list, key=product_key)
 
 if __name__ == '__main__':
-   app.run('0.0.0.0', port=5019, debug=True)
+   app.run('0.0.0.0', port=5006, debug=True)
