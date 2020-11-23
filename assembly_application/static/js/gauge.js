@@ -1,12 +1,12 @@
-const toggleBtn = document.querySelector('.navbar__toggleBtn');
-const menu = document.querySelector('.navbar__menu');
-const icons = document.querySelector('.navbar__Logout');
-
-toggleBtn.addEventListener('click', () => {
-  menu.classList.toggle('active');
-  icons.classList.toggle('active');
-});
-
+//const toggleBtn = document.querySelector('.navbar__toggleBtn');
+//const menu = document.querySelector('.navbar__menu');
+//const icons = document.querySelector('.navbar__Logout');
+//
+//toggleBtn.addEventListener('click', () => {
+//  menu.classList.toggle('active');
+//  icons.classList.toggle('active');
+//});
+//
 
 var gaugeOptions = {
     chart: {
@@ -213,7 +213,6 @@ setInterval(function () {
                 var data4 = [];
                 data4.push(result[0]);
                 data4.push(result[4]);
-                console.log(data4)
 
                 //setTimeout(requestData, 2000);
 
@@ -221,11 +220,11 @@ setInterval(function () {
     if (chartSpeed) {
         point = chartSpeed.series[0].points[0];
         inc = Math.round(data1[1]);
-//        newVal = point.y + inc;
-//
-//        if (newVal < 0 || newVal > 100) {
-//            newVal = point.y - inc;
-//        }
+        newVal = point.y + inc;
+
+        if (newVal < 0 || newVal > 100) {
+            newVal = point.y - inc;
+        }
 
         point.update(inc);
     }
@@ -234,11 +233,11 @@ setInterval(function () {
     if (chartRpm) {
         point = chartRpm.series[0].points[0];
         inc = Math.round(data2[1]);
-//        newVal = point.y + inc;
-//
-//        if (newVal < 0 || newVal > 100) {
-//            newVal = point.y - inc;
-//        }
+        newVal = point.y + inc;
+
+        if (newVal < 0 || newVal > 100) {
+            newVal = point.y - inc;
+        }
 
         point.update(inc);
     }
@@ -246,11 +245,11 @@ setInterval(function () {
     if (chart1) {
         point = chart1.series[0].points[0];
         inc = Math.round(data3[1]);
-//        newVal = point.y + inc;
-//
-//        if (newVal < 0 || newVal > 100) {
-//            newVal = point.y - inc;
-//        }
+        newVal = point.y + inc;
+
+        if (newVal < 0 || newVal > 100) {
+            newVal = point.y - inc;
+        }
 
         point.update(inc);
     }
@@ -258,13 +257,13 @@ setInterval(function () {
     if (chart2) {
         point = chart2.series[0].points[0];
         inc = Math.round(data4[1]);
-//        newVal = point.y + inc;
-//
-//        if (newVal < 0 || newVal > 100) {
-//            newVal = point.y - inc;
-//        }
+        newVal = point.y + inc;
+
+        if (newVal < 0 || newVal > 100) {
+            newVal = point.y - inc;
+        }
 
         point.update(inc);
     }
     });
-}, 5000);
+}, 2000);

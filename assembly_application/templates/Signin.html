@@ -1,53 +1,159 @@
 <!DOCTYPE html>
+<style type="text/css">
+     body{
+         text-align: center;
+         display: block;
+         margin: 0 auto;
+         font-size: 16px;
+         color: #999;
+     }
+     h1{
+         font-family: 'Oswald', sans-serif;
+         font-size: 30px;
+         color: #216182;
+     }
+     label {
+         display: block;
+         margin-top: 20px;
+         letter-spacing: 2px;
+     }
+     form {
+         margin: 0 auto;
+         width: 459px;
+     }
+     input, textarea {
+         width: 439px;
+         height: 27px;
+         background-color: #efefef;
+         border-radius: 6px;
+         border: 1px solid #dedede;
+         padding: 10px;
+         margin-top: 3px;
+         font-size: 0.9em;
+         color: #3a3a3a;
+     }
+         input:focus, textarea:focus{
+             border: 1px solid #97d6eb;
+         }
+
+     textarea{
+         height: 60px;
+         background-color: #efefef;
+     }
+     #submit{
+         width: 127px;
+         height: 48px;
+         text-align: center;
+         border: none;
+         margin-top: 20px;
+         cursor: pointer;
+     }
+     #submit:hover{
+         color: #fff;
+         background-color: #216282;
+         opacity: 0.9;
+     }
+     #cancel {
+         width: 127px; height: 48px;
+         text-align: center;
+         border: none;
+         margin-top: 20px;
+         cursor: pointer;
+     }
+     #cancel:hover{
+         color: #fff;
+         background-color: #216282;
+         opacity: 0.9;
+     }
+
+    .modal {
+         position: fixed;
+         left: 0;
+         top: 0;
+         width: 100%;
+         height: 100%;
+         background-color: rgba(0, 0, 0, 0.5);
+         opacity: 0;
+         visibility: hidden;
+         transform: scale(1.1);
+         transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+     }
+     .modal-content {
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         transform: translate(-50%, -50%);
+         background-color: white;
+         padding: 1rem 1.5rem;
+         width: 500px;
+         height: 350px;
+         border-radius: 0.5rem;
+     }
+     .close-button {
+         float: right;
+         width: 1.5rem;
+         line-height: 1.5rem;
+         text-align: center;
+         cursor: pointer;
+         border-radius: 0.25rem;
+         background-color: lightgray;
+     }
+     .close-button:hover {
+         background-color: darkgray;
+     }
+     .show-modal {
+         opacity: 1;
+         visibility: visible;
+         transform: scale(1.0);
+         transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+     }
+
+</style>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-    <link rel="stylesheet" href="{{url_for('static', filename='css/Signin.css') }}" />
+    <link rel="stylesheet" href="{{url_for('static', filename='css/Signin.css') }}"/>
     <link
       href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap"
       rel="stylesheet"
     />
-    <title>Signin</title>
+    <title>DayTory</title>
     <script
       src="https://kit.fontawesome.com/2d323a629b.js"
       crossorigin="anonymous"
     ></script>
-    <script src="/static/js/Signin.js" defer></script>
+    <script src='static/js/Signin.js' defer></script>
 
   </head>
   <body>
-  <!--<header>  
-    <nav class="navbar">
-      <div class="navbar__logo">
-        <i class="fab fa-accusoft"></i>
-        <a href="Login.html">DayTory</a>
-      </div>
-  </header>-->
+
   <br><br>
+  <form action="/register" method="POST">
   <div class = "container">
     <div class ="register">
-      <br><h1> Sign In </h1>
-      <div class = "label"> ID </div>
+      <br><h1> Sign Up </h1>
+      <div class = "label">ID</div>
       <div class = "form">
-      <input type="text" id = "userId" placeholder="Enter Username"/>
-      </div>
+        <input class="trigger" type= "text" id = 'ID' name= "ID" >
+
       <div class = "label">Email</div>
       <div class = "form">
-          <input type="email" id = "userEmail" placeholder="Enter Email"/>
+        <input type="text" id="Email" name="Email">
       </div>
       <div class = "label">Password</div>
       <div class = "form">
-          <input type="text" id = "pass" placeholder="Enter Password"/>
+          <input id = 'Password' name="Password" type = 'Password' placeholder="4자 이상 20자 미만 숫자,소문자,대문자를 이용하여 생성하세요" />
       </div>  
       <div class = "label">Confirm Password</div>
       <div class = "form">
-      <input type="text" id = "pass2" placeholder="Enter Password again"/>
-      </div>   
-      <a href="Loginl"><button class="button">Sign UP</button></a>
+      <input id = 'repassword' name="repassword" type = 'Password' placeholder="4자 이상 20자 미만 숫자,소문자,대문자를 이용하여 생성하세요" />
+      </div>
+      <button type="submit" class="button">Sign Up</button></div>
     </div>
   </div>
+</form>
 </body>
 </html>

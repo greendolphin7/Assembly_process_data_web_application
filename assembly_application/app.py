@@ -1,11 +1,13 @@
 from flask import Flask, render_template, redirect, request, url_for, jsonify, make_response
-app = Flask(__name__)
 from process import process_operate
 from OEE_calculator import OEE_cal
 from SQL import MySQL_query
 from time import time
 import json
 import pymysql
+from datetime import datetime
+
+app = Flask(__name__)
 
 app.count = 1
 app.predict_count = 0
@@ -20,13 +22,15 @@ def Monitoring():
     return render_template('Monitoring.html')
 
 
-@app.route('/OEE')
-def OEE():
-    return render_template('OEE.html')
+@app.route('/Quality')
+def Quality():
+    OK_count_list = [];
+    NOK_count_list = [];
+    return render_template('Quality.html', quality_OK_list=OK_count_list, quality_NOK_list=NOK_count_list)
 
 
-@app.route('/OEE_Cal')
-def OEE_Cal():
+@app.route('/OEE_Calculator')
+def OEE_Calculator():
 
     OEE_list = []
     OEE_dict = {}
@@ -64,6 +68,21 @@ def re_data():
     return response
 
 
+@app.route('/real_value', methods=["GET", "POST"])
+def real_value():
+    now_data = MySQL_query.get_item_count_now(1)  # 실제값 하루 생산되는 양품수
+    OK_count = now_data[0]['item_count']
+    quality = round(OK_count, 1)
+    data = [time() * 1000, quality]
+
+    response = make_response(json.dumps(data))
+
+    response.content_type = 'application/json'
+
+    return response
+
+
+
 @app.route('/Machine')
 def Machine():
     return render_template('Machine.html')
@@ -88,7 +107,6 @@ def live_Electronic_OP10():
     app.count += 1
     data = [time() * 5000, result_re3]
     response = make_response(json.dumps(data))
-    print(result_re3)
     response.content_type = 'application/json'
     return response
 
@@ -179,7 +197,7 @@ def live_Electronic_OP20():
     cursor = conn.cursor()
     cursor.execute("SELECT machine_data from machine where machine_code = 'OP20' and machine_data_code = 'E01' ")
     results = cursor.fetchall()
-    result_list = list(results[app.count])
+    result_list = list(results[-1])
     result = str(result_list)
     result_re1 = result.replace("[", "")
     result_re2 = result_re1.replace("]", "")
@@ -187,7 +205,6 @@ def live_Electronic_OP20():
     app.count += 1
     data = [time() * 5000, result_re3]
     response = make_response(json.dumps(data))
-    print(result_re3)
     response.content_type = 'application/json'
     return response
 
@@ -203,7 +220,7 @@ def live_Electronic_OP30():
     cursor = conn.cursor()
     cursor.execute("SELECT machine_data from machine where machine_code = 'OP30' and machine_data_code = 'E01' ")
     results = cursor.fetchall()
-    result_list = list(results[app.count])
+    result_list = list(results[-1])
     result = str(result_list)
     result_re1 = result.replace("[", "")
     result_re2 = result_re1.replace("]", "")
@@ -211,7 +228,6 @@ def live_Electronic_OP30():
     app.count += 1
     data = [time() * 5000, result_re3]
     response = make_response(json.dumps(data))
-    print(result_re3)
     response.content_type = 'application/json'
     return response
 
@@ -227,7 +243,7 @@ def live_Temperature_OP40():
     cursor = conn.cursor()
     cursor.execute("SELECT machine_data from machine where machine_code = 'OP40' and machine_data_code = 'T01' ")
     results = cursor.fetchall()
-    result_list = list(results[app.count])
+    result_list = list(results[-1])
     result = str(result_list)
     result_re1 = result.replace("[", "")
     result_re2 = result_re1.replace("]", "")
@@ -235,7 +251,6 @@ def live_Temperature_OP40():
     app.count += 1
     data = [time() * 5000, result_re3]
     response = make_response(json.dumps(data))
-    print(result_re3)
     response.content_type = 'application/json'
     return response
 
@@ -251,7 +266,7 @@ def live_Temperature_OP50():
     cursor = conn.cursor()
     cursor.execute("SELECT machine_data from machine where machine_code = 'OP50' and machine_data_code = 'T01' ")
     results = cursor.fetchall()
-    result_list = list(results[app.count])
+    result_list = list(results[-1])
     result = str(result_list)
     result_re1 = result.replace("[", "")
     result_re2 = result_re1.replace("]", "")
@@ -259,179 +274,13 @@ def live_Temperature_OP50():
     app.count += 1
     data = [time() * 5000, result_re3]
     response = make_response(json.dumps(data))
-    print(result_re3)
     response.content_type = 'application/json'
     return response
 
 
-@app.route('/Date')
-def Date():
-    return render_template('Date.html')
-
-
-@app.route('/Item')
-def Item():
-    return render_template('Item.html')
-
-
-@app.route('/Predict')
-def Predict():
-    return render_template('Predict.html')
-
-
-@app.route('/Analysis_OP10')
-def Analysis_OP10():
-    return render_template('Analysis_OP10.html')
-
-
-@app.route('/Scatter_OP10')
-def Scatter_OP10():
-
-    machine_code = 'OP10'
-    size = 'l'
-    char1 = '2020-11-16'
-    char2 = '2020-11-17'
-
-    list_dict = MySQL_query.get_data_for_scatter(machine_code, size, char1, char2)
-
-    data_list = []
-    for i in range(len(list_dict)):
-        temp_list = []
-
-        x = list_dict[i]['machine_data']
-        y = list_dict[i]['product_size']
-        temp_list.append(x)
-        temp_list.append(y)
-
-        data_list.append(temp_list)
-
-    return jsonify(data_list)
-
-
-@app.route('/Pareto')
-def Pareto():
-
-    char1 = '2020-11-16'
-    char2 = '2020-11-17'
-
-    count_list = []
-
-    OP10_NOK = MySQL_query.get_data_for_pareto('OP10', char1, char2)
-    OP20_NOK = MySQL_query.get_data_for_pareto('OP20', char1, char2)
-    OP30_NOK = MySQL_query.get_data_for_pareto('OP30', char1, char2)
-    OP40_NOK = MySQL_query.get_data_for_pareto('OP40', char1, char2)
-    OP50_NOK = MySQL_query.get_data_for_pareto('OP50', char1, char2)
-
-    count_OP10 = OP10_NOK[0]['NOK']
-    count_OP20 = OP20_NOK[0]['NOK']
-    count_OP30 = OP30_NOK[0]['NOK']
-    count_OP40 = OP40_NOK[0]['NOK']
-    count_OP50 = OP50_NOK[0]['NOK']
-
-    count_list.append(count_OP10)
-    count_list.append(count_OP20)
-    count_list.append(count_OP30)
-    count_list.append(count_OP40)
-    count_list.append(count_OP50)
-
-    return jsonify(count_list)
-
-
-@app.route('/Predict_data')
-def Predict_data():
-
-    key_list = MySQL_query.get_product_key_for_test(app.predict_count)
-
-    total_big_bottle = []
-
-    for i in range(len(key_list)):
-        total_dict = {}
-
-        key30 = key_list[i]['key30']
-        key20 = key_list[i]['key20']
-        key10 = key_list[i]['key10']
-        predict_result = key_list[i]['predict_result']
-
-        op30_data = MySQL_query.get_test_data_op30(key30)
-        op20_data = MySQL_query.get_test_data_op20(key20)
-        op10_data = MySQL_query.get_test_data_op10(key10)
-
-        body_data = MySQL_query.get_test_data_parts_body(key10)
-        wavyfin_data = MySQL_query.get_test_data_parts_wavyfin(key10)
-        pipe1_data = MySQL_query.get_test_data_parts_pipe1(key20)
-        pipe2_data = MySQL_query.get_test_data_parts_pipe2(key30)
-
-        product_key = op30_data[0]['product_key']
-
-        body_size_l = body_data[0]['product_size_l']
-        body_size_w = body_data[0]['product_size_w']
-        body_size_h = body_data[0]['product_size_h']
-
-        wavyfin_size_l = wavyfin_data[0]['product_size_l']
-        wavyfin_size_w = wavyfin_data[0]['product_size_w']
-        wavyfin_size_h = wavyfin_data[0]['product_size_h']
-
-        pipe1_size_l = pipe1_data[0]['product_size_l']
-        pipe1_size_w = pipe1_data[0]['product_size_w']
-        pipe1_size_h = pipe1_data[0]['product_size_h']
-
-        pipe2_size_l = pipe2_data[0]['product_size_l']
-        pipe2_size_w = pipe2_data[0]['product_size_w']
-        pipe2_size_h = pipe2_data[0]['product_size_h']
-
-        op10_machine_data = op10_data[0]['machine_data']
-        op10_size_l = op10_data[0]['product_size_l']
-        op10_size_w = op10_data[0]['product_size_w']
-        op10_size_h = op10_data[0]['product_size_h']
-
-        op20_machine_data = op20_data[0]['machine_data']
-        op20_size_l = op20_data[0]['product_size_l']
-        op20_size_w = op20_data[0]['product_size_w']
-        op20_size_h = op20_data[0]['product_size_h']
-
-        op30_machine_data = op30_data[0]['machine_data']
-        op30_size_l = op30_data[0]['product_size_l']
-        op30_size_w = op30_data[0]['product_size_w']
-        op30_size_h = op30_data[0]['product_size_h']
-
-        total_dict['product_key'] = product_key
-        total_dict['body_size_l'] = str(body_size_l)
-        total_dict['body_size_w'] = str(body_size_w)
-        total_dict['body_size_h'] = str(body_size_h)
-        total_dict['wavyfin_size_l'] = str(wavyfin_size_l)
-        total_dict['wavyfin_size_w'] = str(wavyfin_size_w)
-        total_dict['wavyfin_size_h'] = str(wavyfin_size_h)
-        total_dict['op10_machine_data'] = str(op10_machine_data)
-        total_dict['op10_size_l'] = str(op10_size_l)
-        total_dict['op10_size_w'] = str(op10_size_w)
-        total_dict['op10_size_h'] = str(op10_size_h)
-
-        total_dict['pipe1_size_l'] = str(pipe1_size_l)
-        total_dict['pipe1_size_w'] = str(pipe1_size_w)
-        total_dict['pipe1_size_h'] = str(pipe1_size_h)
-        total_dict['op20_machine_data'] = str(op20_machine_data)
-        total_dict['op20_size_l'] = str(op20_size_l)
-        total_dict['op20_size_w'] = str(op20_size_w)
-        total_dict['op20_size_h'] = str(op20_size_h)
-
-        total_dict['pipe2_size_l'] = str(pipe2_size_l)
-        total_dict['pipe2_size_w'] = str(pipe2_size_w)
-        total_dict['pipe2_size_h'] = str(pipe2_size_h)
-        total_dict['op30_machine_data'] = str(op30_machine_data)
-        total_dict['op30_size_l'] = str(op30_size_l)
-        total_dict['op30_size_w'] = str(op30_size_w)
-        total_dict['op30_size_h'] = str(op30_size_h)
-
-        total_dict['predict_result'] = str(predict_result)
-
-        total_big_bottle.append(total_dict)
-
-    app.predict_count += 1
-
-    if app.predict_count >= 10:
-        app.predict_count = 10
-
-    return jsonify(total_big_bottle)
+# @app.route('/Search')
+# def Search():
+#     return render_template('Search.html')
 
 
 @app.route('/Search_data')
@@ -607,33 +456,6 @@ def Search_data(key60):
 
     return total_big_bottle
 
-
-@app.route('/Login')
-def Login():
-    return render_template('Login.html')
-
-
-@app.route('/Signin')
-def Signin():
-    return render_template('Signin.html')
-
-
-# @app.route('/Search', methods=["GET", "POST'"])
-# def Search():
-#     if request.method == 'GET':
-#         key60 = request.args.get('key')
-#
-#         product_key = MySQL_query.get_key_product_for_search(key60)
-#         product_key = product_key[0]['product_key']
-#         print(product_key)
-#         data = Search_data(product_key)
-#         print('함수 성공!')
-#
-#         html = render_template('Search.html', key=product_key)
-#         return html
-#
-#     return render_template("Search.html")
-
 @app.route('/Search', methods=['POST', 'GET'])
 def Search():
     key60 = 'P10001'
@@ -656,5 +478,268 @@ def Search():
 
     return render_template('Search.html', data_list=content_list, key=product_key)
 
+
+
+@app.route('/Predict')
+def Predict():
+    return render_template('Predict.html')
+
+
+@app.route('/Predict_data')
+def Predict_data():
+
+    key_list = MySQL_query.get_product_key_for_test(app.predict_count)
+
+    total_big_bottle = []
+
+    for i in range(len(key_list)):
+        total_dict = {}
+
+        key30 = key_list[i]['key30']
+        key20 = key_list[i]['key20']
+        key10 = key_list[i]['key10']
+        predict_result = key_list[i]['predict_result']
+
+        op30_data = MySQL_query.get_test_data_op30(key30)
+        op20_data = MySQL_query.get_test_data_op20(key20)
+        op10_data = MySQL_query.get_test_data_op10(key10)
+
+        body_data = MySQL_query.get_test_data_parts_body(key10)
+        wavyfin_data = MySQL_query.get_test_data_parts_wavyfin(key10)
+        pipe1_data = MySQL_query.get_test_data_parts_pipe1(key20)
+        pipe2_data = MySQL_query.get_test_data_parts_pipe2(key30)
+
+        product_key = op30_data[0]['product_key']
+
+        body_size_l = body_data[0]['product_size_l']
+        body_size_w = body_data[0]['product_size_w']
+        body_size_h = body_data[0]['product_size_h']
+
+        wavyfin_size_l = wavyfin_data[0]['product_size_l']
+        wavyfin_size_w = wavyfin_data[0]['product_size_w']
+        wavyfin_size_h = wavyfin_data[0]['product_size_h']
+
+        pipe1_size_l = pipe1_data[0]['product_size_l']
+        pipe1_size_w = pipe1_data[0]['product_size_w']
+        pipe1_size_h = pipe1_data[0]['product_size_h']
+
+        pipe2_size_l = pipe2_data[0]['product_size_l']
+        pipe2_size_w = pipe2_data[0]['product_size_w']
+        pipe2_size_h = pipe2_data[0]['product_size_h']
+
+        op10_machine_data = op10_data[0]['machine_data']
+        op10_size_l = op10_data[0]['product_size_l']
+        op10_size_w = op10_data[0]['product_size_w']
+        op10_size_h = op10_data[0]['product_size_h']
+
+        op20_machine_data = op20_data[0]['machine_data']
+        op20_size_l = op20_data[0]['product_size_l']
+        op20_size_w = op20_data[0]['product_size_w']
+        op20_size_h = op20_data[0]['product_size_h']
+
+        op30_machine_data = op30_data[0]['machine_data']
+        op30_size_l = op30_data[0]['product_size_l']
+        op30_size_w = op30_data[0]['product_size_w']
+        op30_size_h = op30_data[0]['product_size_h']
+
+        total_dict['product_key'] = product_key
+        total_dict['body_size_l'] = str(body_size_l)
+        total_dict['body_size_w'] = str(body_size_w)
+        total_dict['body_size_h'] = str(body_size_h)
+        total_dict['wavyfin_size_l'] = str(wavyfin_size_l)
+        total_dict['wavyfin_size_w'] = str(wavyfin_size_w)
+        total_dict['wavyfin_size_h'] = str(wavyfin_size_h)
+        total_dict['op10_machine_data'] = str(op10_machine_data)
+        total_dict['op10_size_l'] = str(op10_size_l)
+        total_dict['op10_size_w'] = str(op10_size_w)
+        total_dict['op10_size_h'] = str(op10_size_h)
+
+        total_dict['pipe1_size_l'] = str(pipe1_size_l)
+        total_dict['pipe1_size_w'] = str(pipe1_size_w)
+        total_dict['pipe1_size_h'] = str(pipe1_size_h)
+        total_dict['op20_machine_data'] = str(op20_machine_data)
+        total_dict['op20_size_l'] = str(op20_size_l)
+        total_dict['op20_size_w'] = str(op20_size_w)
+        total_dict['op20_size_h'] = str(op20_size_h)
+
+        total_dict['pipe2_size_l'] = str(pipe2_size_l)
+        total_dict['pipe2_size_w'] = str(pipe2_size_w)
+        total_dict['pipe2_size_h'] = str(pipe2_size_h)
+        total_dict['op30_machine_data'] = str(op30_machine_data)
+        total_dict['op30_size_l'] = str(op30_size_l)
+        total_dict['op30_size_w'] = str(op30_size_w)
+        total_dict['op30_size_h'] = str(op30_size_h)
+
+        total_dict['predict_result'] = str(predict_result)
+
+        total_big_bottle.append(total_dict)
+
+    app.predict_count += 1
+
+    if app.predict_count >= 10:
+        app.predict_count = 10
+
+    return jsonify(total_big_bottle)
+
+
+@app.route('/Analysis_OP10')
+def Analysis_OP10():
+    return render_template('Analysis_OP10.html')
+
+
+@app.route('/Scatter_OP10')
+def Scatter_OP10():
+
+    machine_code = 'OP10'
+    size = 'l'
+    char1 = '2020-11-16'
+    char2 = '2020-11-20'
+
+    list_dict = MySQL_query.get_data_for_scatter(machine_code, size, char1, char2)
+
+    data_list = []
+    for i in range(len(list_dict)):
+        temp_list = []
+
+        x = list_dict[i]['machine_data']
+        y = list_dict[i]['product_size']
+        temp_list.append(x)
+        temp_list.append(y)
+
+        data_list.append(temp_list)
+    print(data_list[0][0])
+    return jsonify(data_list)
+
+@app.route('/Analysis_OP20')
+def Analysis_OP20():
+    return render_template('Analysis_OP20.html')
+
+
+@app.route('/Analysis_OP30')
+def Analysis_OP30():
+    return render_template('Analysis_OP30.html')
+
+
+@app.route('/Analysis_OP40')
+def Analysis_OP40():
+    return render_template('Analysis_OP40.html')
+
+
+@app.route('/Analysis_OP50')
+def Analysis_OP50():
+    return render_template('Analysis_OP50.html')
+
+
+
+@app.route('/Pareto')
+def Pareto():
+
+    char1 = '2020-11-01'
+    char2 = '2020-11-17'
+
+    count_list = []
+
+    OP10_NOK = MySQL_query.get_data_for_pareto('OP10', char1, char2)
+    OP20_NOK = MySQL_query.get_data_for_pareto('OP20', char1, char2)
+    OP30_NOK = MySQL_query.get_data_for_pareto('OP30', char1, char2)
+    OP40_NOK = MySQL_query.get_data_for_pareto('OP40', char1, char2)
+    OP50_NOK = MySQL_query.get_data_for_pareto('OP50', char1, char2)
+
+    count_OP10 = OP10_NOK[0]['NOK']
+    count_OP20 = OP20_NOK[0]['NOK']
+    count_OP30 = OP30_NOK[0]['NOK']
+    count_OP40 = OP40_NOK[0]['NOK']
+    count_OP50 = OP50_NOK[0]['NOK']
+
+    count_list.append(count_OP10)
+    count_list.append(count_OP20)
+    count_list.append(count_OP30)
+    count_list.append(count_OP40)
+    count_list.append(count_OP50)
+
+    data1 = [count_OP10]
+    data2 = [count_OP20]
+    data3 = [count_OP30]
+    data4 = [count_OP40]
+    data5 = [count_OP50]
+    print(count_list)
+    print(count_list[1])
+    data_list = [count_list]
+    response = make_response(json.dumps(data_list))
+    response.content_type = 'application/json'
+    return response
+    #return jsonify(count_list)
+
+
+
+
+@app.route('/Quality_load', methods=['POST', 'GET'])
+def Quality_load():
+    if request.method == 'GET':
+        char1 = request.args.get('date1')
+        char2 = request.args.get('date2')
+        NOK_count_list = []
+        OK_count_list = []
+        OP10_NOK_list = MySQL_query.get_data_for_pareto_NOK('OP10', char1, char2)
+        OP20_NOK_list = MySQL_query.get_data_for_pareto_NOK('OP20', char1, char2)
+        OP30_NOK_list = MySQL_query.get_data_for_pareto_NOK('OP30', char1, char2)
+        OP40_NOK_list = MySQL_query.get_data_for_pareto_NOK('OP40', char1, char2)
+        OP50_NOK_list = MySQL_query.get_data_for_pareto_NOK('OP50', char1, char2)
+
+        NOK_OP10 = OP10_NOK_list[0]['NOK']
+        NOK_OP20 = OP20_NOK_list[0]['NOK']
+        NOK_OP30 = OP30_NOK_list[0]['NOK']
+        NOK_OP40 = OP40_NOK_list[0]['NOK']
+        NOK_OP50 = OP50_NOK_list[0]['NOK']
+
+        OP10_OK_list = MySQL_query.get_data_for_pareto_OK('OP10', char1, char2)
+        OP20_OK_list = MySQL_query.get_data_for_pareto_OK('OP20', char1, char2)
+        OP30_OK_list = MySQL_query.get_data_for_pareto_OK('OP30', char1, char2)
+        OP40_OK_list = MySQL_query.get_data_for_pareto_OK('OP40', char1, char2)
+        OP50_OK_list = MySQL_query.get_data_for_pareto_OK('OP50', char1, char2)
+
+        OK_OP10 = OP10_OK_list[0]['OK']
+        OK_OP20 = OP20_OK_list[0]['OK']
+        OK_OP30 = OP30_OK_list[0]['OK']
+        OK_OP40 = OP40_OK_list[0]['OK']
+        OK_OP50 = OP50_OK_list[0]['OK']
+
+        NOK_count_list.append(NOK_OP10)
+        NOK_count_list.append(NOK_OP20)
+        NOK_count_list.append(NOK_OP30)
+        NOK_count_list.append(NOK_OP40)
+        NOK_count_list.append(NOK_OP50)
+
+        OK_count_list.append(OK_OP10)
+        OK_count_list.append(OK_OP20)
+        OK_count_list.append(OK_OP30)
+        OK_count_list.append(OK_OP40)
+        OK_count_list.append(OK_OP50)
+
+        html = render_template('Quality.html', quality_OK_list=OK_count_list, quality_NOK_list=NOK_count_list, date1=char1, date2=char2)
+        return html
+
+
+
+@app.route('/Pareto_chart')
+def Pareto_chart():
+    return render_template('Pareto.html')
+
+
+@app.route('/bar_chart_table')
+def bar_chart_table():
+    return render_template('bar_chart_table.html')
+
+
+@app.route('/Login')
+def Login():
+    return render_template('Login.html')
+
+
+@app.route('/Signin')
+def Signin():
+    return render_template('Signin.html')
+
+
 if __name__ == '__main__':
-   app.run('0.0.0.0', port=5009, debug=True)
+   app.run('0.0.0.0', port=5001, debug=True)

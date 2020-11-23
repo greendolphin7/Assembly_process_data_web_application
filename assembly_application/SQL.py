@@ -190,29 +190,19 @@ class MySQL_query:
         conn.close
         return machine_data_list
 
-    def get_quality_data_list(char2_0, char2, char2_1):
+    def get_quality_data_list(date1, date2):
 
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
 
         cursor = conn.cursor()
-        if char2_0 == 'Q_all':
-            sql = '''
+        sql = '''
             select product_key,product_test,product_test_timestamp,
             date_format( product_test_timestamp , '%%Y년%%m월%%d일 %%H시%%i분%%s초' ) as insert_date
             from product_quality
             where date_format(product_test_timestamp , '%%Y-%%m-%%d') >= '%s'
             and date_format(product_test_timestamp , '%%Y-%%m-%%d') <= '%s'
             order by product_test_timestamp ASC
-            ''' % (char2, char2_1)
-        else:
-            sql = '''
-            select product_key,product_test,product_test_timestamp,
-            date_format( product_test_timestamp , '%%Y년%%m월%%d일 %%H시%%i분%%s초' ) as insert_date
-            from product_quality
-            where product_test = '%s' and date_format(product_test_timestamp , '%%Y-%%m-%%d') >= '%s'
-            and date_format(product_test_timestamp , '%%Y-%%m-%%d') <= '%s'
-            order by product_test_timestamp ASC
-            ''' % (char2_0, char2, char2_1)
+            ''' % (date1, date2)
 
         cursor.execute(sql)
         row = cursor.fetchall()
@@ -228,7 +218,7 @@ class MySQL_query:
             if obj[1] == 'OK' or 'NOK':
                 count += 1
         conn.close
-
+        print(data_list)
         return data_list
 
     def get_product_data_list_for_predict(self):
@@ -426,6 +416,38 @@ class MySQL_query:
 
         return data_list
 
+    def get_item_count_now(self):
+        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+
+        sql = '''
+
+            SELECT product_test,count(product_quality.product_test)
+            FROM product_history INNER JOIN product_quality
+            ON  product_history.product_key = product_quality.product_key
+            WHERE product_code = 'EGRC' AND product_timestamp BETWEEN '%s' AND '%s'
+            group by product_test
+
+        ''' % (datetime.now() - timedelta(days=1), datetime.now())
+
+        cursor = conn.cursor()
+        cursor.execute(sql)
+        row = cursor.fetchall()
+
+        data_list = []
+
+        for obj in row:
+            data_dic = {
+                'test_result': obj[0],
+                'item_count': obj[1]
+            }
+            data_list.append(data_dic)
+
+        conn.close()
+
+        return data_list
+
+
+
     def get_item_count_for_gauge(self):
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
 
@@ -605,8 +627,7 @@ class MySQL_query:
 
         return data_list
 
-
-    def get_data_for_pareto(machine_code, char1, char2):
+    def get_data_for_pareto_NOK(machine_code, char1, char2):
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
 
         sql = '''
@@ -630,8 +651,118 @@ class MySQL_query:
 
         for obj in row:
             data_dic = {
-                'NOK': obj[0],
+                'NOK': obj[0]
             }
+            data_list.append(data_dic)
+
+        conn.close()
+
+        return data_list
+
+    def get_data_for_pareto_OK(machine_code, char1, char2):
+        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+
+        sql = '''
+
+                SELECT count(product_quality.product_test),
+                date_format( product_quality.product_test_timestamp, '%%Y년%%m월%%d일 %%H시%%i분%%s초' ) as insert_date
+
+                FROM machine INNER JOIN product_quality
+                ON  machine.product_key = product_quality.product_key
+
+                WHERE machine.machine_code = '%s' AND date_format(product_test_timestamp , '%%Y-%%m-%%d') >= '%s'
+                AND date_format(product_test_timestamp , '%%Y-%%m-%%d') <= '%s' AND product_quality.product_test = 'OK'
+
+        ''' % (machine_code, char1, char2)
+
+        cursor = conn.cursor()
+        cursor.execute(sql)
+        row = cursor.fetchall()
+
+        data_list = []
+
+        for obj in row:
+            data_dic = {
+                'OK': obj[0]
+            }
+            data_list.append(data_dic)
+
+        conn.close()
+
+        return data_list
+
+    def get_key60_count_for_search(insert_key):
+
+        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+
+        sql = '''
+
+                SELECT product_key
+
+                FROM machine
+
+                WHERE product_key LIKE '%%%s'
+
+        ''' % (insert_key)
+
+        cursor = conn.cursor()
+        cursor.execute(sql)
+        row = cursor.fetchall()
+
+        data_list = []
+        count = 0
+
+        for obj in row:
+            data_dic = {
+                'product_key': obj[0],
+            }
+            data_list.append(data_dic)
+            count = count + 1
+
+        conn.close()
+
+        return count
+
+    def get_body_data_for_search(key10):
+
+        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+
+        bar_count = 0
+        for index in range(len(key10)):
+
+            if key10[index] == '-':
+                bar_count = bar_count + 1
+
+                if bar_count == 3:
+                    break
+
+        key10 = key10[:index + 1]
+
+        parts_key = key10 + 'body'
+
+        sql = '''
+
+            SELECT product_quality.product_size_l, product_quality.product_size_w, product_quality.product_size_h
+
+            FROM product_quality
+
+            WHERE product_key = '%s'
+
+        ''' % (parts_key)
+
+        cursor = conn.cursor()
+        cursor.execute(sql)
+        row = cursor.fetchall()
+
+        data_list = []
+
+        for obj in row:
+            data_dic = {
+                'product_size_l': obj[0],
+                'product_size_w': obj[1],
+                'product_size_h': obj[2]
+            }
+
             data_list.append(data_dic)
 
         conn.close()
@@ -656,7 +787,6 @@ class MySQL_query:
         conn.commit()
 
         conn.close()
-
 
     def key_for_count(self):
 
@@ -687,7 +817,6 @@ class MySQL_query:
         conn.close()
 
         return data_list
-
 
     def get_product_key_for_test(count):
 
@@ -765,7 +894,6 @@ class MySQL_query:
 
         return data_list
 
-
     def get_test_data_parts_pipe1(key20):
 
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
@@ -809,7 +937,6 @@ class MySQL_query:
         conn.close()
 
         return data_list
-
 
     def get_test_data_parts_body(key10):
 
@@ -899,7 +1026,6 @@ class MySQL_query:
 
         return data_list
 
-
     def get_test_data_op30(key30):
 
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
@@ -973,7 +1099,6 @@ class MySQL_query:
 
         return data_list
 
-
     def get_test_data_op10(key10):
 
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
@@ -1040,17 +1165,16 @@ class MySQL_query:
 
         return data_list
 
-
     def get_key_for_search(head):
 
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
 
         sql = '''
-    
+
             SELECT product_key
             FROM product_history
             WHERE product_key LIKE '%%%s'
-    
+
         ''' % (head)
 
         cursor = conn.cursor()
@@ -1070,18 +1194,17 @@ class MySQL_query:
 
         return data_list
 
-
     def get_op60_data_for_search(key60):
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
 
         sql = '''
-    
+
                 SELECT product_key, product_test_timestamp
-    
+
                 FROM product_quality
-    
+
                 WHERE product_key = '%s'
-    
+
         ''' % (key60)
 
         cursor = conn.cursor()
@@ -1100,7 +1223,6 @@ class MySQL_query:
         conn.close()
 
         return data_list
-
 
     def get_op50_data_for_search(key50):
 
@@ -1182,7 +1304,6 @@ class MySQL_query:
 
         return data_list
 
-
     def get_op40_data_for_search(key40):
 
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
@@ -1218,7 +1339,6 @@ class MySQL_query:
         conn.close()
 
         return data_list
-
 
     def get_flange1_data_for_search(key40):
 
@@ -1264,7 +1384,6 @@ class MySQL_query:
 
         return data_list
 
-
     def get_op30_data_for_search(key30):
 
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
@@ -1300,7 +1419,6 @@ class MySQL_query:
         conn.close()
 
         return data_list
-
 
     def get_pipe2_data_for_search(key30):
 
@@ -1346,7 +1464,6 @@ class MySQL_query:
 
         return data_list
 
-
     def get_op20_data_for_search(key20):
 
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
@@ -1382,7 +1499,6 @@ class MySQL_query:
         conn.close()
 
         return data_list
-
 
     def get_pipe1_data_for_search(key20):
 
@@ -1428,7 +1544,6 @@ class MySQL_query:
 
         return data_list
 
-
     def get_op10_data_for_search(key10):
 
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
@@ -1464,7 +1579,6 @@ class MySQL_query:
         conn.close()
 
         return data_list
-
 
     def get_wavyfin_data_for_search(key10):
 
@@ -1511,86 +1625,6 @@ class MySQL_query:
         conn.close()
 
         return data_list
-
-
-    def get_body_data_for_search(key10):
-
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
-
-        bar_count = 0
-        for index in range(len(key10)):
-
-            if key10[index] == '-':
-                bar_count = bar_count + 1
-
-                if bar_count == 3:
-                    break
-
-        key10 = key10[:index + 1]
-
-        parts_key = key10 + 'body'
-
-        sql = '''
-
-            SELECT product_quality.product_size_l, product_quality.product_size_w, product_quality.product_size_h
-
-            FROM product_quality
-
-            WHERE product_key = '%s'
-
-        ''' % (parts_key)
-
-        cursor = conn.cursor()
-        cursor.execute(sql)
-        row = cursor.fetchall()
-
-        data_list = []
-
-        for obj in row:
-            data_dic = {
-                'product_size_l': obj[0],
-                'product_size_w': obj[1],
-                'product_size_h': obj[2]
-            }
-
-            data_list.append(data_dic)
-
-        conn.close()
-
-        return data_list
-
-
-    def get_key60_count_for_search(insert_key):
-
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
-
-        sql = '''
-
-                SELECT product_key
-
-                FROM machine
-
-                WHERE product_key LIKE '%%%s'
-
-        ''' % (insert_key)
-
-        cursor = conn.cursor()
-        cursor.execute(sql)
-        row = cursor.fetchall()
-
-        data_list = []
-        count = 0
-
-        for obj in row:
-            data_dic = {
-                'product_key': obj[0],
-            }
-            data_list.append(data_dic)
-            count = count + 1
-
-        conn.close()
-
-        return count
 
     def get_key_product_for_search(product):
 

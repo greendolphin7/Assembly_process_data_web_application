@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/bar_chart_table.css') }}" />
+</head>
+<body>
+
+<figure class="highcharts-figure">
+    <form method="GET" action="/quality_load">
+      <p id="Search"><input type="date" name="date1"><input type="date" name="date2">
+      <button type="submit">검색</button></form>
+  <div id="container"></div>
+  <table id="datatable">
+    <thead>
+      <tr>
+        <th></th>
+        <th>OK</th>
+        <th>NOK</th>
+      </tr>
+    </thead>
+      {% if date1 == None and date2 == None %}
+      {% else %}
+    <tbody>
+      <tr>
+        <th>OP10</th>
+        <td>{{quality_OK_list[0]}}</td>
+        <td>{{quality_NOK_list[0]}}</td>
+      </tr>
+      <tr>
+        <th>OP20</th>
+        <td>{{quality_OK_list[1]}}</td>
+        <td>{{quality_NOK_list[1]}}</td>
+      </tr>
+      <tr>
+        <th>OP30</th>
+        <td>{{quality_OK_list[2]}}</td>
+        <td>{{quality_NOK_list[2]}}</td>
+      </tr>
+      <tr>
+        <th>OP40</th>
+        <td>{{quality_OK_list[3]}}</td>
+        <td>{{quality_NOK_list[3]}}</td>
+      </tr>
+      <tr>
+        <th>OP50</th>
+        <td>{{quality_OK_list[4]}}</td>
+        <td>{{quality_NOK_list[4]}}</td>
+      </tr>
+    </tbody>
+      {% endif %}
+  </table>
+</figure>
+
+</body>
+</html>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
+<script src="https://code.highcharts.com/modules/pareto.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/stock/highstock.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<script src="/static/js/bar_chart_table.js"></script>

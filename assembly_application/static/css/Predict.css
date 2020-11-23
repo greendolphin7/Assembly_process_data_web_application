@@ -19,7 +19,6 @@ body {
   font-family: "Source Sans Pro";
 }
 main {
-  background-image: url("Logo1.png");
   font-family: "Source Sans Pro";
 }
 
@@ -125,15 +124,13 @@ a {
 }
 
 #AA {
-  background-image: url("background.jpg");
-  height: 555px;
+  height: 455px;
   width: 1515px;
   float: left;
   color: black;
   box-sizing: 800px 400px;
 }
 #BB {
-  background-image: url("background.jpg");
   width: 1515px;
   height: 560px;
   color: black;
@@ -215,5 +212,5 @@ a {
   background: #f1f7ff;
 }
 #Siz {
-  font-size: 30px;
+  font-size: 25px;
 }

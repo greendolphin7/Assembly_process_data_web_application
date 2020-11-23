@@ -48,12 +48,14 @@
 </header>
 <main>
   <div id="AA">
-    <p id="Search"><input type="date"><input type="date">
-      <input type="submit" value="검색"><button type="button" onclick="exportTableToCsv('example-table', 'Export example')">
-      다운
-  </button></p>
-  <table id="example-table" border="1">
+      <form method="GET" action="/Item">
+      <p id="Search"><input type="date" name="date1"><input type="date" name="date2">
+      <button type="submit">검색</button></form>
+      <br>
+      <button type="button" onclick="exportTableToCsv('example-table', 'Export example')">
+      다운</button></p>
     <thead>
+    <table id="example-table" border="1">
         <tr>
             <th>Productkey</th>
             <th>재품명</th>
@@ -82,43 +84,22 @@
             <th>E 20</th>
             <th>E 30</th>
             <th>T 40</th>
-            <th>T 50</th>
+            <th>T 50</th></br>
         </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>00000000000000000000000000000000</td>
-            <td>000000</td>
-            <td>000000</td>
-            <td>000000</td>
-            <td>000000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-            <td>00000</td>
-        </tr>
-    </tbody>
-
-</table>
+        </table>
+      {% if date1 == None and date2 == None %}
+      {% else %}
+            {% for obj in quality_data_list %}
+            <tbody>
+                <tr>
+                    <td style="width:10%;padding-right:5px">{{obj.product_key}}</td>
+                    <td>{{obj.product_test}}</td>
+                    <td style="padding-left:5px">{{obj.product_test_timestamp}}</td></br>
+                </tr>
+            </tbody>
+            {% endfor %}
+      </thead>
+      {% endif %}
   </div>
 </main>
 </body>

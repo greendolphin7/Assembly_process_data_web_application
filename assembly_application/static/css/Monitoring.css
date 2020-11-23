@@ -123,7 +123,7 @@ a {
   }
 }
 
-#A {
+#AA {
   height: 300px;
   width: 1250px;
   float: left;
@@ -137,7 +137,7 @@ a {
 
 #B {
   width: 1250px;
-  height: 377px;
+  height: 477px;
   color: black;
   float: left;
 }
@@ -147,12 +147,13 @@ a {
 }
 
 #bbbb {
-  width: 1250px;
+  width: 1100px;
   position: relative;
   height: 250px;
   overflow: hidden;
   max-width: 300%;
   left: 0;
+  padding: 0%;
 }
 
 #CC {

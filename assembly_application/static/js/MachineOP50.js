@@ -19,7 +19,7 @@ function requestData() {
 
             chart.series[0].addPoint(point, true, shift);
 
-            setTimeout(requestData, 1000);
+            setTimeout(requestData, 10000);
         },
         cache: false
     });

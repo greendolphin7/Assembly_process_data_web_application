@@ -3,6 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <!-- Bootstraps Java Scipts Links -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <!-- JQuery links  -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!--High CHART LIVE  -->
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+
+    <!--Gauge  -->
+    <script type="text/javascript" src="http://pubnub.github.io/eon/lib/eon.js"></script>
+
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <link rel="stylesheet" href="{{url_for('static', filename='css/Monitoring.css') }}" />
@@ -19,8 +34,8 @@
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/highcharts-more.js"></script>
     <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
-    <script src="export-data.js"></script>
-    <script src="exporting.js"></script>
+    <script src="/static/js/export-data.js"></script>
+    <script src="/static/js/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
   </head>
   <body>
@@ -29,7 +44,7 @@
     <nav class="navbar">
       <!-- Logo with text -->
       <div class="navbar__logo">
-        <a id="name" href="Home.html" >
+        <a id="name" href="Home" >
         <img class="Logo" src="/static/img/Logo1.png">
         </a>
       </div>
@@ -37,8 +52,8 @@
       <ul class="navbar__menu">
         <li><a href="Monitoring">MONITORING</a></li>
         <li><a href="Machine">MACHINE</a></li>
-        <li><a href="Date">DATE</a></li>
-        <li><a href="Item">ITEM</a></li>
+        <li><a href="Quality">QUALITY</a></li>
+        <li><a href="Search">SEARCH</a></li>
         <li><a href="Analysis_OP10">ANALYSIS</a></li>
         <li><a href="Predict">PREDICT</a></li>
       </ul>
@@ -65,7 +80,7 @@
  <div id="B">
     <p id="bb">&nbsp;&nbsp;&nbsp;공정 흐름도</p>
     <video id="bbbb" muted autoplay loop>
-      <source id="dddd" src="/static/img/Video.mp4" type="video/mp4">
+      <source id="dddd" src="/static/img/Video8.mp4" type="video/mp4">
     </video>
   </div>
   <div id="CC">
@@ -74,13 +89,17 @@
     <p id="생산물품">생산물품</p>
     <div id="DD"><p id=EGR>EGR 쿨러</p></div>
     <p id="진행상황">진행상황</p>
+    <h2 style="text-align:center;" class="sensor0"></h2>
     <div id="EE">
-      <progress id="file" max="100" value="70"> 70% </progress>
+      <progress id="file" class="sensor1" max="100" style="text-align:center;" value="70"> 70% </progress>
     </div>  
     <p id="목표값">목표값</p>
-    <div id="FF"><p id=egr1>8000</p></div>
+    <div id="FF"><p id=egr1>8640</p></div>
     <p id="실제값">실제값</p>
-    <div id="GG"><p id=egr2>4000</p></div> 
+    <div id="GG"><p id=egr2><h1 style="text-align:center;" class="sensor2"></h1></p>
+      <script src="/static/js/Monitoring.js"></script>
+    </div>
+  <br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button onclick="window.open('http://127.0.0.1:5147/Process');" style="width:20px; height:20px; cursor:hand; opacity:0;"></button>
   </div>
 </main>
 </body>
@@ -89,7 +108,7 @@
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <script src="https://code.highcharts.com/highcharts-more.js"></script>
   <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
-  <script src="export-data.js"></script>
-  <script src="exporting.js"></script>
+  <script src="/static/js/export-data.js"></script>
+  <script src="/static/js/exporting.js"></script>
   <script src="https://code.highcharts.com/modules/accessibility.js"></script>
   <script src="/static/js/gauge.js"></script>
