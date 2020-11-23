@@ -657,4 +657,4 @@ def Search():
     return render_template('Search.html', data_list=content_list, key=product_key)
 
 if __name__ == '__main__':
-   app.run('0.0.0.0', port=5006, debug=True)
+   app.run('0.0.0.0', port=5009, debug=True)
