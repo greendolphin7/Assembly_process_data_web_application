@@ -1,5 +1,6 @@
 import pymysql
 from datetime import datetime, timedelta
+import time
 from flask import jsonify
 
 
@@ -28,6 +29,7 @@ class MySQL_query:
             conn.commit()
 
         conn.close()
+        
 
     def insert_machine_master(x):
         conn, cur = None, None
@@ -49,6 +51,7 @@ class MySQL_query:
             conn.commit()
 
         conn.close()
+
 
     def insert_product_quality(x):
         conn, cur = None, None
@@ -72,6 +75,7 @@ class MySQL_query:
 
         conn.close()
 
+
     def insert_product_history(x):
         conn, cur = None, None
         data1, data2, data3 = " ", " ", " "
@@ -90,6 +94,7 @@ class MySQL_query:
         conn.commit()
 
         conn.close()
+
 
     def insert_machine(x):
         conn, cur = None, None
@@ -115,6 +120,7 @@ class MySQL_query:
         conn.commit()
 
         conn.close()
+
 
     def get_machine_data_list_temp(self):
 
@@ -146,6 +152,7 @@ class MySQL_query:
         conn.close()
 
         return machine_data_list
+
 
     def get_machine_data_list(char1_0, char1, char1_1):
         # char1_input = char1
@@ -187,8 +194,10 @@ class MySQL_query:
             }
             machine_data_list.append(data_dic)
 
-        conn.close
+        conn.close()
+
         return machine_data_list
+
 
     def get_quality_data_list(date1, date2):
 
@@ -217,9 +226,11 @@ class MySQL_query:
             data_list.append(data_dic)
             if obj[1] == 'OK' or 'NOK':
                 count += 1
-        conn.close
-        print(data_list)
+
+        conn.close()
+
         return data_list
+
 
     def get_product_data_list_for_predict(self):
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
@@ -248,6 +259,7 @@ class MySQL_query:
 
         return data_list
 
+
     def get_quality_data_list_for_predict(self):
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
 
@@ -275,6 +287,7 @@ class MySQL_query:
         conn.close()
 
         return data_list
+
 
     def get_machine_data_list_for_predict(self):
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
@@ -333,6 +346,7 @@ class MySQL_query:
 
         return data_list
 
+
     def get_time_for_availability(self):
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
 
@@ -357,6 +371,7 @@ class MySQL_query:
         conn.close()
 
         return data_list
+
 
     def get_item_count_for_productivity(self):
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
@@ -384,6 +399,7 @@ class MySQL_query:
         conn.close()
 
         return data_list
+
 
     def get_item_count_for_quality(self):
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
@@ -416,6 +432,7 @@ class MySQL_query:
 
         return data_list
 
+
     def get_item_count_now(self):
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
 
@@ -445,7 +462,6 @@ class MySQL_query:
         conn.close()
 
         return data_list
-
 
 
     def get_item_count_for_gauge(self):
@@ -489,6 +505,7 @@ class MySQL_query:
 
         return data_list
 
+
     def get_machine_data_for_realtime(machine_code, product_key):
 
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
@@ -528,6 +545,7 @@ class MySQL_query:
 
         return data_list
 
+
     def get_product_key_machine_code(self):
 
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
@@ -557,6 +575,7 @@ class MySQL_query:
         conn.close()
 
         return data_list
+
 
     def get_data_for_scatter(machine_code, size, char1, char2):
 
@@ -627,6 +646,7 @@ class MySQL_query:
 
         return data_list
 
+
     def get_data_for_pareto_NOK(machine_code, char1, char2):
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
 
@@ -658,6 +678,7 @@ class MySQL_query:
         conn.close()
 
         return data_list
+
 
     def get_data_for_pareto_OK(machine_code, char1, char2):
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
@@ -691,6 +712,7 @@ class MySQL_query:
 
         return data_list
 
+
     def get_key60_count_for_search(insert_key):
 
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
@@ -722,6 +744,7 @@ class MySQL_query:
         conn.close()
 
         return count
+
 
     def get_body_data_for_search(key10):
 
@@ -769,6 +792,7 @@ class MySQL_query:
 
         return data_list
 
+
     def insert_product_prediction(op10_data, op20_data, op30_data, pred):
         conn, cur = None, None
         data1, data2, data3, data4 = " ", " ", " ", " "
@@ -787,6 +811,7 @@ class MySQL_query:
         conn.commit()
 
         conn.close()
+
 
     def key_for_count(self):
 
@@ -817,6 +842,7 @@ class MySQL_query:
         conn.close()
 
         return data_list
+
 
     def get_product_key_for_test(count):
 
@@ -849,6 +875,7 @@ class MySQL_query:
         conn.close()
 
         return data_list
+
 
     def get_test_data_parts_pipe2(key30):
 
@@ -894,6 +921,7 @@ class MySQL_query:
 
         return data_list
 
+
     def get_test_data_parts_pipe1(key20):
 
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
@@ -937,6 +965,7 @@ class MySQL_query:
         conn.close()
 
         return data_list
+
 
     def get_test_data_parts_body(key10):
 
@@ -982,6 +1011,7 @@ class MySQL_query:
 
         return data_list
 
+
     def get_test_data_parts_wavyfin(key10):
 
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
@@ -1026,6 +1056,7 @@ class MySQL_query:
 
         return data_list
 
+
     def get_test_data_op30(key30):
 
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
@@ -1063,6 +1094,7 @@ class MySQL_query:
 
         return data_list
 
+
     def get_test_data_op20(key20):
 
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
@@ -1098,6 +1130,7 @@ class MySQL_query:
         conn.close()
 
         return data_list
+
 
     def get_test_data_op10(key10):
 
@@ -1135,6 +1168,7 @@ class MySQL_query:
 
         return data_list
 
+
     def get_key60_for_search(key):
 
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
@@ -1165,6 +1199,7 @@ class MySQL_query:
 
         return data_list
 
+
     def get_key_for_search(head):
 
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
@@ -1193,6 +1228,7 @@ class MySQL_query:
         conn.close()
 
         return data_list
+
 
     def get_op60_data_for_search(key60):
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
@@ -1223,6 +1259,7 @@ class MySQL_query:
         conn.close()
 
         return data_list
+
 
     def get_op50_data_for_search(key50):
 
@@ -1259,6 +1296,7 @@ class MySQL_query:
         conn.close()
 
         return data_list
+
 
     def get_flange2_data_for_search(key50):
 
@@ -1304,6 +1342,7 @@ class MySQL_query:
 
         return data_list
 
+
     def get_op40_data_for_search(key40):
 
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
@@ -1339,6 +1378,7 @@ class MySQL_query:
         conn.close()
 
         return data_list
+
 
     def get_flange1_data_for_search(key40):
 
@@ -1384,6 +1424,7 @@ class MySQL_query:
 
         return data_list
 
+
     def get_op30_data_for_search(key30):
 
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
@@ -1419,6 +1460,7 @@ class MySQL_query:
         conn.close()
 
         return data_list
+
 
     def get_pipe2_data_for_search(key30):
 
@@ -1464,6 +1506,7 @@ class MySQL_query:
 
         return data_list
 
+
     def get_op20_data_for_search(key20):
 
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
@@ -1499,6 +1542,7 @@ class MySQL_query:
         conn.close()
 
         return data_list
+
 
     def get_pipe1_data_for_search(key20):
 
@@ -1544,6 +1588,7 @@ class MySQL_query:
 
         return data_list
 
+
     def get_op10_data_for_search(key10):
 
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
@@ -1579,6 +1624,7 @@ class MySQL_query:
         conn.close()
 
         return data_list
+
 
     def get_wavyfin_data_for_search(key10):
 
@@ -1626,6 +1672,7 @@ class MySQL_query:
 
         return data_list
 
+
     def get_key_product_for_search(product):
 
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
@@ -1649,6 +1696,38 @@ class MySQL_query:
                 'product_key': obj[0]
             }
 
+            data_list.append(data_dic)
+
+        conn.close()
+
+        return data_list
+
+
+    def get_count_for_progress(self):
+
+        now = datetime.now()
+        day = time.strftime("%Y-%m-%d")
+
+        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+
+        sql = '''
+
+            SELECT count(product_code)
+            FROM product_history WHERE product_timestamp BETWEEN '%s' AND '%s'
+            AND product_code = "EGRC";
+
+        ''' % (day, str(now))
+
+        cursor = conn.cursor()
+        cursor.execute(sql)
+        row = cursor.fetchall()
+
+        data_list = []
+
+        for obj in row:
+            data_dic = {
+                'product_count': obj[0],
+            }
             data_list.append(data_dic)
 
         conn.close()

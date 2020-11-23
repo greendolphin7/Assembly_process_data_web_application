@@ -607,8 +607,9 @@ def Scatter_OP10():
         temp_list.append(y)
 
         data_list.append(temp_list)
-    print(data_list[0][0])
+
     return jsonify(data_list)
+
 
 @app.route('/Analysis_OP20')
 def Analysis_OP20():
@@ -628,7 +629,6 @@ def Analysis_OP40():
 @app.route('/Analysis_OP50')
 def Analysis_OP50():
     return render_template('Analysis_OP50.html')
-
 
 
 @app.route('/Pareto')
@@ -662,15 +662,12 @@ def Pareto():
     data3 = [count_OP30]
     data4 = [count_OP40]
     data5 = [count_OP50]
-    print(count_list)
-    print(count_list[1])
+
     data_list = [count_list]
     response = make_response(json.dumps(data_list))
     response.content_type = 'application/json'
+
     return response
-    #return jsonify(count_list)
-
-
 
 
 @app.route('/Quality_load', methods=['POST', 'GET'])
@@ -742,4 +739,4 @@ def Signin():
 
 
 if __name__ == '__main__':
-   app.run('0.0.0.0', port=5001, debug=True)
+   app.run('0.0.0.0', port=5000, debug=True)
