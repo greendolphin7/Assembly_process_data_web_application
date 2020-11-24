@@ -29,7 +29,7 @@ class MySQL_query:
             conn.commit()
 
         conn.close()
-        
+
 
     def insert_machine_master(x):
         conn, cur = None, None

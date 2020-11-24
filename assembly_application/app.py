@@ -479,7 +479,6 @@ def Search():
     return render_template('Search.html', data_list=content_list, key=product_key)
 
 
-
 @app.route('/Predict')
 def Predict():
     return render_template('Predict.html')
@@ -672,6 +671,7 @@ def Pareto():
 
 @app.route('/Quality_load', methods=['POST', 'GET'])
 def Quality_load():
+
     if request.method == 'GET':
         char1 = request.args.get('date1')
         char2 = request.args.get('date2')
@@ -714,8 +714,8 @@ def Quality_load():
         OK_count_list.append(OK_OP50)
 
         html = render_template('Quality.html', quality_OK_list=OK_count_list, quality_NOK_list=NOK_count_list, date1=char1, date2=char2)
-        return html
 
+        return html
 
 
 @app.route('/Pareto_chart')
