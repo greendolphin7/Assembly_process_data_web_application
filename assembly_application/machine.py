@@ -588,7 +588,7 @@ class machine_operate:
             op40_l = op30[1] + flange1_l
             op40_l = round(op40_l, 5)
         else:
-            op40_l = op30[1] + flange1_l - 10
+            op40_l = op30[1] + flange1_l - 1
 
         op40_data['op40_l'] = op40_l
 
@@ -754,7 +754,7 @@ class machine_operate:
             op50_l = op40[1] + flange2_l
             op50_l = round(op50_l, 5)
         else:
-            op50_l = op40[1] + flange2_l - 10
+            op50_l = op40[1] + flange2_l - 1
 
         op50_data['op50_l'] = op50_l
 
