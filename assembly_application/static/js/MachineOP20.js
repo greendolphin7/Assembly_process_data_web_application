@@ -34,6 +34,9 @@ $(document).ready(function() {
                 load: requestData
             }
         },
+        credits: {
+            enabled: false,
+        },
         title: {
             text: 'Realtime Electronic OP20'
         },

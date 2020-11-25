@@ -2,16 +2,19 @@ Highcharts.chart('container', {
   data: {
     table: 'datatable'
   },
+  credits: {
+            enabled: false,
+        },
   chart: {
     type: 'column'
   },
   title: {
-    text: 'Data extracted from a HTML table in the page'
+    text: 'Product Quality'
   },
   yAxis: {
     allowDecimals: false,
     title: {
-      text: 'Units'
+      text: 'Quality'
     }
   },
   tooltip: {

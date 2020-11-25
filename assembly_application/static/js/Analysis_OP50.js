@@ -1,44 +1,37 @@
-const toggleBtn = document.querySelector(".navbar__toggleBtn");
-const menu = document.querySelector(".navbar__menu");
-const icons = document.querySelector(".navbar__Logout");
-
-toggleBtn.addEventListener("click", () => {
-  menu.classList.toggle("active");
-  icons.classList.toggle("active");
-});
-
 var data1= [];
 var data2= [];
 var data3= [];
-
-setInterval(function () {
-    var requests = $.get('/Scatter_OP50');  // $. <- 제이쿼리,
-        var tm = requests.done(function(result) // 성공하면 result 값을 받아옴
-            {
+var requests = $.get('/Scatter_OP50');  // $. <- 제이쿼리,
+   var tm = requests.done(function(result) // 성공하면 result 값을 받아옴
+        {
 //                var data1= []; // [[[ ]]]  [[ ]]
-                data1.push(result);  // 값 업데이트
-                data1 = data1[0]
-                data2.push(result);  // 값 업데이트
-                data2 = data2[0]
-                data3.push(result);  // 값 업데이트
-                data3 = data3[0]
-                console.log(result)
-                console.log(data1)
-            });
-
+            data1.push(result[0][0]);
+            console.log(data1)
+            data2.push(result[0][1]);
+            data3.push(result[0][2]);// 값 업데이트
+//            //data1 = data1[0];
+//            console.log(result)
+//            console.log(data1)  // 값 업데이트
+//            //data2 = data2;
+//            console.log(data2)
+//            //data3 = data3;
+//            console.log(data3)
 
 Highcharts.chart("container", {
 title: {
-text: "Electricity vs Length",
+text: "Temperature vs Length",
 },
 subtitle: {
 text: "",
 },
+credits: {
+            enabled: false,
+        },
 xAxis: {
 gridLineWidth: 1,
 title: {
   enabled: true,
-  text: "Electricity",
+  text: "Temperature",
 },
 startOnTick: true,
 endOnTick: true,
@@ -59,7 +52,7 @@ series: [
   name: "Observations",
   type: "scatter",
   color: "red",
-  data: data1
+  data: data1[0]
 },
 ],
 tooltip: {
@@ -84,19 +77,21 @@ rules: [
 },
 });
 
-
 Highcharts.chart("container2", {
   title: {
-    text: "Electricity vs Width",
+    text: "Temperature vs Width",
   },
   subtitle: {
     text: "",
   },
+  credits: {
+            enabled: false,
+        },
   xAxis: {
     gridLineWidth: 1,
     title: {
       enabled: true,
-      text: "Electricity",
+      text: "Temperature",
     },
     startOnTick: true,
     endOnTick: true,
@@ -117,7 +112,7 @@ Highcharts.chart("container2", {
       name: "Observations",
       type: "scatter",
       color: "blue",
-      data: data2
+      data: data3[0]
     },
   ],
   tooltip: {
@@ -144,7 +139,7 @@ Highcharts.chart("container2", {
 
 Highcharts.chart("container3", {
   title: {
-    text: "Electricity vs Height",
+    text: "Temperature vs Height",
   },
   subtitle: {
     text: "",
@@ -153,12 +148,15 @@ Highcharts.chart("container3", {
     gridLineWidth: 1,
     title: {
       enabled: true,
-      text: "Electricity",
+      text: "Temperature",
     },
     startOnTick: true,
     endOnTick: true,
     showLastLabel: true,
   },
+  credits: {
+            enabled: false,
+        },
   yAxis: {
     title: {
       text: "Height (mm)",
@@ -174,7 +172,7 @@ Highcharts.chart("container3", {
       name: "Observations",
       type: "scatter",
       color: "yellow",
-      data: data3
+      data: data2[0]
     },
   ],
   tooltip: {
@@ -199,4 +197,4 @@ Highcharts.chart("container3", {
   },
 });
 
-},);
+});

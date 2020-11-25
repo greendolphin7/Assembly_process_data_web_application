@@ -509,6 +509,12 @@
               this.downloadXLS();
             },
           },
+          viewData: {
+            textKey: "viewData",
+            onclick: function () {
+              this.toggleDataTable();
+            },
+          },
         }),
         p.buttons &&
           p.buttons.contextButton.menuItems.push(

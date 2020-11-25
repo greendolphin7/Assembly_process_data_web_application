@@ -3,8 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-    <!-- Link Swiper's CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <link rel="stylesheet" href="{{url_for('static', filename='css/Machine.css') }}" />
     <script src="/static/js/MachineOP50.js" defer></script>
     <script src="/static/js/Machine2.js" defer></script>
@@ -39,7 +37,7 @@
       </ul>
       <!-- Icons -->
       <ul class="navbar__Logout">
-        <li><a href="Login.html">Log Out</a></li>
+        <li><a href="logout">Log Out</a></li>
       </ul>
       <!-- Toggle button -->
     <a href="#" class="navbar__toggleBtn">
@@ -52,8 +50,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/series-label.js"></script>
-    <script src="export-data.js"></script>
-    <script src="exporting.js"></script>
+    <script src="/static/js/export-data.js"></script>
+    <script src="/static/js/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <script src="/static/js/MachineOP50.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
@@ -105,3 +103,8 @@
 </main>
 </body>
 </html>
+
+<script src="//a----.github.io/highcharts-export-clientside/bower_components/highcharts/modules/exporting.js"></script>
+<script src="//a----.github.io/highcharts-export-clientside/bower_components/highcharts/modules/canvas-tools.js"></script>
+<script src="//a----.github.io/highcharts-export-clientside/bower_components/export-csv/export-csv.js"></script>
+<script type="application/javascript" src="//a----.github.io/highcharts-export-clientside/bower_components/jspdf/dist/jspdf.min.js"></script>

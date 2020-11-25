@@ -1,13 +1,25 @@
-from flask import Flask, render_template, redirect, request, url_for, jsonify, make_response
+from flask import Flask, render_template, request, jsonify, make_response, escape, session
 from process import process_operate
+
 from OEE_calculator import OEE_cal
 from SQL import MySQL_query
-from time import time
+from datetime import timedelta
+import time
 import json
 import pymysql
-from datetime import datetime
+import bcrypt
+import re
 
 app = Flask(__name__)
+
+#----------------------------------------------------------
+# -----------------회원가입 및 로그인------------------
+# app.secret_key = "DayTory123"
+#
+# db = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+#
+# cursor = db.cursor()
+#----------------------------------------------------------
 
 app.count = 1
 app.predict_count = 0
@@ -24,42 +36,18 @@ def Monitoring():
 
 @app.route('/Quality')
 def Quality():
-    OK_count_list = [];
-    NOK_count_list = [];
+    OK_count_list = []
+    NOK_count_list = []
     return render_template('Quality.html', quality_OK_list=OK_count_list, quality_NOK_list=NOK_count_list)
 
 
-@app.route('/OEE_Calculator')
+@app.route('/OEE_Calculator', methods=["GET", "POST"])
 def OEE_Calculator():
-
-    OEE_list = []
-    OEE_dict = {}
-
-    availability = OEE_cal.Availability_Calculator(1)
-
-    productivity = OEE_cal.Productivity_Calculator(1)
-
-    quality = OEE_cal.Quality_Calculator(1)
-
-    OEE = (availability * productivity * quality) / 10000
-
-    OEE_dict['OEE'] = str(OEE)
-    OEE_dict['availability'] = str(availability)
-    OEE_dict['productivity'] = str(productivity)
-    OEE_dict['quality'] = str(quality)
-
-    OEE_list.append(OEE_dict)
-
-    return jsonify(OEE_list)
-
-
-@app.route('/re_data', methods=["GET", "POST"])
-def re_data():
-    a = OEE_cal.Availability_Calculator(1)  # 시간가동률
-    b = OEE_cal.Productivity_Calculator(1)  # 성능가동률
-    c = OEE_cal.Quality_Calculator(1)  # 품질
-    d = a * b * c / 10000  # OEE
-    data = [time() * 1000, d, a, b, c]
+    availability = OEE_cal.Availability_Calculator(1)  # 시간가동률
+    productivity = OEE_cal.Productivity_Calculator(1)  # 성능가동률
+    quality = OEE_cal.Quality_Calculator(1)  # 품질
+    OEE = availability * productivity * quality / 10000  # OEE
+    data = [(time.time() + 32400) * 1000, OEE, availability, productivity, quality]
 
     response = make_response(json.dumps(data))
 
@@ -70,26 +58,25 @@ def re_data():
 
 @app.route('/real_value', methods=["GET", "POST"])
 def real_value():
-    now_data = MySQL_query.get_item_count_now(1)  # 실제값 하루 생산되는 양품수
-    OK_count = now_data[0]['item_count']
+    now_data = MySQL_query.get_count_for_progress(1)  # 실제값 하루 생산되는 양품수
+    OK_count = now_data[0]['product_count']
     quality = round(OK_count, 1)
-    data = [time() * 1000, quality]
+    data = [(time.time() + 32400) * 1000, quality]
 
     response = make_response(json.dumps(data))
 
     response.content_type = 'application/json'
-
     return response
-
-
-@app.route('/Machine')
-def Machine():
-    return render_template('Machine.html')
 
 
 @app.route('/Process')
 def Machine_start():
     return process_operate.process_start(1)
+
+
+@app.route('/Machine')
+def Machine():
+    return render_template('MachineOP10.html')
 
 
 @app.route('/live_Electronic_OP10')
@@ -103,48 +90,10 @@ def live_Electronic_OP10():
     result_re1 = result.replace("[", "")
     result_re2 = result_re1.replace("]", "")
     result_re3 = float(result_re2)
-    app.count += 1
-    data = [time() * 5000, result_re3]
+    data = [(time.time()+32400)*1000, result_re3]
     response = make_response(json.dumps(data))
     response.content_type = 'application/json'
-
     return response
-
-
-@app.route('/realtime_data')
-def post_realtime_data():
-    parameter = MySQL_query.get_product_key_machine_code(1)
-    product_key = parameter[0]['product_key']
-    machine_code = parameter[0]['machine_code']
-
-    data = MySQL_query.get_machine_data_for_realtime(machine_code, product_key)
-
-    data = data[0]  # 여기서 data가 딕셔너리 형태로 변환
-
-    data_list = []
-    product_key = product_key[-4:]
-
-    machine_data = data['machine_data']
-    process_time = data['process_time']
-    start_time = data['start_time']
-    end_time = data['end_time']
-    product_test = data['product_test']
-    product_size_l = data['product_size_l']
-    product_size_w = data['product_size_w']
-    product_size_h = data['product_size_h']
-
-    data_list.append(product_key)
-    data_list.append(machine_code)
-    data_list.append(machine_data)
-    data_list.append(process_time)
-    data_list.append(start_time)
-    data_list.append(end_time)
-    data_list.append(product_test)
-    data_list.append(product_size_l)
-    data_list.append(product_size_w)
-    data_list.append(product_size_h)
-
-    return data
 
 
 @app.route('/realtime_table_OP10')
@@ -167,7 +116,222 @@ def realtime_table_OP10():
     app.count += 1
     data_list = []
     for obj in row:
+        bar_count = 0
+        for index in range(len(obj[0])):
 
+            if obj[0][index] == '-':
+                bar_count = bar_count + 1
+
+                if bar_count == 3:
+                    break
+
+        key_parsing = obj[0][index + 3:]
+
+        data_dic = {
+            'product_key': key_parsing,
+            'machine_code': obj[1],
+            'machine_data': str(obj[2]),
+            'process_time': str(obj[3]),
+            'start_time': obj[4],
+            'end_time': obj[5],
+            'product_test': obj[6],
+            'product_size_l': str(obj[7]),
+            'product_size_w': str(obj[8]),
+            'product_size_h': str(obj[9])
+        }
+        data_list.append(data_dic)
+    conn.close()
+    if app.count >= 10:
+        app.count = 10
+    return jsonify(data_list)
+
+
+@app.route('/MachineOP20')
+def Machine20():
+    return render_template('MachineOP20.html')
+
+
+@app.route('/live_Electronic_OP20')
+def live_Electronic_OP20():
+    conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+    cursor = conn.cursor()
+    cursor.execute("SELECT machine_data from machine where machine_code = 'OP20' and machine_data_code = 'E01' ")
+    results = cursor.fetchall()
+    result_list = list(results[-1])
+    result = str(result_list)
+    result_re1 = result.replace("[", "")
+    result_re2 = result_re1.replace("]", "")
+    result_re3 = float(result_re2)
+    data = [(time.time()+32400)*1000, result_re3]
+    response = make_response(json.dumps(data))
+    response.content_type = 'application/json'
+    return response
+
+
+@app.route('/realtime_table_OP20')
+def realtime_table_OP20():
+    count = app.count
+    conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+
+    sql = '''
+                   SELECT machine.product_key, machine.machine_code, machine.machine_data, machine.process_time, 
+                   machine.start_time, machine.end_time, product_quality.product_test, 
+                   product_quality.product_size_l, product_quality.product_size_w, product_quality.product_size_h
+                   FROM machine INNER JOIN product_quality
+                   ON  machine.product_key = product_quality.product_key
+                   WHERE machine.machine_code = 'OP20' order by end_time DESC LIMIT %s
+           ''' % (count)
+
+    cursor = conn.cursor()
+    cursor.execute(sql)
+    row = cursor.fetchall()
+    app.count += 1
+    data_list = []
+    for obj in row:
+        bar_count = 0
+        for index in range(len(obj[0])):
+
+            if obj[0][index] == '-':
+                bar_count = bar_count + 1
+
+                if bar_count == 3:
+                    break
+
+        key_parsing = obj[0][index + 3:]
+
+        data_dic = {
+            'product_key': key_parsing,
+            'machine_code': obj[1],
+            'machine_data': str(obj[2]),
+            'process_time': str(obj[3]),
+            'start_time': obj[4],
+            'end_time': obj[5],
+            'product_test': obj[6],
+            'product_size_l': str(obj[7]),
+            'product_size_w': str(obj[8]),
+            'product_size_h': str(obj[9])
+        }
+        data_list.append(data_dic)
+    conn.close()
+    if app.count >= 10:
+        app.count = 10
+    return jsonify(data_list)
+
+
+@app.route('/MachineOP30')
+def MachineOP30():
+    return render_template('MachineOP30.html')
+
+
+@app.route('/live_Electronic_OP30')
+def live_Electronic_OP30():
+    conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+    cursor = conn.cursor()
+    cursor.execute("SELECT machine_data from machine where machine_code = 'OP30' and machine_data_code = 'E01' ")
+    results = cursor.fetchall()
+    result_list = list(results[-1])
+    result = str(result_list)
+    result_re1 = result.replace("[", "")
+    result_re2 = result_re1.replace("]", "")
+    result_re3 = float(result_re2)
+    data = [(time.time()+32400)*1000, result_re3]
+    response = make_response(json.dumps(data))
+    response.content_type = 'application/json'
+    return response
+
+
+@app.route('/realtime_table_OP30')
+def realtime_table_OP30():
+    count = app.count
+    conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+
+    sql = '''
+                   SELECT machine.product_key, machine.machine_code, machine.machine_data, machine.process_time, 
+                   machine.start_time, machine.end_time, product_quality.product_test, 
+                   product_quality.product_size_l, product_quality.product_size_w, product_quality.product_size_h
+                   FROM machine INNER JOIN product_quality
+                   ON  machine.product_key = product_quality.product_key
+                   WHERE machine.machine_code = 'OP30' order by end_time DESC LIMIT %s
+           ''' % (count)
+
+    cursor = conn.cursor()
+    cursor.execute(sql)
+    row = cursor.fetchall()
+    app.count += 1
+    data_list = []
+    for obj in row:
+        bar_count = 0
+        for index in range(len(obj[0])):
+
+            if obj[0][index] == '-':
+                bar_count = bar_count + 1
+
+                if bar_count == 3:
+                    break
+
+        key_parsing = obj[0][index + 3:]
+
+        data_dic = {
+            'product_key': key_parsing,
+            'machine_code': obj[1],
+            'machine_data': str(obj[2]),
+            'process_time': str(obj[3]),
+            'start_time': obj[4],
+            'end_time': obj[5],
+            'product_test': obj[6],
+            'product_size_l': str(obj[7]),
+            'product_size_w': str(obj[8]),
+            'product_size_h': str(obj[9])
+        }
+        data_list.append(data_dic)
+    conn.close()
+    if app.count >= 10:
+        app.count = 10
+    return jsonify(data_list)
+
+
+@app.route('/MachineOP40')
+def MachineOP40():
+    return render_template('MachineOP40.html')
+
+
+@app.route('/live_Temperature_OP40')
+def live_Temperature_OP40():
+    conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+    cursor = conn.cursor()
+    cursor.execute("SELECT machine_data from machine where machine_code = 'OP40' and machine_data_code = 'T01' ")
+    results = cursor.fetchall()
+    result_list = list(results[-1])
+    result = str(result_list)
+    result_re1 = result.replace("[", "")
+    result_re2 = result_re1.replace("]", "")
+    result_re3 = float(result_re2)
+    data = [(time.time()+32400)*1000, result_re3]
+    response = make_response(json.dumps(data))
+    response.content_type = 'application/json'
+    return response
+
+
+@app.route('/realtime_table_OP40')
+def realtime_table_OP40():
+    count = app.count
+    conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+
+    sql = '''
+                   SELECT machine.product_key, machine.machine_code, machine.machine_data, machine.process_time, 
+                   machine.start_time, machine.end_time, product_quality.product_test, 
+                   product_quality.product_size_l, product_quality.product_size_w, product_quality.product_size_h
+                   FROM machine INNER JOIN product_quality
+                   ON  machine.product_key = product_quality.product_key
+                   WHERE machine.machine_code = 'OP40' order by end_time DESC LIMIT %s
+           ''' % (count)
+
+    cursor = conn.cursor()
+    cursor.execute(sql)
+    row = cursor.fetchall()
+    app.count += 1
+    data_list = []
+    for obj in row:
         bar_count = 0
         for index in range(len(obj[0])):
 
@@ -194,80 +358,9 @@ def realtime_table_OP10():
         data_list.append(data_dic)
 
     conn.close()
-
+    if app.count >= 10:
+        app.count = 10
     return jsonify(data_list)
-
-
-@app.route('/MachineOP20')
-def Machine20():
-    return render_template('MachineOP20.html')
-
-
-@app.route('/live_Electronic_OP20')
-def live_Electronic_OP20():
-    conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
-    cursor = conn.cursor()
-    cursor.execute("SELECT machine_data from machine where machine_code = 'OP20' and machine_data_code = 'E01' ")
-    results = cursor.fetchall()
-    result_list = list(results[-1])
-    result = str(result_list)
-    result_re1 = result.replace("[", "")
-    result_re2 = result_re1.replace("]", "")
-    result_re3 = float(result_re2)
-    app.count += 1
-    data = [time() * 5000, result_re3]
-    response = make_response(json.dumps(data))
-    response.content_type = 'application/json'
-
-    return response
-
-
-@app.route('/MachineOP30')
-def MachineOP30():
-    return render_template('MachineOP30.html')
-
-
-@app.route('/live_Electronic_OP30')
-def live_Electronic_OP30():
-    conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
-    cursor = conn.cursor()
-    cursor.execute("SELECT machine_data from machine where machine_code = 'OP30' and machine_data_code = 'E01' ")
-    results = cursor.fetchall()
-    result_list = list(results[-1])
-    result = str(result_list)
-    result_re1 = result.replace("[", "")
-    result_re2 = result_re1.replace("]", "")
-    result_re3 = float(result_re2)
-    app.count += 1
-    data = [time() * 5000, result_re3]
-    response = make_response(json.dumps(data))
-    response.content_type = 'application/json'
-
-    return response
-
-
-@app.route('/MachineOP40')
-def MachineOP40():
-    return render_template('MachineOP40.html')
-
-
-@app.route('/live_Temperature_OP40')
-def live_Temperature_OP40():
-    conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
-    cursor = conn.cursor()
-    cursor.execute("SELECT machine_data from machine where machine_code = 'OP40' and machine_data_code = 'T01' ")
-    results = cursor.fetchall()
-    result_list = list(results[-1])
-    result = str(result_list)
-    result_re1 = result.replace("[", "")
-    result_re2 = result_re1.replace("]", "")
-    result_re3 = float(result_re2)
-    app.count += 1
-    data = [time() * 5000, result_re3]
-    response = make_response(json.dumps(data))
-    response.content_type = 'application/json'
-
-    return response
 
 
 @app.route('/MachineOP50')
@@ -286,12 +379,62 @@ def live_Temperature_OP50():
     result_re1 = result.replace("[", "")
     result_re2 = result_re1.replace("]", "")
     result_re3 = float(result_re2)
-    app.count += 1
-    data = [time() * 5000, result_re3]
+    data = [(time.time()+32400)*1000, result_re3]
     response = make_response(json.dumps(data))
     response.content_type = 'application/json'
-
     return response
+
+
+@app.route('/realtime_table_OP50')
+def realtime_table_OP50():
+    count = app.count
+    conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+
+    sql = '''
+                   SELECT machine.product_key, machine.machine_code, machine.machine_data, machine.process_time, 
+                   machine.start_time, machine.end_time, product_quality.product_test, 
+                   product_quality.product_size_l, product_quality.product_size_w, product_quality.product_size_h
+                   FROM machine INNER JOIN product_quality
+                   ON  machine.product_key = product_quality.product_key
+                   WHERE machine.machine_code = 'OP50' order by end_time DESC LIMIT %s
+           ''' % (count)
+
+    cursor = conn.cursor()
+    cursor.execute(sql)
+    row = cursor.fetchall()
+    app.count += 1
+    data_list = []
+    for obj in row:
+        bar_count = 0
+        for index in range(len(obj[0])):
+
+            if obj[0][index] == '-':
+                bar_count = bar_count + 1
+
+                if bar_count == 3:
+                    break
+
+        key_parsing = obj[0][index + 3:]
+
+        data_dic = {
+            'product_key': key_parsing,
+            'machine_code': obj[1],
+            'machine_data': str(obj[2]),
+            'process_time': str(obj[3]),
+            'start_time': obj[4],
+            'end_time': obj[5],
+            'product_test': obj[6],
+            'product_size_l': str(obj[7]),
+            'product_size_w': str(obj[8]),
+            'product_size_h': str(obj[9])
+        }
+        data_list.append(data_dic)
+
+    conn.close()
+    if app.count >= 10:
+        app.count = 10
+
+    return jsonify(data_list)
 
 
 @app.route('/Search_data')
@@ -467,7 +610,7 @@ def Search_data(key60):
 
 @app.route('/Search', methods=['POST', 'GET'])
 def Search():
-    key60 = 'P10001'
+    key60 = 'P10001'  # 기본값 설정하세요
     product_key = MySQL_query.get_key_product_for_search(key60)
     product_key = product_key[0]['product_key']
     content_list = Search_data(product_key)
@@ -476,16 +619,18 @@ def Search():
 
         key60 = request.args.get('key')
         if key60 == None:
-            key60 = 'P10001'
+            key60 = 'P10001'  # 기본값 설정하세요
         product_key = MySQL_query.get_key_product_for_search(key60)
         product_key = product_key[0]['product_key']
         content_list = Search_data(product_key)
 
         ## 넘겨받은 값을 원래 페이지로 리다이렉트
         html = render_template('Search.html', data_list=content_list, key=product_key)
+
         return html
 
     return render_template('Search.html', data_list=content_list, key=product_key)
+
 
 
 @app.route('/Predict')
@@ -595,28 +740,53 @@ def Analysis_OP10():
     return render_template('Analysis_OP10.html')
 
 
-@app.route('/Scatter_OP10')
+@app.route('/Scatter_OP10', methods=['POST', 'GET'])
 def Scatter_OP10():
-
     machine_code = 'OP10'
-    size = 'l'
-    char1 = '2020-11-16'
-    char2 = '2020-11-20'
 
-    list_dict = MySQL_query.get_data_for_scatter(machine_code, size, char1, char2)
+    size_L = 'l'
+    size_H = 'h'
+    size_W = 'w'
+    data_All_list = []
+    data_L_list = []
+    data_H_list = []
+    data_W_list = []
+    list_L_dict = MySQL_query.get_data_for_scatter(machine_code, size_L)
+    for i in range(len(list_L_dict)):
+        temp_L_list = []
 
-    data_list = []
-    for i in range(len(list_dict)):
-        temp_list = []
+        x = list_L_dict[i]['machine_data']
+        y = list_L_dict[i]['product_size']
+        temp_L_list.append(x)
+        temp_L_list.append(y)
+        data_L_list.append(temp_L_list)
 
-        x = list_dict[i]['machine_data']
-        y = list_dict[i]['product_size']
-        temp_list.append(x)
-        temp_list.append(y)
+    list_H_dict = MySQL_query.get_data_for_scatter(machine_code, size_H)
+    for i in range(len(list_H_dict)):
+        temp_H_list = []
 
-        data_list.append(temp_list)
+        x = list_H_dict[i]['machine_data']
+        y = list_H_dict[i]['product_size']
+        temp_H_list.append(x)
+        temp_H_list.append(y)
+        data_H_list.append(temp_H_list)
 
-    return jsonify(data_list)
+    list_W_dict = MySQL_query.get_data_for_scatter(machine_code, size_W)
+    for i in range(len(list_W_dict)):
+        temp_W_list = []
+
+        x = list_W_dict[i]['machine_data']
+        y = list_W_dict[i]['product_size']
+        temp_W_list.append(x)
+        temp_W_list.append(y)
+        data_W_list.append(temp_W_list)
+    data_All_list.append(data_L_list)
+    data_All_list.append(data_H_list)
+    data_All_list.append(data_W_list)
+    data_All_list_list = []
+    data_All_list_list.append(data_All_list)
+
+    return jsonify(data_All_list_list)
 
 
 @app.route('/Analysis_OP20')
@@ -624,9 +794,107 @@ def Analysis_OP20():
     return render_template('Analysis_OP20.html')
 
 
+@app.route('/Scatter_OP20', methods=['POST', 'GET'])
+def Scatter_OP20():
+    machine_code = 'OP20'
+
+    size_L = 'l'
+    size_H = 'h'
+    size_W = 'w'
+    data_All_list = []
+    data_L_list = []
+    data_H_list = []
+    data_W_list = []
+    list_L_dict = MySQL_query.get_data_for_scatter(machine_code, size_L)
+    for i in range(len(list_L_dict)):
+        temp_L_list = []
+
+        x = list_L_dict[i]['machine_data']
+        y = list_L_dict[i]['product_size']
+        temp_L_list.append(x)
+        temp_L_list.append(y)
+        data_L_list.append(temp_L_list)
+
+    list_H_dict = MySQL_query.get_data_for_scatter(machine_code, size_H)
+    for i in range(len(list_H_dict)):
+        temp_H_list = []
+
+        x = list_H_dict[i]['machine_data']
+        y = list_H_dict[i]['product_size']
+        temp_H_list.append(x)
+        temp_H_list.append(y)
+        data_H_list.append(temp_H_list)
+
+    list_W_dict = MySQL_query.get_data_for_scatter(machine_code, size_W)
+    for i in range(len(list_W_dict)):
+        temp_W_list = []
+
+        x = list_W_dict[i]['machine_data']
+        y = list_W_dict[i]['product_size']
+        temp_W_list.append(x)
+        temp_W_list.append(y)
+        data_W_list.append(temp_W_list)
+    data_All_list.append(data_L_list)
+    data_All_list.append(data_H_list)
+    data_All_list.append(data_W_list)
+    data_All_list_list = []
+    data_All_list_list.append(data_All_list)
+    print(data_All_list)
+    return jsonify(data_All_list_list)
+
+
 @app.route('/Analysis_OP30')
 def Analysis_OP30():
     return render_template('Analysis_OP30.html')
+
+
+@app.route('/Scatter_OP30', methods=['POST', 'GET'])
+def Scatter_OP30():
+    machine_code = 'OP30'
+
+    size_L = 'l'
+    size_H = 'h'
+    size_W = 'w'
+    data_All_list = []
+    data_L_list = []
+    data_H_list = []
+    data_W_list = []
+    list_L_dict = MySQL_query.get_data_for_scatter(machine_code, size_L)
+    for i in range(len(list_L_dict)):
+        temp_L_list = []
+
+        x = list_L_dict[i]['machine_data']
+        y = list_L_dict[i]['product_size']
+        temp_L_list.append(x)
+        temp_L_list.append(y)
+        data_L_list.append(temp_L_list)
+
+    list_H_dict = MySQL_query.get_data_for_scatter(machine_code, size_H)
+    for i in range(len(list_H_dict)):
+        temp_H_list = []
+
+        x = list_H_dict[i]['machine_data']
+        y = list_H_dict[i]['product_size']
+        temp_H_list.append(x)
+        temp_H_list.append(y)
+        data_H_list.append(temp_H_list)
+
+    list_W_dict = MySQL_query.get_data_for_scatter(machine_code, size_W)
+    for i in range(len(list_W_dict)):
+        temp_W_list = []
+
+        x = list_W_dict[i]['machine_data']
+        y = list_W_dict[i]['product_size']
+        temp_W_list.append(x)
+        temp_W_list.append(y)
+        data_W_list.append(temp_W_list)
+    data_All_list.append(data_L_list)
+    data_All_list.append(data_H_list)
+    data_All_list.append(data_W_list)
+    data_All_list_list = []
+    data_All_list_list.append(data_All_list)
+    print(data_All_list)
+    return jsonify(data_All_list_list)
 
 
 @app.route('/Analysis_OP40')
@@ -634,53 +902,112 @@ def Analysis_OP40():
     return render_template('Analysis_OP40.html')
 
 
+@app.route('/Scatter_OP40', methods=['POST', 'GET'])
+def Scatter_OP40():
+    machine_code = 'OP40'
+
+    size_L = 'l'
+    size_H = 'h'
+    size_W = 'w'
+    data_All_list = []
+    data_L_list = []
+    data_H_list = []
+    data_W_list = []
+    list_L_dict = MySQL_query.get_data_for_scatter(machine_code, size_L)
+    for i in range(len(list_L_dict)):
+        temp_L_list = []
+
+        x = list_L_dict[i]['machine_data']
+        y = list_L_dict[i]['product_size']
+        temp_L_list.append(x)
+        temp_L_list.append(y)
+        data_L_list.append(temp_L_list)
+
+    list_H_dict = MySQL_query.get_data_for_scatter(machine_code, size_H)
+    for i in range(len(list_H_dict)):
+        temp_H_list = []
+
+        x = list_H_dict[i]['machine_data']
+        y = list_H_dict[i]['product_size']
+        temp_H_list.append(x)
+        temp_H_list.append(y)
+        data_H_list.append(temp_H_list)
+
+    list_W_dict = MySQL_query.get_data_for_scatter(machine_code, size_W)
+    for i in range(len(list_W_dict)):
+        temp_W_list = []
+
+        x = list_W_dict[i]['machine_data']
+        y = list_W_dict[i]['product_size']
+        temp_W_list.append(x)
+        temp_W_list.append(y)
+        data_W_list.append(temp_W_list)
+    data_All_list.append(data_L_list)
+    data_All_list.append(data_H_list)
+    data_All_list.append(data_W_list)
+    data_All_list_list = []
+    data_All_list_list.append(data_All_list)
+    print(data_All_list)
+    return jsonify(data_All_list_list)
+
+
 @app.route('/Analysis_OP50')
 def Analysis_OP50():
     return render_template('Analysis_OP50.html')
 
 
-@app.route('/Pareto')
-def Pareto():
+@app.route('/Scatter_OP50', methods=['POST', 'GET'])
+def Scatter_OP50():
+    machine_code = 'OP50'
 
-    char1 = '2020-11-01'
-    char2 = '2020-11-17'
+    size_L = 'l'
+    size_H = 'h'
+    size_W = 'w'
+    data_All_list = []
+    data_L_list = []
+    data_H_list = []
+    data_W_list = []
+    list_L_dict = MySQL_query.get_data_for_scatter(machine_code, size_L)
 
-    count_list = []
+    for i in range(len(list_L_dict)):
+        temp_L_list = []
 
-    OP10_NOK = MySQL_query.get_data_for_pareto('OP10', char1, char2)
-    OP20_NOK = MySQL_query.get_data_for_pareto('OP20', char1, char2)
-    OP30_NOK = MySQL_query.get_data_for_pareto('OP30', char1, char2)
-    OP40_NOK = MySQL_query.get_data_for_pareto('OP40', char1, char2)
-    OP50_NOK = MySQL_query.get_data_for_pareto('OP50', char1, char2)
+        x = list_L_dict[i]['machine_data']
+        y = list_L_dict[i]['product_size']
+        temp_L_list.append(x)
+        temp_L_list.append(y)
+        data_L_list.append(temp_L_list)
 
-    count_OP10 = OP10_NOK[0]['NOK']
-    count_OP20 = OP20_NOK[0]['NOK']
-    count_OP30 = OP30_NOK[0]['NOK']
-    count_OP40 = OP40_NOK[0]['NOK']
-    count_OP50 = OP50_NOK[0]['NOK']
+    list_H_dict = MySQL_query.get_data_for_scatter(machine_code, size_H)
+    for i in range(len(list_H_dict)):
+        temp_H_list = []
 
-    count_list.append(count_OP10)
-    count_list.append(count_OP20)
-    count_list.append(count_OP30)
-    count_list.append(count_OP40)
-    count_list.append(count_OP50)
+        x = list_H_dict[i]['machine_data']
+        y = list_H_dict[i]['product_size']
+        temp_H_list.append(x)
+        temp_H_list.append(y)
+        data_H_list.append(temp_H_list)
 
-    data1 = [count_OP10]
-    data2 = [count_OP20]
-    data3 = [count_OP30]
-    data4 = [count_OP40]
-    data5 = [count_OP50]
+    list_W_dict = MySQL_query.get_data_for_scatter(machine_code, size_W)
+    for i in range(len(list_W_dict)):
+        temp_W_list = []
 
-    data_list = [count_list]
-    response = make_response(json.dumps(data_list))
-    response.content_type = 'application/json'
+        x = list_W_dict[i]['machine_data']
+        y = list_W_dict[i]['product_size']
+        temp_W_list.append(x)
+        temp_W_list.append(y)
+        data_W_list.append(temp_W_list)
+    data_All_list.append(data_L_list)
+    data_All_list.append(data_H_list)
+    data_All_list.append(data_W_list)
+    data_All_list_list = []
+    data_All_list_list.append(data_All_list)
 
-    return response
+    return jsonify(data_All_list_list)
 
 
 @app.route('/Quality_load', methods=['POST', 'GET'])
 def Quality_load():
-
     if request.method == 'GET':
         char1 = request.args.get('date1')
         char2 = request.args.get('date2')
@@ -727,16 +1054,6 @@ def Quality_load():
         return html
 
 
-@app.route('/Pareto_chart')
-def Pareto_chart():
-    return render_template('Pareto.html')
-
-
-@app.route('/bar_chart_table')
-def bar_chart_table():
-    return render_template('bar_chart_table.html')
-
-
 @app.route('/Login')
 def Login():
     return render_template('Login.html')
@@ -747,5 +1064,168 @@ def Signin():
     return render_template('Signin.html')
 
 
+@app.route('/Pareto')
+def Pareto():
+
+    count_list = []
+    count_All_list = []
+    All_list = []
+    All_pareto_list = []
+    OP10_NOK = MySQL_query.get_data_for_pareto('OP10')
+    OP20_NOK = MySQL_query.get_data_for_pareto('OP20')
+    OP30_NOK = MySQL_query.get_data_for_pareto('OP30')
+    OP40_NOK = MySQL_query.get_data_for_pareto('OP40')
+    OP50_NOK = MySQL_query.get_data_for_pareto('OP50')
+
+    count_OP10 = OP10_NOK[0]['NOK']
+    count_OP20 = OP20_NOK[0]['NOK']
+    count_OP30 = OP30_NOK[0]['NOK']
+    count_OP40 = OP40_NOK[0]['NOK']
+    count_OP50 = OP50_NOK[0]['NOK']
+
+    count_list.append(count_OP10)
+    count_list.append(count_OP20)
+    count_list.append(count_OP30)
+    count_list.append(count_OP40)
+    count_list.append(count_OP50)
+    count_All_list.append(count_list)
+    count_All_list.append(count_list)
+    All_list.append(count_All_list)
+    All_pareto_list.append(All_list)
+
+    return jsonify(All_list)
+
+##############회원 가입 및 로그인
+
+# @app.route('/Home') ###로그인 하고 들어가는 메인 페이지를 넣을 것
+# def Home():
+#     if not 'ID' in session:
+#         return ''' <script> location.href = "http://127.0.0.1:5002/" </script> '''
+#     else:
+#         return render_template("Home.html")
+#
+#
+# @app.route('/', methods=['GET'])
+# def index():
+#     if 'ID' in session:
+#         return ''' <script> location.href = "http://127.0.0.1:5002/Home" </script> '''
+#     else:
+#         return render_template('Daytory.html')  # 로그인 되어 있지 않으니 로그인 홈 가기 버튼으로
+#
+#
+# app.cnt = 1
+# @app.route('/login', methods=['GET','POST'])
+# def login():
+#
+#     if request.method == 'GET':
+#         return render_template('Login.html')
+#
+#     if request.method == 'POST':
+#         login_info = request.form
+#
+#         id = login_info['ID']
+#         password = login_info['Password']
+#
+#         sql = "SELECT * FROM total WHERE ID = %s"
+#
+#         row_count = cursor.execute(sql, id)
+#
+#         if app.cnt == 5:
+#             return ''' <script> alert("로그인 {}회 실패 하셨기에 보안을 위해 로그인 시스템을 종료합니다 ");
+#                                                           location.href = "http://127.0.0.1:5002/" </script> '''\
+#                 .format(app.cnt)
+#
+#         if not row_count:
+#             app.cnt += 1
+#             return ''' <script> alert("아이디를 확인하여 주십시오");
+#                             location.href = "http://127.0.0.1:5002/login" </script> '''
+#         if row_count > 0:
+#             user_info = cursor.fetchone()
+#             pw_db = user_info[1] #### user DB 순번 체크 필요
+#
+#             is_pw = bcrypt.checkpw(password.encode('UTF-8'),  pw_db.encode('UTF-8'))
+#             if is_pw:
+#                 session['ID'] = id
+#                 return ''' <script> alert("{}님이 로그인 하였습니다");
+#                 location.href = "http://127.0.0.1:5002/" </script> '''.format(id)
+#             else:
+#                 app.cnt += 1
+#                 return  ''' <script> alert("비밀번호를 확인하여 주십시오");
+#                 location.href = "http://127.0.0.1:5002/login" </script> '''
+#
+#     return render_template('Login.html')
+#
+#
+# @app.route('/logout')
+# def logout():
+#     return ''' <script> alert("%s 님이 로그아웃 하였습니다");
+#     location.href = "http://127.0.0.1:5002/logo" </script> ''' % escape(session['ID'])
+#
+# #이 두개를 한번에 붙이지 않은 이유는 session pop 한 후에는 ID가 없어서 escape기능을 못하기에
+#
+# @app.route('/logo')
+# def logo():
+#     session.pop('ID', None)
+#     return ''' <script> location.href = "http://127.0.0.1:5002/" </script> '''
+#
+# @app.before_request # 1분 시간 뒤에 session 종료
+# def make_session_permanent():
+#     session.permanent = True
+#     app.permanent_session_lifetime = timedelta(minutes=1)
+#
+# @app.route('/register', methods=['GET','POST'])
+# def register():
+#     if request.method == 'GET':
+#         return render_template('Signin.html')
+#
+#     if request.method == 'POST':
+#         register_info = request.form
+#         id = register_info['ID']
+#         password = register_info['Password']
+#         repassword = register_info['repassword']
+#         email = register_info['Email']
+#         abc = """
+#                         Select ID from total where ID = %s
+#                     """
+#         cursor.execute(abc, id)
+#         row = cursor.fetchone()
+#
+#         Check_count = str(type(row)) # NoneType passing
+#         pasing = Check_count.replace("<", "")
+#         pasing1 = pasing.replace("class", "")
+#         pasing2 = pasing1.replace("'", "")
+#         pasing3 = pasing2.replace("'", "")
+#         pasing4 = pasing3.replace(">", "")
+#         pasing5 = pasing4.replace(" ", "")
+#
+#
+#         if row != None:
+#             if id == row[0]:
+#                 return render_template('reg1.html')
+#
+#         if pasing5 == 'NoneType':  # 아이디가 생성 가능한 상황
+#             if not (id and password and repassword and email):
+#                 return render_template('reg2.html')
+#
+#             elif not 4 < len(password) < 20:
+#                 return render_template('reg3.html')
+#
+#             elif not (re.search('[a-z]', password) and re.search('[0-9]', password) and re.search('[A-Z]', password)):
+#                 return render_template('reg3.html')
+#
+#             elif password != repassword:
+#                 return render_template('reg4.html')
+#
+#             elif password == repassword:
+#                 password = bcrypt.hashpw(register_info['Password'].encode('utf-8'), bcrypt.gensalt())
+#                 sql = """
+#                         INSERT INTO total(ID, Password, Email) Values(%s, %s, %s)
+#                         """
+#                 cursor.execute(sql, (id, password, email))
+#                 db.commit()
+#                 return render_template('reg5.html')
+#
+#             return render_template('Signin.html')
+
 if __name__ == '__main__':
-   app.run('0.0.0.0', port=5001, debug=True)
+   app.run('0.0.0.0', port=5000, debug=True)

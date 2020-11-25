@@ -126,7 +126,7 @@ a {
 
 #AA {
   height: 667px;
-  width: 775px;
+  width: 800px;
   float: left;
 }
 #BB {
@@ -154,15 +154,15 @@ a {
   height: 60px;
 }
 .ZZZZ {
-  width: 650px;
-  height: 500px;
+  width: 700px;
+  height: 300px;
 }
 .ww {
   color: black;
 }
 #git {
-  width: 390px;
+  width: 800px;
   font-size: 10px;
   float: right;
-  right: 70%;
+  padding: 0;
 }

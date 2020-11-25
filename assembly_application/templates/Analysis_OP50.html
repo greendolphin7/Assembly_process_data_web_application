@@ -4,9 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
     <!-- Link Swiper's CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <link rel="stylesheet"  href="{{url_for('static', filename='css/Analysis.css') }}" />
-    <script src="/static/js/Analysis_OP10.js" defer></script>
+    <script src="/static/js/Analysis_OP50.js" defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link
       href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap"
@@ -39,7 +38,7 @@
       </ul>
       <!-- Icons -->
       <ul class="navbar__Logout">
-        <li><a href="Login">Log Out</a></li>
+        <li><a href="logout">Log Out</a></li>
       </ul>
       <!-- Toggle button -->
     <a href="#" class="navbar__toggleBtn">
@@ -50,12 +49,6 @@
 <main>
   <div id="AA">
     <box id="SS">
-      <script src="https://code.highcharts.com/highcharts.js"></script>
-      <script src="https://code.highcharts.com/highcharts-more.js"></script>
-      <script src="/static/js/export-data.js"></script>
-      <script src="/static/js/exporting.js"></script>
-      <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-      <script src="/static/js/Analysis_OP10.js"></script>
       <figure class="highcharts-figure">
       <div id="container"></div>
       </figure>
@@ -63,50 +56,24 @@
     </box>
 
     <box id="TT">
-      <script src="https://code.highcharts.com/highcharts.js"></script>
-      <script src="https://code.highcharts.com/highcharts-more.js"></script>
-      <script src="/static/js/export-data.js"></script>
-      <script src="/static/js/exporting.js"></script>
-      <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-      <script src="/static/js/Analysis_OP10.js"></script>
       <figure class="highcharts-figure">
         <div id="container2"></div>
         </figure>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     </box>
     <box id="UU">
-      <script src="https://code.highcharts.com/highcharts.js"></script>
-      <script src="https://code.highcharts.com/highcharts-more.js"></script>
-      <script src="/static/js/export-data.js"></script>
-      <script src="/static/js/exporting.js"></script>
-      <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-      <script src="/static/js/Analysis_OP10.js"></script>
       <figure class="highcharts-figure">
         <div id="container3"></div>
         </figure>
   </box>
   </div>
   <div id="BB">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/pareto.js"></script>
-    <script src="/static/js/export-data.js"></script>
-    <script src="/static/js/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-    <script src="/static/js/Pareto.js"></script>
-    <figure class="highcharts-figure4">
-      <div id="container4"></div>
-    </figure>
+<figure class="highcharts-figure4">
+    <div id="container4"></div>
+</figure>
   </div>
   <div id="CC">
-    <p id="Search"><input type="date"><input type="date">
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;
-    <input type="submit" value="검색">
     </p>
-    <br><br>
-    <br><br>
     <br><br>
     <a href="Analysis_OP10">
       <button class="button">OP10</button></a>
@@ -133,3 +100,11 @@
 <script src="/static/js/export-data.js"></script>
 <script src="/static/js/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<script src="/static/js/Analysis_OP50.js"></script>
+<script src="https://code.highcharts.com/modules/pareto.js"></script>
+<script src="/static/js/pareto_chart.js"></script>
+
+<script src="//a----.github.io/highcharts-export-clientside/bower_components/highcharts/modules/exporting.js"></script>
+<script src="//a----.github.io/highcharts-export-clientside/bower_components/highcharts/modules/canvas-tools.js"></script>
+<script src="//a----.github.io/highcharts-export-clientside/bower_components/export-csv/export-csv.js"></script>
+<script type="application/javascript" src="//a----.github.io/highcharts-export-clientside/bower_components/jspdf/dist/jspdf.min.js"></script>

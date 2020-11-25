@@ -4,7 +4,7 @@ let UPDATE = 10000;
 function() {
 	  var table = $('#coinTable').DataTable( {
              ajax: {
-                 url: "http://localhost:5001/Search_data",
+                 url: "http://localhost:5000/Search_data",
                  dataSrc: ''
              },
 		    colReorder: {

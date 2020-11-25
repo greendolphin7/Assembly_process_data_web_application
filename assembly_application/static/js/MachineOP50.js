@@ -37,6 +37,9 @@ $(document).ready(function() {
         title: {
             text: 'Realtime Temperature OP50'
         },
+        credits: {
+            enabled: false,
+        },
         xAxis: {
             type: 'datetime',
             tickPixelInterval: 150,

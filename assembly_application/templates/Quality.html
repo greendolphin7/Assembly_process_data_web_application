@@ -6,7 +6,7 @@
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <link rel="stylesheet" href="{{url_for('static', filename='css/Quality.css') }}" />
-    <link rel="stylesheet" href="{{url_for('static', filename='css/Quality_chart.css') }}" />
+<!--    <link rel="stylesheet" href="{{url_for('static', filename='css/Quality_chart.css') }}" />-->
     <link
       href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap"
       rel="stylesheet"
@@ -38,7 +38,7 @@
       </ul>
       <!-- Icons -->
       <ul class="navbar__Logout">
-        <li><a href="Login">Log Out</a></li>
+        <li><a href="logout">Log Out</a></li>
       </ul>
       <!-- Toggle button -->
     <a href="#" class="navbar__toggleBtn">
@@ -48,10 +48,12 @@
 </header>
 <main>
   <div id="AA">
-    <figure class="highcharts-figure">
     <form method="GET" action="/Quality_load">
       <p id="Search"><input type="date" name="date1"><input type="date" name="date2">
       <button type="submit">검색</button></form>
+  </div>
+  <div id="BB" style=align>
+    <figure class="highcharts-figure">
   <div id="container"></div>
   <table id="datatable">
     <thead>
@@ -100,9 +102,16 @@
 
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/data.js"></script>
+<!--<script src="https://code.highcharts.com/modules/exporting.js"></script>-->
+<!--<script src="https://code.highcharts.com/modules/export-data.js"></script>-->
+<script src="/static/js/export-data.js"></script>
+<script src="/static/js/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/pareto.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
-<script src="https://code.highcharts.com/stock/highstock.js"></script>
+<!--<script src="https://code.highcharts.com/stock/highstock.js"></script>-->
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 <script src="/static/js/Quality_chart.js"></script>
+
+<script src="//a----.github.io/highcharts-export-clientside/bower_components/highcharts/modules/exporting.js"></script>
+<script src="//a----.github.io/highcharts-export-clientside/bower_components/highcharts/modules/canvas-tools.js"></script>
+<script src="//a----.github.io/highcharts-export-clientside/bower_components/export-csv/export-csv.js"></script>
+<script type="application/javascript" src="//a----.github.io/highcharts-export-clientside/bower_components/jspdf/dist/jspdf.min.js"></script>

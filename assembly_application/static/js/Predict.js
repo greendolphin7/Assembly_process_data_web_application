@@ -13,9 +13,13 @@ let UPDATE = 10000;
 $(document).ready(function() {
 	  var table = $('#coinTable').DataTable( {
              ajax: {
-                 url: "http://localhost:5001/Predict_data",
+                 url: "http://localhost:5000/Predict_data",
                  dataSrc: ''
              },
+             lengthChange: false,
+             order: [ [ 1, "asc" ] ],
+             searching: false,
+             paging: false,
 		    colReorder: {
 			realtime: true
 		    },

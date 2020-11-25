@@ -1,10 +1,10 @@
 import pymysql
 from datetime import datetime, timedelta
 import time
-from flask import jsonify
 
 
 class MySQL_query:
+
     def __init__(self):
         pass
 
@@ -30,7 +30,6 @@ class MySQL_query:
 
         conn.close()
 
-
     def insert_machine_master(x):
         conn, cur = None, None
         data1, data2, data3, data4, data5 = " ", " ", " ", " ", " "
@@ -51,7 +50,6 @@ class MySQL_query:
             conn.commit()
 
         conn.close()
-
 
     def insert_product_quality(x):
         conn, cur = None, None
@@ -75,7 +73,6 @@ class MySQL_query:
 
         conn.close()
 
-
     def insert_product_history(x):
         conn, cur = None, None
         data1, data2, data3 = " ", " ", " "
@@ -94,7 +91,6 @@ class MySQL_query:
         conn.commit()
 
         conn.close()
-
 
     def insert_machine(x):
         conn, cur = None, None
@@ -120,7 +116,6 @@ class MySQL_query:
         conn.commit()
 
         conn.close()
-
 
     def get_machine_data_list_temp(self):
 
@@ -152,7 +147,6 @@ class MySQL_query:
         conn.close()
 
         return machine_data_list
-
 
     def get_machine_data_list(char1_0, char1, char1_1):
         # char1_input = char1
@@ -194,10 +188,8 @@ class MySQL_query:
             }
             machine_data_list.append(data_dic)
 
-        conn.close()
-
+        conn.close
         return machine_data_list
-
 
     def get_quality_data_list(date1, date2):
 
@@ -226,11 +218,9 @@ class MySQL_query:
             data_list.append(data_dic)
             if obj[1] == 'OK' or 'NOK':
                 count += 1
-
-        conn.close()
-
+        conn.close
+        print(data_list)
         return data_list
-
 
     def get_product_data_list_for_predict(self):
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
@@ -259,7 +249,6 @@ class MySQL_query:
 
         return data_list
 
-
     def get_quality_data_list_for_predict(self):
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
 
@@ -287,7 +276,6 @@ class MySQL_query:
         conn.close()
 
         return data_list
-
 
     def get_machine_data_list_for_predict(self):
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
@@ -346,7 +334,6 @@ class MySQL_query:
 
         return data_list
 
-
     def get_time_for_availability(self):
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
 
@@ -371,7 +358,6 @@ class MySQL_query:
         conn.close()
 
         return data_list
-
 
     def get_item_count_for_productivity(self):
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
@@ -399,7 +385,6 @@ class MySQL_query:
         conn.close()
 
         return data_list
-
 
     def get_item_count_for_quality(self):
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
@@ -431,7 +416,6 @@ class MySQL_query:
         conn.close()
 
         return data_list
-
 
     def get_item_count_now(self):
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
@@ -512,8 +496,10 @@ class MySQL_query:
 
         sql = '''
 
-                SELECT machine.product_key, machine.machine_code, machine.machine_data, machine.process_time, machine.start_time, 
-                machine.end_time, product_quality.product_test, product_quality.product_size_l, product_quality.product_size_w, product_quality.product_size_h
+                SELECT machine.product_key, machine.machine_code, machine.machine_data, machine.process_time,
+                machine.start_time, 
+                machine.end_time, product_quality.product_test, product_quality.product_size_l,
+                product_quality.product_size_w, product_quality.product_size_h
                 FROM machine INNER JOIN product_quality
                 ON  machine.product_key = product_quality.product_key
                 WHERE machine.machine_code = '%s' AND machine.product_key = '%s';
@@ -577,7 +563,7 @@ class MySQL_query:
         return data_list
 
 
-    def get_data_for_scatter(machine_code, size, char1, char2):
+    def get_data_for_scatter(machine_code, size):
 
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
 
@@ -591,11 +577,11 @@ class MySQL_query:
 
                 ON  machine.product_key = product_quality.product_key
 
-                WHERE machine.machine_code = '%s' AND date_format(product_test_timestamp , '%%Y-%%m-%%d') >= '%s'
-                AND date_format(product_test_timestamp , '%%Y-%%m-%%d') <= '%s'
+                WHERE machine.machine_code = '%s'
+                ORDER BY product_test_timestamp DESC LIMIT 500
 
 
-        ''' % (machine_code, char1, char2)
+        ''' % (machine_code)
 
         if size == 'w':
             sql = '''
@@ -607,11 +593,11 @@ class MySQL_query:
 
                 ON  machine.product_key = product_quality.product_key
 
-                WHERE machine.machine_code = '%s' AND date_format(product_test_timestamp , '%%Y-%%m-%%d') >= '%s'
-                AND date_format(product_test_timestamp , '%%Y-%%m-%%d') <= '%s'
+                WHERE machine.machine_code = '%s'
+                ORDER BY product_test_timestamp DESC LIMIT 500
 
 
-        ''' % (machine_code, char1, char2)
+        ''' % (machine_code)
 
         if size == 'h':
             sql = '''
@@ -623,11 +609,11 @@ class MySQL_query:
 
                 ON  machine.product_key = product_quality.product_key
 
-                WHERE machine.machine_code = '%s' AND date_format(product_test_timestamp , '%%Y-%%m-%%d') >= '%s'
-                AND date_format(product_test_timestamp , '%%Y-%%m-%%d') <= '%s'
+                WHERE machine.machine_code = '%s'
+                ORDER BY product_test_timestamp DESC LIMIT 500
 
 
-        ''' % (machine_code, char1, char2)
+        ''' % (machine_code)
 
         cursor = conn.cursor()
         cursor.execute(sql)
@@ -713,6 +699,38 @@ class MySQL_query:
         return data_list
 
 
+    def get_data_for_pareto(machine_code):
+        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+
+        sql = '''
+
+                SELECT count(product_quality.product_test),
+                date_format( product_quality.product_test_timestamp, '%%Y년%%m월%%d일 %%H시%%i분%%s초' ) as insert_date
+
+                FROM machine INNER JOIN product_quality
+                ON  machine.product_key = product_quality.product_key
+
+                WHERE machine.machine_code = '%s' AND product_quality.product_test = 'NOK'
+                ORDER BY product_test_timestamp DESC LIMIT 500
+        ''' % (machine_code)
+
+        cursor = conn.cursor()
+        cursor.execute(sql)
+        row = cursor.fetchall()
+
+        data_list = []
+
+        for obj in row:
+            data_dic = {
+                'NOK': obj[0]
+            }
+            data_list.append(data_dic)
+
+        conn.close()
+
+        return data_list
+
+
     def get_key60_count_for_search(insert_key):
 
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
@@ -744,7 +762,6 @@ class MySQL_query:
         conn.close()
 
         return count
-
 
     def get_body_data_for_search(key10):
 
@@ -1704,29 +1721,21 @@ class MySQL_query:
 
 
     def get_count_for_progress(self):
-
         now = datetime.now()
         day = time.strftime("%Y-%m-%d")
-
         conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
-
         sql = '''
-
-            SELECT count(product_code)
-            FROM product_history WHERE product_timestamp BETWEEN '%s' AND '%s'
-            AND product_code = "EGRC";
-
-        ''' % (day, str(now))
-
+               SELECT count(product_code)
+               FROM product_history WHERE product_timestamp BETWEEN '%s' AND '%s'
+               AND product_code = "EGRC"
+           ''' % (day, str(now))
         cursor = conn.cursor()
         cursor.execute(sql)
         row = cursor.fetchall()
-
         data_list = []
-
         for obj in row:
             data_dic = {
-                'product_count': obj[0],
+                'product_count': obj[0]
             }
             data_list.append(data_dic)
 
