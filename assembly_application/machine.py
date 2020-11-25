@@ -240,7 +240,7 @@ class machine_operate:
 
         op20_process_time = op10[4]
 
-        op20_electricity = np.random.uniform(89, 100)
+        op20_electricity = np.random.uniform(89.75, 100)
         op20_electricity = round(op20_electricity, 5)
 
         op20_data['pipe1_l'] = pipe1_l
@@ -408,7 +408,7 @@ class machine_operate:
 
         op30_process_time = op20[4]
 
-        op30_electricity = np.random.uniform(89, 100)
+        op30_electricity = np.random.uniform(89.5, 100)
         op30_electricity = round(op30_electricity, 5)
 
         op30_data['pipe2_l'] = pipe2_l
@@ -577,18 +577,18 @@ class machine_operate:
 
         op40_process_time = op30[4]
 
-        op40_temperature = np.random.uniform(489, 511)
+        op40_temperature = np.random.uniform(489.75, 510.25)
         op40_temperature = round(op40_temperature, 5)
 
         op40_data['flange1_l'] = flange1_l
         op40_data['flange1_w'] = flange1_w
         op40_data['flange1_h'] = flange1_h
 
-        if 489 < op40_temperature < 511:
+        if 490 < op40_temperature < 510:
             op40_l = op30[1] + flange1_l
             op40_l = round(op40_l, 5)
         else:
-            op40_l = 0
+            op40_l = op30[1] + flange1_l - 10
 
         op40_data['op40_l'] = op40_l
 
@@ -743,18 +743,18 @@ class machine_operate:
 
         op50_process_time = op40[4]
 
-        op50_temperature = np.random.uniform(489, 511)
+        op50_temperature = np.random.uniform(489.75, 510.25)
         op50_temperature = round(op50_temperature, 5)
 
         op50_data['flange2_l'] = flange2_l
         op50_data['flange2_w'] = flange2_w
         op50_data['flange2_h'] = flange2_h
 
-        if 489 < op50_temperature < 511:
+        if 490 < op50_temperature < 510:
             op50_l = op40[1] + flange2_l
             op50_l = round(op50_l, 5)
         else:
-            op50_l = 0
+            op50_l = op40[1] + flange2_l - 10
 
         op50_data['op50_l'] = op50_l
 

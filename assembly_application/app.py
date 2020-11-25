@@ -218,6 +218,7 @@ def live_Electronic_OP20():
     data = [time() * 5000, result_re3]
     response = make_response(json.dumps(data))
     response.content_type = 'application/json'
+
     return response
 
 
@@ -241,6 +242,7 @@ def live_Electronic_OP30():
     data = [time() * 5000, result_re3]
     response = make_response(json.dumps(data))
     response.content_type = 'application/json'
+
     return response
 
 
@@ -264,6 +266,7 @@ def live_Temperature_OP40():
     data = [time() * 5000, result_re3]
     response = make_response(json.dumps(data))
     response.content_type = 'application/json'
+
     return response
 
 
@@ -287,12 +290,8 @@ def live_Temperature_OP50():
     data = [time() * 5000, result_re3]
     response = make_response(json.dumps(data))
     response.content_type = 'application/json'
+
     return response
-
-
-# @app.route('/Search')
-# def Search():
-#     return render_template('Search.html')
 
 
 @app.route('/Search_data')
@@ -302,8 +301,6 @@ def Search_data(key60):
 
     total_big_bottle = []
     data_dict = {}
-
-    # key60 = '2020-11-20 14:50:12.993887-W6P10105'
 
     index1 = 0
     bar_count = 0
