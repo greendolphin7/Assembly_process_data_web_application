@@ -82,7 +82,6 @@ def real_value():
     return response
 
 
-
 @app.route('/Machine')
 def Machine():
     return render_template('Machine.html')
@@ -108,6 +107,7 @@ def live_Electronic_OP10():
     data = [time() * 5000, result_re3]
     response = make_response(json.dumps(data))
     response.content_type = 'application/json'
+
     return response
 
 
@@ -167,8 +167,20 @@ def realtime_table_OP10():
     app.count += 1
     data_list = []
     for obj in row:
+
+        bar_count = 0
+        for index in range(len(obj[0])):
+
+            if obj[0][index] == '-':
+                bar_count = bar_count + 1
+
+                if bar_count == 3:
+                    break
+
+        key_parsing = obj[0][index + 3:]
+
         data_dic = {
-            'product_key': obj[0][-4:],
+            'product_key': key_parsing,
             'machine_code': obj[1],
             'machine_data': str(obj[2]),
             'process_time': str(obj[3]),
@@ -303,7 +315,6 @@ def Search_data(key60):
             if bar_count == 3:
                 index1 = index
                 break
-
 
     key60_head = key[index1 + 1:]
     key50_head = key60_head.replace('W6', 'W5')
@@ -455,6 +466,7 @@ def Search_data(key60):
     total_big_bottle.append(data_dict)
 
     return total_big_bottle
+
 
 @app.route('/Search', methods=['POST', 'GET'])
 def Search():

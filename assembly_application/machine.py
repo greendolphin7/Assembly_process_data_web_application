@@ -222,6 +222,7 @@ class machine_operate:
 
         return op10_data
 
+
     def op20(op10):
         op20_data = {}
         std = 0.0025
@@ -388,6 +389,7 @@ class machine_operate:
         MySQL_query.insert_machine(machine_data_list)  # machine 데이터 DB 적재
 
         return op20_data
+
 
     def op30(op20):
         op30_data = {}
@@ -557,6 +559,7 @@ class machine_operate:
 
         return op30_data
 
+
     def op40(op30):
         op40_data = {}
         std = 0.0025
@@ -721,6 +724,7 @@ class machine_operate:
         MySQL_query.insert_machine(machine_data_list)  # machine 데이터 DB 적재
 
         return op40_data
+
 
     def op50(op40):
         op50_data = {}
@@ -890,6 +894,7 @@ class machine_operate:
 
         return op50_data
 
+
     def op60(op50):
         op60_data = {}
         std = 0.0025
@@ -987,7 +992,5 @@ class machine_operate:
         machine_data_list.append(machine_data_insert)
 
         MySQL_query.insert_machine(machine_data_list)  # machine 데이터 DB 적재
-
-
 
         return op60_data
