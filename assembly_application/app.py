@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, jsonify, make_response, escape, session
 from process import process_operate
-
 from OEE_calculator import OEE_cal
 from SQL import MySQL_query
 from datetime import timedelta
@@ -38,6 +37,7 @@ def Monitoring():
 def Quality():
     OK_count_list = []
     NOK_count_list = []
+
     return render_template('Quality.html', quality_OK_list=OK_count_list, quality_NOK_list=NOK_count_list)
 
 
@@ -66,6 +66,7 @@ def real_value():
     response = make_response(json.dumps(data))
 
     response.content_type = 'application/json'
+
     return response
 
 
@@ -93,6 +94,7 @@ def live_Electronic_OP10():
     data = [(time.time()+32400)*1000, result_re3]
     response = make_response(json.dumps(data))
     response.content_type = 'application/json'
+
     return response
 
 
@@ -141,8 +143,10 @@ def realtime_table_OP10():
         }
         data_list.append(data_dic)
     conn.close()
+
     if app.count >= 10:
         app.count = 10
+
     return jsonify(data_list)
 
 
@@ -165,6 +169,7 @@ def live_Electronic_OP20():
     data = [(time.time()+32400)*1000, result_re3]
     response = make_response(json.dumps(data))
     response.content_type = 'application/json'
+
     return response
 
 
@@ -213,8 +218,10 @@ def realtime_table_OP20():
         }
         data_list.append(data_dic)
     conn.close()
+
     if app.count >= 10:
         app.count = 10
+
     return jsonify(data_list)
 
 
@@ -237,6 +244,7 @@ def live_Electronic_OP30():
     data = [(time.time()+32400)*1000, result_re3]
     response = make_response(json.dumps(data))
     response.content_type = 'application/json'
+
     return response
 
 
@@ -287,6 +295,7 @@ def realtime_table_OP30():
     conn.close()
     if app.count >= 10:
         app.count = 10
+
     return jsonify(data_list)
 
 
@@ -309,6 +318,7 @@ def live_Temperature_OP40():
     data = [(time.time()+32400)*1000, result_re3]
     response = make_response(json.dumps(data))
     response.content_type = 'application/json'
+
     return response
 
 
@@ -358,8 +368,10 @@ def realtime_table_OP40():
         data_list.append(data_dic)
 
     conn.close()
+
     if app.count >= 10:
         app.count = 10
+
     return jsonify(data_list)
 
 
@@ -752,6 +764,7 @@ def Scatter_OP10():
     data_H_list = []
     data_W_list = []
     list_L_dict = MySQL_query.get_data_for_scatter(machine_code, size_L)
+
     for i in range(len(list_L_dict)):
         temp_L_list = []
 
@@ -762,6 +775,7 @@ def Scatter_OP10():
         data_L_list.append(temp_L_list)
 
     list_H_dict = MySQL_query.get_data_for_scatter(machine_code, size_H)
+
     for i in range(len(list_H_dict)):
         temp_H_list = []
 
@@ -772,6 +786,7 @@ def Scatter_OP10():
         data_H_list.append(temp_H_list)
 
     list_W_dict = MySQL_query.get_data_for_scatter(machine_code, size_W)
+
     for i in range(len(list_W_dict)):
         temp_W_list = []
 
@@ -806,6 +821,7 @@ def Scatter_OP20():
     data_H_list = []
     data_W_list = []
     list_L_dict = MySQL_query.get_data_for_scatter(machine_code, size_L)
+
     for i in range(len(list_L_dict)):
         temp_L_list = []
 
@@ -816,6 +832,7 @@ def Scatter_OP20():
         data_L_list.append(temp_L_list)
 
     list_H_dict = MySQL_query.get_data_for_scatter(machine_code, size_H)
+
     for i in range(len(list_H_dict)):
         temp_H_list = []
 
@@ -826,6 +843,7 @@ def Scatter_OP20():
         data_H_list.append(temp_H_list)
 
     list_W_dict = MySQL_query.get_data_for_scatter(machine_code, size_W)
+
     for i in range(len(list_W_dict)):
         temp_W_list = []
 
@@ -839,7 +857,7 @@ def Scatter_OP20():
     data_All_list.append(data_W_list)
     data_All_list_list = []
     data_All_list_list.append(data_All_list)
-    print(data_All_list)
+
     return jsonify(data_All_list_list)
 
 
@@ -860,6 +878,7 @@ def Scatter_OP30():
     data_H_list = []
     data_W_list = []
     list_L_dict = MySQL_query.get_data_for_scatter(machine_code, size_L)
+
     for i in range(len(list_L_dict)):
         temp_L_list = []
 
@@ -870,6 +889,7 @@ def Scatter_OP30():
         data_L_list.append(temp_L_list)
 
     list_H_dict = MySQL_query.get_data_for_scatter(machine_code, size_H)
+
     for i in range(len(list_H_dict)):
         temp_H_list = []
 
@@ -880,6 +900,7 @@ def Scatter_OP30():
         data_H_list.append(temp_H_list)
 
     list_W_dict = MySQL_query.get_data_for_scatter(machine_code, size_W)
+
     for i in range(len(list_W_dict)):
         temp_W_list = []
 
@@ -893,7 +914,7 @@ def Scatter_OP30():
     data_All_list.append(data_W_list)
     data_All_list_list = []
     data_All_list_list.append(data_All_list)
-    print(data_All_list)
+
     return jsonify(data_All_list_list)
 
 
@@ -914,6 +935,7 @@ def Scatter_OP40():
     data_H_list = []
     data_W_list = []
     list_L_dict = MySQL_query.get_data_for_scatter(machine_code, size_L)
+
     for i in range(len(list_L_dict)):
         temp_L_list = []
 
@@ -924,6 +946,7 @@ def Scatter_OP40():
         data_L_list.append(temp_L_list)
 
     list_H_dict = MySQL_query.get_data_for_scatter(machine_code, size_H)
+
     for i in range(len(list_H_dict)):
         temp_H_list = []
 
@@ -934,6 +957,7 @@ def Scatter_OP40():
         data_H_list.append(temp_H_list)
 
     list_W_dict = MySQL_query.get_data_for_scatter(machine_code, size_W)
+
     for i in range(len(list_W_dict)):
         temp_W_list = []
 
@@ -942,12 +966,13 @@ def Scatter_OP40():
         temp_W_list.append(x)
         temp_W_list.append(y)
         data_W_list.append(temp_W_list)
+
     data_All_list.append(data_L_list)
     data_All_list.append(data_H_list)
     data_All_list.append(data_W_list)
     data_All_list_list = []
     data_All_list_list.append(data_All_list)
-    print(data_All_list)
+
     return jsonify(data_All_list_list)
 
 
@@ -979,6 +1004,7 @@ def Scatter_OP50():
         data_L_list.append(temp_L_list)
 
     list_H_dict = MySQL_query.get_data_for_scatter(machine_code, size_H)
+
     for i in range(len(list_H_dict)):
         temp_H_list = []
 
@@ -989,6 +1015,7 @@ def Scatter_OP50():
         data_H_list.append(temp_H_list)
 
     list_W_dict = MySQL_query.get_data_for_scatter(machine_code, size_W)
+
     for i in range(len(list_W_dict)):
         temp_W_list = []
 
@@ -997,6 +1024,7 @@ def Scatter_OP50():
         temp_W_list.append(x)
         temp_W_list.append(y)
         data_W_list.append(temp_W_list)
+
     data_All_list.append(data_L_list)
     data_All_list.append(data_H_list)
     data_All_list.append(data_W_list)
