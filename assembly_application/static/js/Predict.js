@@ -13,7 +13,7 @@ let UPDATE = 10000;
 $(document).ready(function() {
 	  var table = $('#coinTable').DataTable( {
              ajax: {
-                 url: "http://localhost:5000/Predict_data",
+                 url: "http://3.35.208.236:5000/Predict_data",
                  dataSrc: ''
              },
              lengthChange: false,
