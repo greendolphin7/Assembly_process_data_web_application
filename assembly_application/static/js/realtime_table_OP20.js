@@ -4,7 +4,7 @@ let UPDATE = 10000;
 $(document).ready(function() {
 	  var table = $('#coinTable').DataTable( {
              ajax: {
-                 url: "http://localhost:5000/realtime_table_OP20",
+                 url: "/realtime_table_OP20",
                  dataSrc: ''
              },
              lengthChange: false,

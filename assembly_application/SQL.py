@@ -1,10 +1,9 @@
-import pymysql
+import DB_connection
 from datetime import datetime, timedelta
 import time
 
 
 class MySQL_query:
-
     def __init__(self):
         pass
 
@@ -12,21 +11,19 @@ class MySQL_query:
         conn, cur = None, None
         data1, data2, data3, data4, data5, data6, data7 = " ", " ", " ", " ", " ", " ", " "
         sql = " "
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
         cur = conn.cursor()
 
-        for i in range(len(x)):
-            data = x[i]
-            data1 = data['product_code']
-            data2 = data['product_name']
-            data3 = data['product_class']
-            data4 = data['product_num']
-            data5 = data['product_target_l']
-            data6 = data['product_target_w']
-            data7 = data['product_target_h']
-            sql = "INSERT INTO product_master Values('" + data1 + "','" + data2 + "','" + data3 + "','" + data4 + "','" + data5 + "','" + data6 + "','" + data7 + "')"
-            cur.execute(sql)
-            conn.commit()
+        data1 = x['product_code']
+        data2 = x['product_name']
+        data3 = x['product_class']
+        data4 = x['product_num']
+        data5 = x['product_target_l']
+        data6 = x['product_target_w']
+        data7 = x['product_target_h']
+        sql = "INSERT INTO product_master Values('" + data1 + "','" + data2 + "','" + data3 + "','" + data4 + "','" + data5 + "','" + data6 + "','" + data7 + "')"
+        cur.execute(sql)
+        conn.commit()
 
         conn.close()
 
@@ -34,20 +31,18 @@ class MySQL_query:
         conn, cur = None, None
         data1, data2, data3, data4, data5 = " ", " ", " ", " ", " "
         sql = " "
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
         cur = conn.cursor()
 
-        for i in range(len(x)):
-            data = x[i]
-            data1 = data['machine_code']
-            data2 = data['machine_class']
-            data3 = data['machine_assembly']
-            data4 = data['machine_process_time']
-            data5 = data['machine_data_code']
+        data1 = x['machine_code']
+        data2 = x['machine_class']
+        data3 = x['machine_assembly']
+        data4 = x['machine_process_time']
+        data5 = x['machine_data_code']
 
-            sql = "INSERT INTO machine_master Values('" + data1 + "','" + data2 + "','" + data3 + "','" + data4 + "','" + data5 + "')"
-            cur.execute(sql)
-            conn.commit()
+        sql = "INSERT INTO machine_master Values('" + data1 + "','" + data2 + "','" + data3 + "','" + data4 + "','" + data5 + "')"
+        cur.execute(sql)
+        conn.commit()
 
         conn.close()
 
@@ -55,7 +50,7 @@ class MySQL_query:
         conn, cur = None, None
         data1, data2, data3, data4, data5, data6 = " ", " ", " ", " ", " ", " "
         sql = " "
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
         cur = conn.cursor()
 
         data = x[0]
@@ -77,7 +72,7 @@ class MySQL_query:
         conn, cur = None, None
         data1, data2, data3 = " ", " ", " "
         sql = " "
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
         cur = conn.cursor()
 
         data = x[0]
@@ -96,7 +91,7 @@ class MySQL_query:
         conn, cur = None, None
         data1, data2, data3, data4, data5, data6, data7, data8 = " ", " ", " "," ", " ", " "," ", " "
         sql = " "
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
         cur = conn.cursor()
 
         data = x[0]
@@ -119,7 +114,7 @@ class MySQL_query:
 
     def get_machine_data_list_temp(self):
 
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         sql = '''
             select machine_code,product_key,start_time,end_time,process_time,machine_data,machine_data_code
@@ -150,7 +145,7 @@ class MySQL_query:
 
     def get_machine_data_list(char1_0, char1, char1_1):
         # char1_input = char1
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         cursor = conn.cursor()
         if char1_0 == 'OP_all':
@@ -193,7 +188,7 @@ class MySQL_query:
 
     def get_quality_data_list(date1, date2):
 
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         cursor = conn.cursor()
         sql = '''
@@ -223,7 +218,7 @@ class MySQL_query:
         return data_list
 
     def get_product_data_list_for_predict(self):
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         sql = '''
             select product_key, product_size_l, product_size_w, product_size_h
@@ -250,7 +245,7 @@ class MySQL_query:
         return data_list
 
     def get_quality_data_list_for_predict(self):
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         sql = '''
             select product_key, product_size_l, product_size_w, product_size_h, product_test
@@ -278,7 +273,7 @@ class MySQL_query:
         return data_list
 
     def get_machine_data_list_for_predict(self):
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         sql = '''
             select product_key, machine_data, machine_data_code, process_time, end_time
@@ -307,7 +302,7 @@ class MySQL_query:
 
 
     def get_quality_data_for_process(product_key):
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         sql = '''
             select product_size_l, product_size_w, product_size_h, product_test, product_test_timestamp
@@ -335,7 +330,7 @@ class MySQL_query:
         return data_list
 
     def get_time_for_availability(self):
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         sql = '''
             select machine_code, process_time
@@ -360,7 +355,7 @@ class MySQL_query:
         return data_list
 
     def get_item_count_for_productivity(self):
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         sql = '''
 
@@ -387,7 +382,7 @@ class MySQL_query:
         return data_list
 
     def get_item_count_for_quality(self):
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         sql = '''
 
@@ -418,7 +413,7 @@ class MySQL_query:
         return data_list
 
     def get_item_count_now(self):
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         sql = '''
 
@@ -447,9 +442,8 @@ class MySQL_query:
 
         return data_list
 
-
     def get_item_count_for_gauge(self):
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         a = datetime.today().hour
         b = datetime.today().minute
@@ -465,8 +459,10 @@ class MySQL_query:
 
             SELECT product_test,
             count(product_quality.product_test)
+            
             FROM product_history INNER JOIN product_quality
             ON  product_history.product_key = product_quality.product_key
+            
             WHERE product_code = 'EGRC' AND product_timestamp BETWEEN '%s' AND '%s'
             group by product_test;
 
@@ -489,10 +485,9 @@ class MySQL_query:
 
         return data_list
 
-
     def get_machine_data_for_realtime(machine_code, product_key):
 
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         sql = '''
 
@@ -531,10 +526,9 @@ class MySQL_query:
 
         return data_list
 
-
     def get_product_key_machine_code(self):
 
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         sql = '''
         
@@ -562,10 +556,9 @@ class MySQL_query:
 
         return data_list
 
-
     def get_data_for_scatter(machine_code, size):
 
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         if size == 'l':
             sql = '''
@@ -632,9 +625,8 @@ class MySQL_query:
 
         return data_list
 
-
     def get_data_for_pareto_NOK(machine_code, char1, char2):
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         sql = '''
     
@@ -665,9 +657,8 @@ class MySQL_query:
 
         return data_list
 
-
     def get_data_for_pareto_OK(machine_code, char1, char2):
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         sql = '''
 
@@ -698,9 +689,8 @@ class MySQL_query:
 
         return data_list
 
-
     def get_data_for_pareto(machine_code):
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         sql = '''
 
@@ -733,7 +723,7 @@ class MySQL_query:
 
     def get_key60_count_for_search(insert_key):
 
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         sql = '''
 
@@ -765,7 +755,7 @@ class MySQL_query:
 
     def get_body_data_for_search(key10):
 
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         bar_count = 0
         for index in range(len(key10)):
@@ -809,12 +799,11 @@ class MySQL_query:
 
         return data_list
 
-
     def insert_product_prediction(op10_data, op20_data, op30_data, pred):
         conn, cur = None, None
         data1, data2, data3, data4 = " ", " ", " ", " "
         sql = " "
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
         cur = conn.cursor()
 
         data1 = op30_data['product_key']
@@ -829,10 +818,9 @@ class MySQL_query:
 
         conn.close()
 
-
     def key_for_count(self):
 
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         sql = '''
 
@@ -860,10 +848,9 @@ class MySQL_query:
 
         return data_list
 
-
     def get_product_key_for_test(count):
 
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         sql = '''
 
@@ -893,10 +880,9 @@ class MySQL_query:
 
         return data_list
 
-
     def get_test_data_parts_pipe2(key30):
 
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         bar_count = 0
         for index in range(len(key30)):
@@ -938,10 +924,9 @@ class MySQL_query:
 
         return data_list
 
-
     def get_test_data_parts_pipe1(key20):
 
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         bar_count = 0
         for index in range(len(key20)):
@@ -986,7 +971,7 @@ class MySQL_query:
 
     def get_test_data_parts_body(key10):
 
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         bar_count = 0
         for index in range(len(key10)):
@@ -1031,7 +1016,7 @@ class MySQL_query:
 
     def get_test_data_parts_wavyfin(key10):
 
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         bar_count = 0
         for index in range(len(key10)):
@@ -1073,10 +1058,9 @@ class MySQL_query:
 
         return data_list
 
-
     def get_test_data_op30(key30):
 
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         sql = '''
 
@@ -1111,10 +1095,9 @@ class MySQL_query:
 
         return data_list
 
-
     def get_test_data_op20(key20):
 
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         sql = '''
 
@@ -1148,10 +1131,9 @@ class MySQL_query:
 
         return data_list
 
-
     def get_test_data_op10(key10):
 
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         sql = '''
 
@@ -1185,10 +1167,9 @@ class MySQL_query:
 
         return data_list
 
-
     def get_key60_for_search(key):
 
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         sql = '''
 
@@ -1216,10 +1197,9 @@ class MySQL_query:
 
         return data_list
 
-
     def get_key_for_search(head):
 
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         sql = '''
 
@@ -1246,9 +1226,8 @@ class MySQL_query:
 
         return data_list
 
-
     def get_op60_data_for_search(key60):
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         sql = '''
 
@@ -1277,10 +1256,9 @@ class MySQL_query:
 
         return data_list
 
-
     def get_op50_data_for_search(key50):
 
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         sql = '''
 
@@ -1314,10 +1292,9 @@ class MySQL_query:
 
         return data_list
 
-
     def get_flange2_data_for_search(key50):
 
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         bar_count = 0
         for index in range(len(key50)):
@@ -1359,10 +1336,9 @@ class MySQL_query:
 
         return data_list
 
-
     def get_op40_data_for_search(key40):
 
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         sql = '''
 
@@ -1396,10 +1372,9 @@ class MySQL_query:
 
         return data_list
 
-
     def get_flange1_data_for_search(key40):
 
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         bar_count = 0
         for index in range(len(key40)):
@@ -1444,7 +1419,7 @@ class MySQL_query:
 
     def get_op30_data_for_search(key30):
 
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         sql = '''
 
@@ -1478,10 +1453,9 @@ class MySQL_query:
 
         return data_list
 
-
     def get_pipe2_data_for_search(key30):
 
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         bar_count = 0
         for index in range(len(key30)):
@@ -1523,10 +1497,9 @@ class MySQL_query:
 
         return data_list
 
-
     def get_op20_data_for_search(key20):
 
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         sql = '''
 
@@ -1560,10 +1533,9 @@ class MySQL_query:
 
         return data_list
 
-
     def get_pipe1_data_for_search(key20):
 
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         bar_count = 0
         for index in range(len(key20)):
@@ -1605,10 +1577,9 @@ class MySQL_query:
 
         return data_list
 
-
     def get_op10_data_for_search(key10):
 
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         sql = '''
 
@@ -1642,10 +1613,9 @@ class MySQL_query:
 
         return data_list
 
-
     def get_wavyfin_data_for_search(key10):
 
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         bar_count = 0
         for index in range(len(key10)):
@@ -1689,10 +1659,9 @@ class MySQL_query:
 
         return data_list
 
-
     def get_key_product_for_search(product):
 
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
 
         sql = '''
 
@@ -1723,7 +1692,7 @@ class MySQL_query:
     def get_count_for_progress(self):
         now = datetime.now()
         day = time.strftime("%Y-%m-%d")
-        conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+        conn = DB_connection.get_DB_connection()
         sql = '''
                SELECT count(product_code)
                FROM product_history WHERE product_timestamp BETWEEN '%s' AND '%s'
@@ -1732,13 +1701,13 @@ class MySQL_query:
         cursor = conn.cursor()
         cursor.execute(sql)
         row = cursor.fetchall()
+
         data_list = []
         for obj in row:
             data_dic = {
                 'product_count': obj[0]
             }
             data_list.append(data_dic)
-
         conn.close()
 
         return data_list

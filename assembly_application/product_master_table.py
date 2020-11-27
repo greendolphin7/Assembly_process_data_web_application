@@ -27,8 +27,7 @@ class product_master():
 
 
     # op10 반제품
-    def op10_WIP(a):
-        i = a
+    def op10_WIP(self):
         master_dict = {}
         product_master_data = []
         product_name = 'WIP10'

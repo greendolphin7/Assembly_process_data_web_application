@@ -11,23 +11,25 @@ class process_operate:
         std = 0.0025  # 표준편차
 
         num = MySQL_query.key_for_count(1)
-        n = num[0]['product_key']
-        bar_count = 0
-        for index in range(len(n)):
 
-            if n[index] == '-':
-                bar_count = bar_count + 1
+        if num == []:
+            n = 10001
+        else:
+            n = num[0]['product_key']
+            bar_count = 0
+            for index in range(len(n)):
 
-                if bar_count == 3:
-                    break
+                if n[index] == '-':
+                    bar_count = bar_count + 1
 
-        n = int(n[index + 4:]) + 1
+                    if bar_count == 3:
+                        break
 
-        # n = 10000 처음 시작할 때는 요걸 풀어주고 한개만 생산하고 다시 주석하고 위에 주석 풀어줌
+            n = int(n[index + 4:]) + 1
 
         total_test_data = []  # 예측할 test 데이터들을 뽑기 위한 모음
 
-        ## 초기 셋업 타임 설정
+        # 초기 셋업 타임 설정
         op10_setup_time = 0
         op20_setup_time = 0
         op30_setup_time = 0

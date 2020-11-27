@@ -25,7 +25,7 @@ class machine_operate:
         wavyfin_h = np.random.normal(60, std)
         wavyfin_h = round(wavyfin_h, 5)
 
-        op10_electricity = np.random.uniform(89, 100)
+        op10_electricity = np.random.uniform(89.75, 100)
         op10_electricity = round(op10_electricity, 5)
 
         op10_data['body_l'] = body[1]

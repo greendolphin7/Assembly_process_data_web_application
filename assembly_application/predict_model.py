@@ -2,8 +2,8 @@ import pandas as pd
 import joblib
 
 class Predict:
-    def predict_quality(op10_data, op20_data, op30_data):
 
+    def predict_quality(op10_data, op20_data, op30_data):
         body_l = op10_data['body_l']
         body_w = op10_data['body_w']
         body_h = op10_data['body_h']
@@ -76,7 +76,7 @@ class Predict:
                'op30_electricity' : op30_electricity, 'op30_process_time' : op30_process_time,
                'op30_test' : op30_test}, index=[0])
 
-        clf_from_joblib = joblib.load('pretrained_model.pkl')  # 저장했던 모델 불러오기
+        clf_from_joblib = joblib.load('random_forest_32bit.pkl')  # 저장했던 모델 불러오기
         pred = clf_from_joblib.predict(X_test)  # 예측
 
         return pred[0]

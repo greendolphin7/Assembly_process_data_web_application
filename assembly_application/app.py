@@ -1,7 +1,10 @@
 from flask import Flask, render_template, request, jsonify, make_response, escape, session
-from process import process_operate
+from process import process_operate      # 이전 process 공정
+#from Process_v2 import process_operate  # 불량 예측 기능 가능한 process 공정
+#from Process_v1 import process_operate  # 예측 기능 빠진 process 공정
 from OEE_calculator import OEE_cal
 from SQL import MySQL_query
+import DB_connection
 from datetime import timedelta
 import time
 import json
@@ -11,17 +14,16 @@ import re
 
 app = Flask(__name__)
 
-#----------------------------------------------------------
-# -----------------회원가입 및 로그인------------------
+#########----------------------------------- 회원가입 및 로그인
 # app.secret_key = "DayTory123"
 #
-# db = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+# db = pymysql.connect(host='127.0.0.1', user='root', password='data12345', db='mydb', charset='utf8')
 #
 # cursor = db.cursor()
 #----------------------------------------------------------
-
 app.count = 1
 app.predict_count = 0
+
 
 @app.route('/Home')
 def Home():
@@ -37,7 +39,6 @@ def Monitoring():
 def Quality():
     OK_count_list = []
     NOK_count_list = []
-
     return render_template('Quality.html', quality_OK_list=OK_count_list, quality_NOK_list=NOK_count_list)
 
 
@@ -66,7 +67,6 @@ def real_value():
     response = make_response(json.dumps(data))
 
     response.content_type = 'application/json'
-
     return response
 
 
@@ -82,7 +82,7 @@ def Machine():
 
 @app.route('/live_Electronic_OP10')
 def live_Electronic_OP10():
-    conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+    conn = DB_connection.get_DB_connection()
     cursor = conn.cursor()
     cursor.execute("SELECT machine_data from machine where machine_code = 'OP10' and machine_data_code = 'E01' ")
     results = cursor.fetchall()
@@ -101,7 +101,7 @@ def live_Electronic_OP10():
 @app.route('/realtime_table_OP10')
 def realtime_table_OP10():
     count = app.count
-    conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+    conn = DB_connection.get_DB_connection()
 
     sql = '''
                    SELECT machine.product_key, machine.machine_code, machine.machine_data, machine.process_time, 
@@ -117,6 +117,7 @@ def realtime_table_OP10():
     row = cursor.fetchall()
     app.count += 1
     data_list = []
+
     for obj in row:
         bar_count = 0
         for index in range(len(obj[0])):
@@ -143,7 +144,6 @@ def realtime_table_OP10():
         }
         data_list.append(data_dic)
     conn.close()
-
     if app.count >= 10:
         app.count = 10
 
@@ -157,7 +157,7 @@ def Machine20():
 
 @app.route('/live_Electronic_OP20')
 def live_Electronic_OP20():
-    conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+    conn = DB_connection.get_DB_connection()
     cursor = conn.cursor()
     cursor.execute("SELECT machine_data from machine where machine_code = 'OP20' and machine_data_code = 'E01' ")
     results = cursor.fetchall()
@@ -176,7 +176,7 @@ def live_Electronic_OP20():
 @app.route('/realtime_table_OP20')
 def realtime_table_OP20():
     count = app.count
-    conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+    conn = DB_connection.get_DB_connection()
 
     sql = '''
                    SELECT machine.product_key, machine.machine_code, machine.machine_data, machine.process_time, 
@@ -192,6 +192,7 @@ def realtime_table_OP20():
     row = cursor.fetchall()
     app.count += 1
     data_list = []
+
     for obj in row:
         bar_count = 0
         for index in range(len(obj[0])):
@@ -218,7 +219,6 @@ def realtime_table_OP20():
         }
         data_list.append(data_dic)
     conn.close()
-
     if app.count >= 10:
         app.count = 10
 
@@ -232,7 +232,7 @@ def MachineOP30():
 
 @app.route('/live_Electronic_OP30')
 def live_Electronic_OP30():
-    conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+    conn = DB_connection.get_DB_connection()
     cursor = conn.cursor()
     cursor.execute("SELECT machine_data from machine where machine_code = 'OP30' and machine_data_code = 'E01' ")
     results = cursor.fetchall()
@@ -251,7 +251,7 @@ def live_Electronic_OP30():
 @app.route('/realtime_table_OP30')
 def realtime_table_OP30():
     count = app.count
-    conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+    conn = DB_connection.get_DB_connection()
 
     sql = '''
                    SELECT machine.product_key, machine.machine_code, machine.machine_data, machine.process_time, 
@@ -267,6 +267,7 @@ def realtime_table_OP30():
     row = cursor.fetchall()
     app.count += 1
     data_list = []
+
     for obj in row:
         bar_count = 0
         for index in range(len(obj[0])):
@@ -293,6 +294,7 @@ def realtime_table_OP30():
         }
         data_list.append(data_dic)
     conn.close()
+
     if app.count >= 10:
         app.count = 10
 
@@ -306,7 +308,7 @@ def MachineOP40():
 
 @app.route('/live_Temperature_OP40')
 def live_Temperature_OP40():
-    conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+    conn = DB_connection.get_DB_connection()
     cursor = conn.cursor()
     cursor.execute("SELECT machine_data from machine where machine_code = 'OP40' and machine_data_code = 'T01' ")
     results = cursor.fetchall()
@@ -325,7 +327,7 @@ def live_Temperature_OP40():
 @app.route('/realtime_table_OP40')
 def realtime_table_OP40():
     count = app.count
-    conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+    conn = DB_connection.get_DB_connection()
 
     sql = '''
                    SELECT machine.product_key, machine.machine_code, machine.machine_data, machine.process_time, 
@@ -341,6 +343,7 @@ def realtime_table_OP40():
     row = cursor.fetchall()
     app.count += 1
     data_list = []
+
     for obj in row:
         bar_count = 0
         for index in range(len(obj[0])):
@@ -368,7 +371,6 @@ def realtime_table_OP40():
         data_list.append(data_dic)
 
     conn.close()
-
     if app.count >= 10:
         app.count = 10
 
@@ -382,7 +384,7 @@ def MachineOP50():
 
 @app.route('/live_Temperature_OP50')
 def live_Temperature_OP50():
-    conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+    conn = DB_connection.get_DB_connection()
     cursor = conn.cursor()
     cursor.execute("SELECT machine_data from machine where machine_code = 'OP50' and machine_data_code = 'T01' ")
     results = cursor.fetchall()
@@ -394,13 +396,14 @@ def live_Temperature_OP50():
     data = [(time.time()+32400)*1000, result_re3]
     response = make_response(json.dumps(data))
     response.content_type = 'application/json'
+
     return response
 
 
 @app.route('/realtime_table_OP50')
 def realtime_table_OP50():
     count = app.count
-    conn = pymysql.connect(host='127.0.0.1', user='root', password='carry789', db='projectdata', charset='utf8')
+    conn = DB_connection.get_DB_connection()
 
     sql = '''
                    SELECT machine.product_key, machine.machine_code, machine.machine_data, machine.process_time, 
@@ -416,6 +419,7 @@ def realtime_table_OP50():
     row = cursor.fetchall()
     app.count += 1
     data_list = []
+
     for obj in row:
         bar_count = 0
         for index in range(len(obj[0])):
@@ -443,6 +447,7 @@ def realtime_table_OP50():
         data_list.append(data_dic)
 
     conn.close()
+
     if app.count >= 10:
         app.count = 10
 
@@ -457,8 +462,11 @@ def Search_data(key60):
     total_big_bottle = []
     data_dict = {}
 
+    # key60 = '2020-11-20 14:50:12.993887-W6P10105'
+
     index1 = 0
     bar_count = 0
+
     for index in range(len(key)):
 
         if key[index] == '-':
@@ -622,7 +630,7 @@ def Search_data(key60):
 
 @app.route('/Search', methods=['POST', 'GET'])
 def Search():
-    key60 = 'P10001'  # 기본값 설정하세요
+    key60 = 'P10001'
     product_key = MySQL_query.get_key_product_for_search(key60)
     product_key = product_key[0]['product_key']
     content_list = Search_data(product_key)
@@ -631,7 +639,7 @@ def Search():
 
         key60 = request.args.get('key')
         if key60 == None:
-            key60 = 'P10001'  # 기본값 설정하세요
+            key60 = 'P10001'
         product_key = MySQL_query.get_key_product_for_search(key60)
         product_key = product_key[0]['product_key']
         content_list = Search_data(product_key)
@@ -966,7 +974,6 @@ def Scatter_OP40():
         temp_W_list.append(x)
         temp_W_list.append(y)
         data_W_list.append(temp_W_list)
-
     data_All_list.append(data_L_list)
     data_All_list.append(data_H_list)
     data_All_list.append(data_W_list)
@@ -993,7 +1000,6 @@ def Scatter_OP50():
     data_H_list = []
     data_W_list = []
     list_L_dict = MySQL_query.get_data_for_scatter(machine_code, size_L)
-
     for i in range(len(list_L_dict)):
         temp_L_list = []
 
@@ -1004,7 +1010,6 @@ def Scatter_OP50():
         data_L_list.append(temp_L_list)
 
     list_H_dict = MySQL_query.get_data_for_scatter(machine_code, size_H)
-
     for i in range(len(list_H_dict)):
         temp_H_list = []
 
@@ -1015,7 +1020,6 @@ def Scatter_OP50():
         data_H_list.append(temp_H_list)
 
     list_W_dict = MySQL_query.get_data_for_scatter(machine_code, size_W)
-
     for i in range(len(list_W_dict)):
         temp_W_list = []
 
@@ -1024,7 +1028,6 @@ def Scatter_OP50():
         temp_W_list.append(x)
         temp_W_list.append(y)
         data_W_list.append(temp_W_list)
-
     data_All_list.append(data_L_list)
     data_All_list.append(data_H_list)
     data_All_list.append(data_W_list)
@@ -1078,7 +1081,6 @@ def Quality_load():
         OK_count_list.append(OK_OP50)
 
         html = render_template('Quality.html', quality_OK_list=OK_count_list, quality_NOK_list=NOK_count_list, date1=char1, date2=char2)
-
         return html
 
 
@@ -1120,7 +1122,6 @@ def Pareto():
     count_All_list.append(count_list)
     All_list.append(count_All_list)
     All_pareto_list.append(All_list)
-
     return jsonify(All_list)
 
 ##############회원 가입 및 로그인
