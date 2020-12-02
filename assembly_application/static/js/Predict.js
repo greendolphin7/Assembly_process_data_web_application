@@ -1,15 +1,3 @@
-//const toggleBtn = document.querySelector('.navbar__toggleBtn');
-//const menu = document.querySelector('.navbar__menu');
-//const icons = document.querySelector('.navbar__Logout');
-//
-//toggleBtn.addEventListener('click', () => {
-//  menu.classList.toggle('active');
-//  icons.classList.toggle('active');
-//});
-
-// charts = one minute
-let UPDATE = 10000;
-
 $(document).ready(function() {
 	  var table = $('#coinTable').DataTable( {
              ajax: {
@@ -17,7 +5,8 @@ $(document).ready(function() {
                  dataSrc: ''
              },
              lengthChange: false,
-             order: [ [ 1, "asc" ] ],
+             order: [ [ 0, "desc" ] ],
+             "bDestroy": true,
              searching: false,
              paging: false,
 		    colReorder: {
@@ -58,11 +47,10 @@ $(document).ready(function() {
 } );
 
 setInterval( function () {
-  console.log('reload');
+  //console.log('reload');
 //    $('#coinTable').DataTable().ajax.reload();
        $('#coinTable').DataTable().ajax.reload(null, true);
-}, UPDATE);
-
+}, 10000);
 
 function exportTableToCsv(tableId, filename) {
   if (filename == null || typeof filename == undefined) filename = tableId;

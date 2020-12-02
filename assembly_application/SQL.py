@@ -332,10 +332,14 @@ class MySQL_query:
     def get_time_for_availability(self):
         conn = DB_connection.get_DB_connection()
 
+        time1 = datetime.now() - timedelta(days=1)
+        time1 = time1 + timedelta(hours=9)
+        time2 = datetime.now() + timedelta(hours=9)
+
         sql = '''
             select machine_code, process_time
             from machine where end_time between '%s' AND '%s'
-        ''' %(datetime.now() - timedelta(days=1), datetime.now())
+        ''' %(time1, time2)
 
         cursor = conn.cursor()
         cursor.execute(sql)
@@ -355,6 +359,11 @@ class MySQL_query:
         return data_list
 
     def get_item_count_for_productivity(self):
+
+        time1 = datetime.now() - timedelta(days=1)
+        time1 = time1 + timedelta(hours=9)
+        time2 = datetime.now() + timedelta(hours=9)
+
         conn = DB_connection.get_DB_connection()
 
         sql = '''
@@ -363,7 +372,7 @@ class MySQL_query:
         FROM product_history WHERE product_timestamp BETWEEN '%s' AND '%s'
         AND product_code = "EGRC";
 
-        ''' % (datetime.now() - timedelta(days=1), datetime.now())
+        ''' % (time1, time2)
 
         cursor = conn.cursor()
         cursor.execute(sql)
@@ -384,6 +393,10 @@ class MySQL_query:
     def get_item_count_for_quality(self):
         conn = DB_connection.get_DB_connection()
 
+        time1 = datetime.now() - timedelta(days=1)
+        time1 = time1 + timedelta(hours=9)
+        time2 = datetime.now() + timedelta(hours=9)
+
         sql = '''
 
             SELECT product_test,
@@ -393,7 +406,7 @@ class MySQL_query:
             WHERE product_code = 'EGRC' AND product_timestamp BETWEEN '%s' AND '%s'
             group by product_test;
 
-        ''' % (datetime.now() - timedelta(days=1), datetime.now())
+        ''' % (time1, time2)
 
         cursor = conn.cursor()
         cursor.execute(sql)
@@ -415,6 +428,10 @@ class MySQL_query:
     def get_item_count_now(self):
         conn = DB_connection.get_DB_connection()
 
+        time1 = datetime.now() - timedelta(days=1)
+        time1 = time1 + timedelta(hours=9)
+        time2 = datetime.now() + timedelta(hours=9)
+
         sql = '''
 
             SELECT product_test,count(product_quality.product_test)
@@ -423,7 +440,7 @@ class MySQL_query:
             WHERE product_code = 'EGRC' AND product_timestamp BETWEEN '%s' AND '%s'
             group by product_test
 
-        ''' % (datetime.now() - timedelta(days=1), datetime.now())
+        ''' % (time1, time2)
 
         cursor = conn.cursor()
         cursor.execute(sql)
@@ -455,18 +472,18 @@ class MySQL_query:
         midnight = midnight - timedelta(seconds=c)
         midnight = midnight - timedelta(microseconds=d)
 
+        midnight = midnight + timedelta(hours=9)
+
         sql = '''
 
             SELECT product_test,
             count(product_quality.product_test)
-            
             FROM product_history INNER JOIN product_quality
             ON  product_history.product_key = product_quality.product_key
-            
             WHERE product_code = 'EGRC' AND product_timestamp BETWEEN '%s' AND '%s'
             group by product_test;
 
-        ''' % (midnight, datetime.now())
+        ''' % (midnight, datetime.now() + timedelta(hours=9))
 
         cursor = conn.cursor()
         cursor.execute(sql)
@@ -820,33 +837,33 @@ class MySQL_query:
 
     def key_for_count(self):
 
-        conn = DB_connection.get_DB_connection()
+        conn = DB_connection.get_DB_connection()  # DB 연결
 
         sql = '''
 
             SELECT product_key
             FROM product_history
             WHERE product_code = 'op10_WIP'
-            ORDER BY product_timestamp DESC LIMIT 1
+            ORDER BY product_timestamp DESC LIMIT 1  
 
-        '''
+        '''  # SQL문 정의
 
-        cursor = conn.cursor()
-        cursor.execute(sql)
-        row = cursor.fetchall()
+        cursor = conn.cursor()  # 커서를 만들어주고
+        cursor.execute(sql)  # 커서에 SQL 넣어준걸 실행시키고
+        row = cursor.fetchall()  # 커서에 있는 데이터를 row에 넣는다.
 
-        data_list = []
+        data_list = []  # 데이터를 넣어줄 리스트를 정의
 
-        for obj in row:
+        for obj in row:  # row는 한줄
             data_dic = {
-                'product_key': obj[0]
+                'product_key': obj[0]  # data_dic은 dictionary 형태로 만들어줌
             }
 
-            data_list.append(data_dic)
+            data_list.append(data_dic)  # 리스트에 딕셔너리 넣어줌
 
-        conn.close()
+        conn.close()  # DB 연결 끊어주고
 
-        return data_list
+        return data_list  # 형식 : [ {key : value } ]
 
     def get_product_key_for_test(count):
 
@@ -1690,18 +1707,21 @@ class MySQL_query:
 
 
     def get_count_for_progress(self):
-        now = datetime.now()
+        now = datetime.now() + timedelta(hours=9)
+
         day = time.strftime("%Y-%m-%d")
+
         conn = DB_connection.get_DB_connection()
+
         sql = '''
                SELECT count(product_code)
                FROM product_history WHERE product_timestamp BETWEEN '%s' AND '%s'
                AND product_code = "EGRC"
+               
            ''' % (day, str(now))
         cursor = conn.cursor()
         cursor.execute(sql)
         row = cursor.fetchall()
-
         data_list = []
         for obj in row:
             data_dic = {

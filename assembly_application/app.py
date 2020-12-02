@@ -1,45 +1,45 @@
 from flask import Flask, render_template, request, jsonify, make_response, escape, session
-from process import process_operate      # 이전 process 공정
-#from Process_v2 import process_operate  # 불량 예측 기능 가능한 process 공정
-#from Process_v1 import process_operate  # 예측 기능 빠진 process 공정
+from process import process_operate
 from OEE_calculator import OEE_cal
 from SQL import MySQL_query
 import DB_connection
 from datetime import timedelta
 import time
 import json
-import pymysql
 import bcrypt
 import re
 
 app = Flask(__name__)
 
-#########----------------------------------- 회원가입 및 로그인
-# app.secret_key = "DayTory123"
-#
-# db = pymysql.connect(host='127.0.0.1', user='root', password='data12345', db='mydb', charset='utf8')
-#
-# cursor = db.cursor()
-#----------------------------------------------------------
+########   회원가입 및 로그인  ########
+app.secret_key = "DayTory123"
+
+#####################################
+
 app.count = 1
 app.predict_count = 0
 
 
-@app.route('/Home')
-def Home():
-    return render_template('Home.html')
-
-
 @app.route('/Monitoring')
 def Monitoring():
-    return render_template('Monitoring.html')
+    if not 'ID' in session:
+        return ''' <script> location.href = "http://54.180.83.130:5000/" </script> '''
+        # return ''' <script> location.href = "http://127.0.0.1:5000/" </script> '''
+    else:
+        return render_template('Monitoring.html')
+
 
 
 @app.route('/Quality')
 def Quality():
-    OK_count_list = []
-    NOK_count_list = []
-    return render_template('Quality.html', quality_OK_list=OK_count_list, quality_NOK_list=NOK_count_list)
+    if not 'ID' in session:
+        return ''' <script> location.href = "http://54.180.83.130:5000/" </script> '''
+        # return ''' <script> location.href = "http://127.0.0.1:5000/" </script> '''
+    else:
+        OK_count_list = []
+        NOK_count_list = []
+
+        return render_template('Quality.html', quality_OK_list=OK_count_list, quality_NOK_list=NOK_count_list)
 
 
 @app.route('/OEE_Calculator', methods=["GET", "POST"])
@@ -67,6 +67,7 @@ def real_value():
     response = make_response(json.dumps(data))
 
     response.content_type = 'application/json'
+
     return response
 
 
@@ -77,7 +78,12 @@ def Machine_start():
 
 @app.route('/Machine')
 def Machine():
-    return render_template('MachineOP10.html')
+    if not 'ID' in session:
+        return ''' <script> location.href = "http://54.180.83.130:5000/" </script> '''
+        # return ''' <script> location.href = "http://127.0.0.1:5000/" </script> '''
+    else:
+        return render_template('MachineOP10.html')
+
 
 
 @app.route('/live_Electronic_OP10')
@@ -94,6 +100,8 @@ def live_Electronic_OP10():
     data = [(time.time()+32400)*1000, result_re3]
     response = make_response(json.dumps(data))
     response.content_type = 'application/json'
+
+    conn.close()
 
     return response
 
@@ -117,7 +125,6 @@ def realtime_table_OP10():
     row = cursor.fetchall()
     app.count += 1
     data_list = []
-
     for obj in row:
         bar_count = 0
         for index in range(len(obj[0])):
@@ -152,7 +159,12 @@ def realtime_table_OP10():
 
 @app.route('/MachineOP20')
 def Machine20():
-    return render_template('MachineOP20.html')
+    if not 'ID' in session:
+        return ''' <script> location.href = "http://54.180.83.130:5000/" </script> '''
+        # return ''' <script> location.href = "http://127.0.0.1:5000/" </script> '''
+    else:
+        return render_template('MachineOP20.html')
+
 
 
 @app.route('/live_Electronic_OP20')
@@ -169,6 +181,7 @@ def live_Electronic_OP20():
     data = [(time.time()+32400)*1000, result_re3]
     response = make_response(json.dumps(data))
     response.content_type = 'application/json'
+    conn.close()
 
     return response
 
@@ -192,7 +205,6 @@ def realtime_table_OP20():
     row = cursor.fetchall()
     app.count += 1
     data_list = []
-
     for obj in row:
         bar_count = 0
         for index in range(len(obj[0])):
@@ -227,7 +239,12 @@ def realtime_table_OP20():
 
 @app.route('/MachineOP30')
 def MachineOP30():
-    return render_template('MachineOP30.html')
+    if not 'ID' in session:
+        return ''' <script> location.href = "http://54.180.83.130:5000/" </script> '''
+        # return ''' <script> location.href = "http://127.0.0.1:5000/" </script> '''
+    else:
+        return render_template('MachineOP30.html')
+
 
 
 @app.route('/live_Electronic_OP30')
@@ -244,6 +261,7 @@ def live_Electronic_OP30():
     data = [(time.time()+32400)*1000, result_re3]
     response = make_response(json.dumps(data))
     response.content_type = 'application/json'
+    conn.close()
 
     return response
 
@@ -267,7 +285,6 @@ def realtime_table_OP30():
     row = cursor.fetchall()
     app.count += 1
     data_list = []
-
     for obj in row:
         bar_count = 0
         for index in range(len(obj[0])):
@@ -294,7 +311,6 @@ def realtime_table_OP30():
         }
         data_list.append(data_dic)
     conn.close()
-
     if app.count >= 10:
         app.count = 10
 
@@ -303,7 +319,12 @@ def realtime_table_OP30():
 
 @app.route('/MachineOP40')
 def MachineOP40():
-    return render_template('MachineOP40.html')
+    if not 'ID' in session:
+        return ''' <script> location.href = "http://54.180.83.130:5000/" </script> '''
+        # return ''' <script> location.href = "http://127.0.0.1:5000/" </script> '''
+    else:
+        return render_template('MachineOP40.html')
+
 
 
 @app.route('/live_Temperature_OP40')
@@ -320,6 +341,7 @@ def live_Temperature_OP40():
     data = [(time.time()+32400)*1000, result_re3]
     response = make_response(json.dumps(data))
     response.content_type = 'application/json'
+    conn.close()
 
     return response
 
@@ -343,7 +365,6 @@ def realtime_table_OP40():
     row = cursor.fetchall()
     app.count += 1
     data_list = []
-
     for obj in row:
         bar_count = 0
         for index in range(len(obj[0])):
@@ -379,7 +400,12 @@ def realtime_table_OP40():
 
 @app.route('/MachineOP50')
 def MachineOP50():
-    return render_template('MachineOP50.html')
+    if not 'ID' in session:
+        return ''' <script> location.href = "http://54.180.83.130:5000/" </script> '''
+        # return ''' <script> location.href = "http://127.0.0.1:5000/" </script> '''
+    else:
+        return render_template('MachineOP50.html')
+
 
 
 @app.route('/live_Temperature_OP50')
@@ -396,6 +422,7 @@ def live_Temperature_OP50():
     data = [(time.time()+32400)*1000, result_re3]
     response = make_response(json.dumps(data))
     response.content_type = 'application/json'
+    conn.close()
 
     return response
 
@@ -419,7 +446,6 @@ def realtime_table_OP50():
     row = cursor.fetchall()
     app.count += 1
     data_list = []
-
     for obj in row:
         bar_count = 0
         for index in range(len(obj[0])):
@@ -447,7 +473,6 @@ def realtime_table_OP50():
         data_list.append(data_dic)
 
     conn.close()
-
     if app.count >= 10:
         app.count = 10
 
@@ -462,11 +487,8 @@ def Search_data(key60):
     total_big_bottle = []
     data_dict = {}
 
-    # key60 = '2020-11-20 14:50:12.993887-W6P10105'
-
     index1 = 0
     bar_count = 0
-
     for index in range(len(key)):
 
         if key[index] == '-':
@@ -630,32 +652,42 @@ def Search_data(key60):
 
 @app.route('/Search', methods=['POST', 'GET'])
 def Search():
-    key60 = 'P10001'
-    product_key = MySQL_query.get_key_product_for_search(key60)
-    product_key = product_key[0]['product_key']
-    content_list = Search_data(product_key)
-
-    if request.method == 'GET':
-
-        key60 = request.args.get('key')
-        if key60 == None:
-            key60 = 'P10001'
+    if not 'ID' in session:
+        return ''' <script> location.href = "http://54.180.83.130:5000/" </script> '''
+        # return ''' <script> location.href = "http://127.0.0.1:5000/" </script> '''
+    else:
+        key60 = 'P10001'
         product_key = MySQL_query.get_key_product_for_search(key60)
         product_key = product_key[0]['product_key']
         content_list = Search_data(product_key)
 
-        ## 넘겨받은 값을 원래 페이지로 리다이렉트
-        html = render_template('Search.html', data_list=content_list, key=product_key)
+        if request.method == 'GET':
 
-        return html
+            key60 = request.args.get('key')
+            if key60 == None:
+                key60 = 'P10001'
 
-    return render_template('Search.html', data_list=content_list, key=product_key)
+            product_key = MySQL_query.get_key_product_for_search(key60)
+            product_key = product_key[0]['product_key']
+            content_list = Search_data(product_key)
+
+            ## 넘겨받은 값을 원래 페이지로 리다이렉트
+            html = render_template('Search.html', data_list=content_list, key=product_key)
+            return html
+
+        return render_template('Search.html', data_list=content_list, key=product_key)
+
 
 
 
 @app.route('/Predict')
 def Predict():
-    return render_template('Predict.html')
+    if not 'ID' in session:
+        return ''' <script> location.href = "http://54.180.83.130:5000/" </script> '''
+        # return ''' <script> location.href = "http://127.0.0.1:5000/" </script> '''
+    else:
+        return render_template('Predict.html')
+
 
 
 @app.route('/Predict_data')
@@ -757,7 +789,11 @@ def Predict_data():
 
 @app.route('/Analysis_OP10')
 def Analysis_OP10():
-    return render_template('Analysis_OP10.html')
+    if not 'ID' in session:
+        return ''' <script> location.href = "http://54.180.83.130:5000/" </script> '''
+        # return ''' <script> location.href = "http://127.0.0.1:5000/" </script> '''
+    else:
+        return render_template('Analysis_OP10.html')
 
 
 @app.route('/Scatter_OP10', methods=['POST', 'GET'])
@@ -772,7 +808,6 @@ def Scatter_OP10():
     data_H_list = []
     data_W_list = []
     list_L_dict = MySQL_query.get_data_for_scatter(machine_code, size_L)
-
     for i in range(len(list_L_dict)):
         temp_L_list = []
 
@@ -783,7 +818,6 @@ def Scatter_OP10():
         data_L_list.append(temp_L_list)
 
     list_H_dict = MySQL_query.get_data_for_scatter(machine_code, size_H)
-
     for i in range(len(list_H_dict)):
         temp_H_list = []
 
@@ -794,7 +828,6 @@ def Scatter_OP10():
         data_H_list.append(temp_H_list)
 
     list_W_dict = MySQL_query.get_data_for_scatter(machine_code, size_W)
-
     for i in range(len(list_W_dict)):
         temp_W_list = []
 
@@ -814,7 +847,12 @@ def Scatter_OP10():
 
 @app.route('/Analysis_OP20')
 def Analysis_OP20():
-    return render_template('Analysis_OP20.html')
+    if not 'ID' in session:
+        return ''' <script> location.href = "http://54.180.83.130:5000/" </script> '''
+        # return ''' <script> location.href = "http://127.0.0.1:5000/" </script> '''
+    else:
+        return render_template('Analysis_OP20.html')
+
 
 
 @app.route('/Scatter_OP20', methods=['POST', 'GET'])
@@ -871,7 +909,11 @@ def Scatter_OP20():
 
 @app.route('/Analysis_OP30')
 def Analysis_OP30():
-    return render_template('Analysis_OP30.html')
+    if not 'ID' in session:
+        return ''' <script> location.href = "http://54.180.83.130:5000/" </script> '''
+        # return ''' <script> location.href = "http://127.0.0.1:5000/" </script> '''
+    else:
+        return render_template('Analysis_OP30.html')
 
 
 @app.route('/Scatter_OP30', methods=['POST', 'GET'])
@@ -928,7 +970,11 @@ def Scatter_OP30():
 
 @app.route('/Analysis_OP40')
 def Analysis_OP40():
-    return render_template('Analysis_OP40.html')
+    if not 'ID' in session:
+        return ''' <script> location.href = "http://54.180.83.130:5000/" </script> '''
+        # return ''' <script> location.href = "http://127.0.0.1:5000/" </script> '''
+    else:
+        return render_template('Analysis_OP40.html')
 
 
 @app.route('/Scatter_OP40', methods=['POST', 'GET'])
@@ -985,7 +1031,11 @@ def Scatter_OP40():
 
 @app.route('/Analysis_OP50')
 def Analysis_OP50():
-    return render_template('Analysis_OP50.html')
+    if not 'ID' in session:
+        return ''' <script> location.href = "http://54.180.83.130:5000/" </script> '''
+        # return ''' <script> location.href = "http://127.0.0.1:5000/" </script> '''
+    else:
+        return render_template('Analysis_OP50.html')
 
 
 @app.route('/Scatter_OP50', methods=['POST', 'GET'])
@@ -1000,6 +1050,7 @@ def Scatter_OP50():
     data_H_list = []
     data_W_list = []
     list_L_dict = MySQL_query.get_data_for_scatter(machine_code, size_L)
+
     for i in range(len(list_L_dict)):
         temp_L_list = []
 
@@ -1010,6 +1061,7 @@ def Scatter_OP50():
         data_L_list.append(temp_L_list)
 
     list_H_dict = MySQL_query.get_data_for_scatter(machine_code, size_H)
+
     for i in range(len(list_H_dict)):
         temp_H_list = []
 
@@ -1020,6 +1072,7 @@ def Scatter_OP50():
         data_H_list.append(temp_H_list)
 
     list_W_dict = MySQL_query.get_data_for_scatter(machine_code, size_W)
+
     for i in range(len(list_W_dict)):
         temp_W_list = []
 
@@ -1081,17 +1134,8 @@ def Quality_load():
         OK_count_list.append(OK_OP50)
 
         html = render_template('Quality.html', quality_OK_list=OK_count_list, quality_NOK_list=NOK_count_list, date1=char1, date2=char2)
+
         return html
-
-
-@app.route('/Login')
-def Login():
-    return render_template('Login.html')
-
-
-@app.route('/Signin')
-def Signin():
-    return render_template('Signin.html')
 
 
 @app.route('/Pareto')
@@ -1122,139 +1166,164 @@ def Pareto():
     count_All_list.append(count_list)
     All_list.append(count_All_list)
     All_pareto_list.append(All_list)
+
     return jsonify(All_list)
 
-##############회원 가입 및 로그인
 
-# @app.route('/Home') ###로그인 하고 들어가는 메인 페이지를 넣을 것
-# def Home():
-#     if not 'ID' in session:
-#         return ''' <script> location.href = "http://127.0.0.1:5002/" </script> '''
-#     else:
-#         return render_template("Home.html")
-#
-#
-# @app.route('/', methods=['GET'])
-# def index():
-#     if 'ID' in session:
-#         return ''' <script> location.href = "http://127.0.0.1:5002/Home" </script> '''
-#     else:
-#         return render_template('Daytory.html')  # 로그인 되어 있지 않으니 로그인 홈 가기 버튼으로
-#
-#
-# app.cnt = 1
-# @app.route('/login', methods=['GET','POST'])
-# def login():
-#
-#     if request.method == 'GET':
-#         return render_template('Login.html')
-#
-#     if request.method == 'POST':
-#         login_info = request.form
-#
-#         id = login_info['ID']
-#         password = login_info['Password']
-#
-#         sql = "SELECT * FROM total WHERE ID = %s"
-#
-#         row_count = cursor.execute(sql, id)
-#
-#         if app.cnt == 5:
-#             return ''' <script> alert("로그인 {}회 실패 하셨기에 보안을 위해 로그인 시스템을 종료합니다 ");
-#                                                           location.href = "http://127.0.0.1:5002/" </script> '''\
-#                 .format(app.cnt)
-#
-#         if not row_count:
-#             app.cnt += 1
-#             return ''' <script> alert("아이디를 확인하여 주십시오");
-#                             location.href = "http://127.0.0.1:5002/login" </script> '''
-#         if row_count > 0:
-#             user_info = cursor.fetchone()
-#             pw_db = user_info[1] #### user DB 순번 체크 필요
-#
-#             is_pw = bcrypt.checkpw(password.encode('UTF-8'),  pw_db.encode('UTF-8'))
-#             if is_pw:
-#                 session['ID'] = id
-#                 return ''' <script> alert("{}님이 로그인 하였습니다");
-#                 location.href = "http://127.0.0.1:5002/" </script> '''.format(id)
-#             else:
-#                 app.cnt += 1
-#                 return  ''' <script> alert("비밀번호를 확인하여 주십시오");
-#                 location.href = "http://127.0.0.1:5002/login" </script> '''
-#
-#     return render_template('Login.html')
-#
-#
-# @app.route('/logout')
-# def logout():
-#     return ''' <script> alert("%s 님이 로그아웃 하였습니다");
-#     location.href = "http://127.0.0.1:5002/logo" </script> ''' % escape(session['ID'])
-#
-# #이 두개를 한번에 붙이지 않은 이유는 session pop 한 후에는 ID가 없어서 escape기능을 못하기에
-#
-# @app.route('/logo')
-# def logo():
-#     session.pop('ID', None)
-#     return ''' <script> location.href = "http://127.0.0.1:5002/" </script> '''
-#
-# @app.before_request # 1분 시간 뒤에 session 종료
-# def make_session_permanent():
-#     session.permanent = True
-#     app.permanent_session_lifetime = timedelta(minutes=1)
-#
-# @app.route('/register', methods=['GET','POST'])
-# def register():
-#     if request.method == 'GET':
-#         return render_template('Signin.html')
-#
-#     if request.method == 'POST':
-#         register_info = request.form
-#         id = register_info['ID']
-#         password = register_info['Password']
-#         repassword = register_info['repassword']
-#         email = register_info['Email']
-#         abc = """
-#                         Select ID from total where ID = %s
-#                     """
-#         cursor.execute(abc, id)
-#         row = cursor.fetchone()
-#
-#         Check_count = str(type(row)) # NoneType passing
-#         pasing = Check_count.replace("<", "")
-#         pasing1 = pasing.replace("class", "")
-#         pasing2 = pasing1.replace("'", "")
-#         pasing3 = pasing2.replace("'", "")
-#         pasing4 = pasing3.replace(">", "")
-#         pasing5 = pasing4.replace(" ", "")
-#
-#
-#         if row != None:
-#             if id == row[0]:
-#                 return render_template('reg1.html')
-#
-#         if pasing5 == 'NoneType':  # 아이디가 생성 가능한 상황
-#             if not (id and password and repassword and email):
-#                 return render_template('reg2.html')
-#
-#             elif not 4 < len(password) < 20:
-#                 return render_template('reg3.html')
-#
-#             elif not (re.search('[a-z]', password) and re.search('[0-9]', password) and re.search('[A-Z]', password)):
-#                 return render_template('reg3.html')
-#
-#             elif password != repassword:
-#                 return render_template('reg4.html')
-#
-#             elif password == repassword:
-#                 password = bcrypt.hashpw(register_info['Password'].encode('utf-8'), bcrypt.gensalt())
-#                 sql = """
-#                         INSERT INTO total(ID, Password, Email) Values(%s, %s, %s)
-#                         """
-#                 cursor.execute(sql, (id, password, email))
-#                 db.commit()
-#                 return render_template('reg5.html')
-#
-#             return render_template('Signin.html')
+#############회원 가입 및 로그인
+
+@app.route('/Home') ###로그인 하고 들어가는 메인 페이지를 넣을 것
+def Home():
+    if not 'ID' in session:
+        return ''' <script> location.href = "http://54.180.83.130:5000/" </script> '''
+        # return ''' <script> location.href = "http://127.0.0.1:5000/" </script> '''
+    else:
+        return render_template("Home.html")
+
+
+@app.route('/', methods=['GET'])
+def index():
+    if 'ID' in session:
+        return ''' <script> location.href = "http://54.180.83.130:5000/Home" </script> '''
+        # return ''' <script> location.href = "http://127.0.0.1:5000/Home" </script> '''
+    else:
+        return render_template('Daytory.html')  # 로그인 되어 있지 않으니 로그인 홈 가기 버튼으로
+
+
+app.cnt = 1
+@app.route('/login', methods=['GET','POST'])
+def login():
+
+    if request.method == 'GET':
+        return render_template('Login.html')
+
+    if request.method == 'POST':
+        login_info = request.form  # HTML에 form에 있는 request
+
+        id = login_info['ID']
+        password = login_info['Password']
+
+        conn = DB_connection.get_DB_connection()
+
+        sql = "SELECT * FROM register WHERE ID = %s"
+
+        cursor = conn.cursor()
+
+        row_count = cursor.execute(sql, id)  # ID 중복이 되는지 아닌지
+
+        if app.cnt == 9999:  # 9999번 로그인 실패하면 로그인 시스템 종료
+            return ''' <script> alert("로그인 {}회 실패 하셨기에 보안을 위해 로그인 시스템을 종료합니다 ");
+                                                          location.href = "http://54.180.83.130:5000/" </script> '''\
+                .format(app.cnt)
+
+        if not row_count:  # 아이디가 없다면
+            app.cnt += 1  # 틀리면 로그인 실패회수 추가
+            return ''' <script> alert("아이디를 확인하여 주십시오");
+                            location.href = "http://54.180.83.130:5000/login" </script> '''
+
+        if row_count > 0:   # 아이디가 있다면
+            user_info = cursor.fetchone()  # 커서 가져와서 유저 정보 만들어줌 -> 비밀 번호 비교하기 위해서
+            pw_db = user_info[1]  # user DB 순번 체크 필요   1번 컬럼이 패스워드 줄
+            conn.close()
+
+            is_pw = bcrypt.checkpw(password.encode('UTF-8'),  pw_db.encode('UTF-8'))
+            if is_pw:
+                session['ID'] = id  # 여기서 세션 부여 // 구글 인터넷 설정 -> 쿠키 및 세션 확인
+                return ''' <script> alert("{}님이 로그인 하였습니다");
+                location.href = "http://54.180.83.130:5000/" </script> '''.format(id)
+            else:
+                app.cnt += 1
+                return  ''' <script> alert("비밀번호를 확인하여 주십시오");
+                location.href = "http://54.180.83.130:5000/login" </script> '''
+
+    conn.close()
+
+    return render_template('Login.html')
+
+
+@app.route('/logout')
+def logout():
+    return ''' <script> alert("%s 님이 로그아웃 하였습니다");
+    location.href = "http://54.180.83.130:5000/logo" </script> ''' % escape(session['ID'])  # 아이디 뱉어내기 위한 기능
+
+# 이 두개를 한번에 붙이지 않은 이유는 session pop 한 후에는 ID가 없어서 escape기능을 못하기에 나눠둠  (특정 문자로 변환시켜준다)
+
+@app.route('/logo')
+def logo():
+    session.pop('ID', None)  # <- None은 그냥 써줌
+    return ''' <script> location.href = "http://54.180.83.130:5000/" </script> '''
+
+@app.before_request  # 30분 시간 뒤에 session 종료 // 세션종료할 때
+def make_session_permanent():
+    session.permanent = True
+    app.permanent_session_lifetime = timedelta(minutes=30)
+
+@app.route('/register', methods=['GET','POST'])
+def register():
+    if request.method == 'GET':
+        return render_template('Signin.html')
+
+    if request.method == 'POST':
+        register_info = request.form
+        id = register_info['ID']
+        password = register_info['Password']
+        repassword = register_info['repassword']
+        email = register_info['Email']
+
+        conn = DB_connection.get_DB_connection()
+
+        sql = """
+                        Select ID from register where ID = %s
+                    """
+        cursor = conn.cursor()
+        cursor.execute(sql, id)
+        row = cursor.fetchone()
+
+        Check_count = str(type(row))  # NoneType passing
+        pasing = Check_count.replace("<", "")
+        pasing1 = pasing.replace("class", "")
+        pasing2 = pasing1.replace("'", "")
+        pasing3 = pasing2.replace("'", "")
+        pasing4 = pasing3.replace(">", "")
+        pasing5 = pasing4.replace(" ", "")
+
+
+        if row != None:
+            if id == row[0]:
+                return render_template('reg1.html')
+
+        if pasing5 == 'NoneType':  # 아이디가 생성 가능한 상황
+            if not (id and password and repassword and email):
+                return render_template('reg2.html')
+
+            elif not 4 < len(password) < 20:
+                return render_template('reg3.html')
+
+            elif not (re.search('[a-z]', password) and re.search('[0-9]', password) and re.search('[A-Z]', password)):
+                return render_template('reg3.html')  # re.search 문자열 찾아주는 함수
+
+            elif password != repassword:
+                return render_template('reg4.html')
+
+            elif password == repassword:
+                password = bcrypt.hashpw(register_info['Password'].encode('utf-8'), bcrypt.gensalt())  # gensalt 가 암호화 시켜주는 부분
+                conn = DB_connection.get_DB_connection()
+                cur = conn.cursor()
+                sql = """
+                        INSERT INTO register(ID, Password, Email) Values(%s, %s, %s)
+                        """
+                cur.execute(sql, (id, password, email))
+
+                conn.commit()
+
+                conn.close()
+
+                return render_template('reg5.html')
+
+            conn.close()
+
+            return render_template('Signin.html')
+
 
 if __name__ == '__main__':
    app.run('0.0.0.0', port=5000, debug=True)

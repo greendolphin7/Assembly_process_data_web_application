@@ -8,7 +8,7 @@ $(document).ready(function() {
                  dataSrc: ''
              },
              lengthChange: false,
-             order: [ [ 1, "asc" ] ],
+             order: [ [ 0, "desc" ] ],
 		    colReorder: {
 			realtime: true
 		    },
@@ -29,7 +29,7 @@ $(document).ready(function() {
 } );
 
 setInterval( function () {
-  console.log('reload');
+  //console.log('reload');
     //$('#coinTable').DataTable().ajax.reload();
        $('#coinTable').DataTable().ajax.reload(null, true);
 }, UPDATE  );

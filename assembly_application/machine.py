@@ -25,7 +25,7 @@ class machine_operate:
         wavyfin_h = np.random.normal(60, std)
         wavyfin_h = round(wavyfin_h, 5)
 
-        op10_electricity = np.random.uniform(89.75, 100)
+        op10_electricity = np.random.uniform(89.75, 100)  # 균일 분포 / (최소, 최대)
         op10_electricity = round(op10_electricity, 5)
 
         op10_data['body_l'] = body[1]
@@ -36,7 +36,7 @@ class machine_operate:
         op10_data['wavyfin_w'] = wavyfin_w
         op10_data['wavyfin_h'] = wavyfin_h
 
-        op10_l = body[1]
+        op10_l = body[1]  # 값이 안바껴서 그대로 둠
         op10_data['op10_l'] = op10_l
         op10_w = body[2]
         op10_data['op10_w'] = op10_w
@@ -115,7 +115,7 @@ class machine_operate:
             wavyfin_test = 'NOK'
 
         now = body[5]  # 현재 시간
-        time_stamp = now + timedelta(seconds=10)  # 현재 시간에서 가동시간만큼 추가된 시간
+        time_stamp = now + timedelta(seconds=10)  # 현재 시간에서 가동시간만큼 추가된 시간 / 형식 = datetime
         op10_data['op10_time_stamp'] = time_stamp  # 추가된 시간이 완료되고 나가는 시간
         time_stamp = str(time_stamp)  # 문자형으로 저장
         product_key = time_stamp + product_key  # 키는 시간 + 아이템 정보로 저장
@@ -204,7 +204,7 @@ class machine_operate:
         machine_data_list = []  # 딕셔너리 데이터 저장할 리스트
         machine_data_insert = {}  # DB 저장할 데이터 모아주는 딕셔너리
 
-        machine_master_data = machine_master.op10(1) # machine_code 가져오기
+        machine_master_data = machine_master.op10(1)  # machine_code 가져오기
         machine_code = machine_master_data['machine_code']
 
         machine_data_insert['machine_code'] = machine_code

@@ -1,3 +1,5 @@
+from SQL import MySQL_query
+
 class machine_master():
 
     def op10(self):

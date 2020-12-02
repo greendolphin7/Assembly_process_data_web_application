@@ -6,16 +6,10 @@ var requests = $.get('/Scatter_OP50');  // $. <- 제이쿼리,
         {
 //                var data1= []; // [[[ ]]]  [[ ]]
             data1.push(result[0][0]);
-            console.log(data1)
+            //console.log(data1)
             data2.push(result[0][1]);
             data3.push(result[0][2]);// 값 업데이트
-//            //data1 = data1[0];
-//            console.log(result)
-//            console.log(data1)  // 값 업데이트
-//            //data2 = data2;
-//            console.log(data2)
-//            //data3 = data3;
-//            console.log(data3)
+
 
 Highcharts.chart("container", {
 title: {

@@ -1,19 +1,10 @@
-//const toggleBtn = document.querySelector('.navbar__toggleBtn');
-//const menu = document.querySelector('.navbar__menu');
-//const icons = document.querySelector('.navbar__Logout');
-//
-//toggleBtn.addEventListener('click', () => {
-//  menu.classList.toggle('active');
-//  icons.classList.toggle('active');
-//});
-
 var chart;
 
 function requestData() {
     $.ajax({
         url: '/live_Electronic_OP30',
         success: function(point) {
-            console.log(point)
+            //console.log(point)
             var series = chart.series[0],
                 shift = series.data.length > 30;
 

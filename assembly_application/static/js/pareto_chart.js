@@ -4,7 +4,7 @@ var requests = $.get('/Pareto');  // $. <- 제이쿼리,
         {
 //                var data1= []; // [[[ ]]]  [[ ]]
             data4.push(result[0][0]);
-            console.log(data1)
+            //console.log(data1)
 
 Highcharts.chart('container4', {
     chart: {
