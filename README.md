@@ -31,3 +31,9 @@
 ### 프로젝트 완료 (2020.11.27) - V. 1.0
 
 완성된 페이지 주소: http://54.180.83.130:5000/
+
+
+
+### 프로젝트 시연영상
+
+<iframe width="640" height="360" src="https://youtu.be/d6pkNx7TiYw" frameborder="0" gesture="media" allowfullscreen=""></iframe>  
