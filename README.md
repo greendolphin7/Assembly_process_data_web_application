@@ -32,10 +32,14 @@
 
 완성된 페이지 주소: http://54.180.83.130:5000/
 
+ID : daytory
+PW : Daytory1234
+
 
 
 ### 프로젝트 시연영상
 
 ↓↓↓ 시연영상은 아래 사진 클릭!  
+
 [![Watch the video](https://i9.ytimg.com/vi/d6pkNx7TiYw/mqdefault.jpg?time=1607255700000&sqp=CJSNs_4F&rs=AOn4CLCQUHJQQt0g2Sw-DA8cUIRvQVQxvQ)](https://youtu.be/d6pkNx7TiYw)
 
