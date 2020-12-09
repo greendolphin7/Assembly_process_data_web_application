@@ -31,3 +31,15 @@
 ### 프로젝트 완료 (2020.11.27) - V. 1.0
 
 완성된 페이지 주소: http://54.180.83.130:5000/
+
+ID : daytory  
+PW : Daytory1234
+
+
+
+### 프로젝트 시연영상
+
+↓↓↓ 시연영상은 아래 사진 클릭!  
+
+[![Watch the video](https://i9.ytimg.com/vi/d6pkNx7TiYw/mqdefault.jpg?time=1607394300000&sqp=CPzHu_4F&rs=AOn4CLBiISa1M0kRmfWTCeGeS4On6KbbKg)](https://youtu.be/d6pkNx7TiYw)
+
