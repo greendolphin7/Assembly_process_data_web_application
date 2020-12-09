@@ -135,7 +135,6 @@ class process_operate:
 
         #################################### W1P1 생산 및 DB 저장 완료 #####################################
 
-        ##### 여기에다가 웹에다가 쏴주는 기능 추가 #####
 
         # 다음 공정에 넣기 위한 데이터 가져오기
         op20_data_P0_from_DB = MySQL_query.get_quality_data_for_process(product_key_W2P0)
